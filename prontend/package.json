@@ -1,0 +1,44 @@
+{
+  "name": "firstsetting-vue3-vuetify",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite --mode dev",
+    "start": "vite --mode prod",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --fix --ignore-path .gitignore"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.7.15",
+    "@lifeomic/axios-fetch": "^3.0.1",
+    "@mdi/font": "7.0.96",
+    "@vue/apollo-option": "^4.0.0-beta.5",
+    "@vueuse/head": "^1.1.26",
+    "apollo-upload-client": "^17.0.0",
+    "axios": "^1.4.0",
+    "dayjs": "^1.11.7",
+    "dotenv": "^16.0.3",
+    "graphql": "^16.6.0",
+    "graphql-tag": "^2.12.6",
+    "roboto-fontface": "*",
+    "vue": "^3.2.0",
+    "vue-i18n": "9",
+    "vue-router": "^4.0.0",
+    "vuetify": "3.4.2",
+    "vuex": "^4.1.0",
+    "webfontloader": "^1.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.0.3",
+    "eslint": "^8.40.0",
+    "eslint-plugin-vue": "^9.3.0",
+    "prettier": "^2.8.8",
+    "sass": "^1.62.1",
+    "sass-loader": "^13.2.2",
+    "vite": "^4.2.0",
+    "vite-plugin-vuetify": "^1.0.0",
+    "vue-eslint-parser": "^9.3.0"
+  },
+  "license": "MIT"
+}
