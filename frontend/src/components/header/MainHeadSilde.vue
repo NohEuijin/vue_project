@@ -1,6 +1,6 @@
 <template>
-        <div class="sub_box">
-          <div class="sub_inner">
+        <div class="silde_box">
+          <div class="silde_inner">
             <div class="silde_wrap">
               <div class="owl-carousel owl-loaded owl-drag">
                 <div class="owl-carousel-outer">
@@ -74,7 +74,7 @@ export default {
 
 <style>
 /* 서브 세션 */
-.sub_box{
+.silde_box{
   height: 774px;
   z-index: 0;
 
@@ -83,7 +83,7 @@ export default {
   width: 100%;
   background-color: #000;
 }
-.sub_inner{
+.silde_inner{
   position: absolute;
   left: 50%;
   top: 0;

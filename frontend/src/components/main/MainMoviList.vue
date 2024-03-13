@@ -246,11 +246,11 @@ export default {
 }
 .movi_info{
   position: relative;
-    right: 10px;
-    top: 20px;
-    float: right;
-    color: #fff;
-    font-size: 11px;
+  right: 10px;
+  top: 20px;
+  float: right;
+  color: #fff;
+  font-size: 11px;
 }
 .movi_info a{
   display: block;
@@ -275,30 +275,30 @@ export default {
 }
 .hidden{
   overflow: hidden;
-    position: absolute !important;
-    width: 1px;
-    height: 1px;
-    clip: rect(1px, 1px, 1px, 1px);
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  clip: rect(1px, 1px, 1px, 1px);
 }
 .slide_wrap{
   position: relative;
 }
 .owl-loaded {
-    display: block;
+  display: block;
 }
 .owl-carousel {
-    position: relative;
-    display: block;
-    width: auto;
-    margin: 0 auto;
-    padding: 0;
-    list-style: none;
-    z-index: 1;
+  position: relative;
+  display: block;
+  width: auto;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  z-index: 1;
 }
 .owl-carousel .owl-stage-outer {
-    position: relative;
-    overflow: hidden;
-     /* -webkit-transform: translate3d(0px, 0px, 0px); */
+  position: relative;
+  overflow: hidden;
+    /* -webkit-transform: translate3d(0px, 0px, 0px); */
 }
 .owl-item{
   float: left;
@@ -322,17 +322,17 @@ export default {
   display: block;
 }
 .num_info{
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 23px;
-    padding-left: 10px;
-    font-weight: bold;
-    font-size: 26px;
-    font-style: italic;
-    font-family: 'Roboto', "Noto Sans KR";
-    text-align: left;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 23px;
+  padding-left: 10px;
+  font-weight: bold;
+  font-size: 26px;
+  font-style: italic;
+  font-family: 'Roboto', "Noto Sans KR";
+  text-align: left;
 }
 .over_box{
   overflow: hidden;
@@ -342,14 +342,14 @@ export default {
 }
 .btn_inner{
   display: block;
-    line-height: 26px;
-    background: transparent;
-    color: #fff !important;
-    border-color: #fff;
+  line-height: 26px;
+  background: transparent;
+  color: #fff !important;
+  border-color: #fff;
 
-    border-radius: 4px;
-    border: 1px solid #000000;
-    font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #000000;
+  font-size: 14px;
 }
  /* 영화정보 */
 .mv_info{
