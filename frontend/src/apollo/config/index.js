@@ -12,7 +12,7 @@ import { buildAxiosFetch } from '@lifeomic/axios-fetch'
 // })
 
 const uploadLink = createUploadLink({
-  uri: process.env.VUE_APP_BACKEND_URL_TEST + '/graphql',
+  uri: import.meta.env.VUE_APP_BACKEND_URL + '/graphql',
   fetch: buildAxiosFetch(axios, (config, input, init) => ({
     ...config,
     onUploadProgress: init.onUploadProgress
@@ -25,7 +25,7 @@ const cache = new InMemoryCache()
 // Create the apollo client
 const apolloClient = new ApolloClient({
   link: uploadLink,
-  uri: 'http://localhost:4042/graphql',
+  uri: import.meta.env.VUE_APP_BACKEND_URL + '/graphql',
   cache,
   defaultOptions: {
     watchQuery: {

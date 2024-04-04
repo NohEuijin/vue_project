@@ -1250,6 +1250,98 @@
                 "type": "string"
               }
             }
+          },
+          "try": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "addressZipCode": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "addressDetail": {
+            "type": "string"
+          },
+          "free_boards": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "string"
+                },
+                "viewcount": {
+                  "type": "integer"
+                },
+                "replies": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "published_at": {
+                  "type": "datetime"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "replies": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "free_board": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "datetime"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "addressDong": {
+            "type": "string"
           }
         }
       },
@@ -1286,6 +1378,39 @@
             "default": false
           },
           "role": {
+            "type": "string"
+          },
+          "try": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "addressZipCode": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "addressDetail": {
+            "type": "string"
+          },
+          "free_boards": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "replies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "addressDong": {
             "type": "string"
           },
           "created_by": {

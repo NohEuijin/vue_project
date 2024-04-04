@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "replies",
+  "info": {
+    "name": "Reply",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "content": {
+      "type": "string"
+    },
+    "free_board": {
+      "model": "free-board",
+      "via": "replies"
+    },
+    "user": {
+      "via": "replies",
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

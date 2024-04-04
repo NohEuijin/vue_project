@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "free_boards",
+  "info": {
+    "name": "freeBoard",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "text"
+    },
+    "user": {
+      "via": "free_boards",
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "viewcount": {
+      "type": "integer",
+      "default": 0
+    },
+    "replies": {
+      "via": "free_board",
+      "collection": "reply"
+    }
+  }
+}

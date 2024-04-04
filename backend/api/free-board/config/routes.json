@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/free-boards",
+      "handler": "free-board.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/free-boards/count",
+      "handler": "free-board.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/free-boards/:id",
+      "handler": "free-board.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/free-boards",
+      "handler": "free-board.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/free-boards/:id",
+      "handler": "free-board.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/free-boards/:id",
+      "handler": "free-board.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

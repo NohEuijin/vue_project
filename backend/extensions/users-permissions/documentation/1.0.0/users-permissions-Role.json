@@ -558,6 +558,39 @@
                 "role": {
                   "type": "string"
                 },
+                "try": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "addressZipCode": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "addressDetail": {
+                  "type": "string"
+                },
+                "free_boards": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "replies": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "addressDong": {
+                  "type": "string"
+                },
                 "created_by": {
                   "type": "string"
                 },

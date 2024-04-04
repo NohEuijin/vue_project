@@ -56,6 +56,32 @@
     },
     "try": {
       "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "addressZipCode": {
+      "type": "string"
+    },
+    "address": {
+      "type": "text"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "addressDetail": {
+      "type": "text"
+    },
+    "free_boards": {
+      "collection": "free-board",
+      "via": "user"
+    },
+    "replies": {
+      "collection": "reply",
+      "via": "user"
+    },
+    "addressDong": {
+      "type": "string"
     }
   }
 }

@@ -4,7 +4,7 @@
 }
 
 /************* Font *************/
-
+@import url(./reset.scss) ;
 /* 한글 noto Sans */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
 
@@ -12,13 +12,26 @@
   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
   font-family: 'Roboto';
-  font-weight: 400;
+  font-weight: 500;
   unicode-range: U+0041-005A, U+0061-007A, U+0030-0039;
 }
-body {
-  font-family: 'Roboto', 'Noto Sans KR', sans-serif;
+
+@font-face {
+  font-family: 'GowunDodum-Regular';
+  @import url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff');
+  
+  font-weight: normal;
+  font-style: normal;
 }
 
+body {
+  // font-family: 'Roboto', 'Noto Sans KR', sans-serif;
+  font-size: 12px;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+  font-family: "Noto Sans KR", "Roboto", "dotum", "sans-serif";
+}
 /************* Font *************/
 
 /************* common CSS *************/
@@ -42,5 +55,50 @@ body {
   min-height: 100vh;
   background-color: #f0f3f8;
 }
+*{
+  margin: 0;
+  padding : 0;
+  list-style: none;
+  text-decoration: none;
+}
+a{
+  cursor: pointer;
+  color: #000;
+}
+img{
+  vertical-align: top;
+}
+div{
+  display: block;
+}
+html, body{
+  min-width: 1024px;
+}
+label{
+  cursor: pointer;
+}
 
+em, p, address{
+  font-style: normal;
+  font-weight: 600;
+}
+select:focus, textarea:focus, a:focus, input:focus, button:focus{
+  outline: 3px solid rgba(255, 37, 52, .3);
+}
+.contents_main{
+  width: 980px;
+  margin: 0 auto;
+  padding: 50px 0 0 0;
+}
+.contents_main .main_cont_wrap{
+  position: relative;
+  margin-bottom: 33px;
+}
+.tit_name{
+  position: relative;
+  font-size: 17px;
+  margin-bottom: 10px;
+}
 /************* common CSS *************/
+
+

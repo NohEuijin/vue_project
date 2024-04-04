@@ -25,7 +25,7 @@ module.exports = {
   query: ``,
   mutation: ``,
   resolver: {
-    Query: {},
-    Mutation: {}
+  Query: {},
+  Mutation: {}
   },
 };
