@@ -337,7 +337,6 @@
     </div>
   </div>
 </body>
-<!-- <VueDaumPostcode /> -->
 </template>
 
 <script>
@@ -1166,5 +1165,24 @@ em, p, address{
   color: #8a8a8a;
   text-decoration: none;
 }
+/*
+모달
+*/
+.default_post_code_layout {
+    max-height: 600px;
+    overflow-y: auto;
+  }
+
+/* .default_post_code_control {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  > .v-btn {
+    height: 44px;
+    span {
+      font-size: 1.6rem;
+    }
+  }
+} */
 </style>
 

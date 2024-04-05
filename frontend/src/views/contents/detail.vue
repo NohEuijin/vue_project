@@ -133,6 +133,10 @@ const router = useRouter();
 const route = useRoute();
 const freeBoard = ref('');
 
+// store.state.meData 에서 userId를 가지고오고 체크
+const userId = computed(() => store.state.meData);
+console.log(userId.value.id)
+
 onMounted(async () => {
   await getFreeBoard();
   await increaseViewCount();
@@ -151,14 +155,39 @@ async function getFreeBoard(){
   }
 }
 
-// 조회수 증가
-//전 처리로 detail에 접근시 veiwcount를 올려야 하기 때문에,
-// ++ 로 처리한다.( viewcount + 1 로도 가능)
-async function increaseViewCount(){
-  try{
-    await store.dispatch('modifyFreeBoard',{id:route.params.id,viewcount:(++freeBoard.value.viewcount)});
-  }catch(err){
-    console.error(err)
+/**조회수 증가(day 기준)
+@param {getLastViewedDate} 게시물 마지막 조회 일자, 로컬스토리지에서 가져옴
+@param {setLastViewedDate} 게시물의 마지막 조회 일자, 로컬 스토리지에 저장
+@param {isNextDay} 다음 일자인지 확인
+@param {increaseViewCount} 조회수 증가
+: 마지막 조회가 없거나 현재 일자와 마지막 조회 일자가 다른 경우, 조회수 증가
+@param {increaseViewCount} 조회수 증가
+@author 노의진
+@returns returns
+*/
+function getLastViewedDate() {
+  return localStorage.getItem(`lastViewedDate_${route.params.id}_${userId.value.id}`);
+}
+function setLastViewedDate(date) {
+  localStorage.setItem(`lastViewedDate_${route.params.id}_${userId.value.id}`, date);
+}
+function isNextDay(lastViewedDate) {
+  const currentDate = new Date().toISOString().split('T')[0];
+  // 현재 일자
+  return lastViewedDate !== currentDate;
+  // 마지막 조회 일자와 현재 일자가 다르면 다음 일자이므로 true 반환
+}
+async function increaseViewCount() {
+  try {
+    const lastViewedDate = getLastViewedDate();
+
+    if (!lastViewedDate || isNextDay(lastViewedDate)) {
+      await store.dispatch('modifyFreeBoard', { id: route.params.id, viewcount: ++freeBoard.value.viewcount });
+      setLastViewedDate(new Date().toISOString().split('T')[0]);
+      // 현재 일자를 저장
+    }
+  } catch(err) {
+    console.error(err);
   }
 }
 
@@ -176,22 +205,14 @@ async function deleteBoard() {
   return;
 }
 
-// 날짜 변경 format
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  const seconds = String(date.getSeconds()).padStart(2, '0');
-  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-}
-
+/**댓글
+@param {getReplys} 댓글리스트
+@param {submitReplyForm} 댓글저장
+@author 노의진
+*/
 let replyList = ref([]);
 const content = ref('');
 
-//댓글 가져오기
 async function getReplys(){
   await store.dispatch('replyList',{freeBoard_id:freeBoard.value.id})
   .then((res)=>{
@@ -203,11 +224,6 @@ async function getReplys(){
   })
 }
 
-// store.state.meData 에서 userId를 가지고오고 체크
-const userId = computed(() => store.state.meData);
-console.log(userId.value.id)
-
-//댓글 form
 const submitReplyForm = async () =>{
   const form = {
     user_id : userId.value.id,
@@ -275,6 +291,18 @@ async function deleteReply(reply){
     }
   }
   return
+}
+
+// 날짜 변경 format
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
 // 댓글 시간 form

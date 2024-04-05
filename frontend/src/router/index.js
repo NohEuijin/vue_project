@@ -8,6 +8,11 @@ const routes = [
 
   },
   {
+    path: '/admin',
+    name: 'admin',
+    component: () => import('@/layouts/admin/DashboardLayout.vue'),
+  },
+  {
     path: '/index',
     name: 'index',
     component: () => import('@/views/index.vue'),
@@ -22,6 +27,7 @@ const routes = [
     name: 'join',
     component: () => import('@/views/auth/join.vue'),
   },
+
   {
     path: '/contents',
     name: 'contents',
@@ -60,6 +66,7 @@ const routes = [
       },
     ]
   },
+
   {
     path: '/main3',
     name: 'mainHomepage2',

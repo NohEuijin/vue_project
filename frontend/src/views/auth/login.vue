@@ -16,18 +16,13 @@
             L.POINT, 롯데시네마 ID로 별도의 회원가입 없이 이용 가능 합니다.
           </p>
           <div class="login_area">
-            <input v-model="identifier"
+            <input
+             v-model="identifier"
              type="text"
              id="userId"
              clearable="true"
              maxlength="13"
              placeholder="아이디 또는 이메일을 입력해 주세요.">
-             <!-- <p
-             v-show="errUserId"
-             class="inputErr"
-             style="color: red;">
-             존재하지 않는 아이디 입니다.
-            </p> -->
             <input v-model="password"
             @keyup.enter="loginUser"
             type="password"
@@ -44,6 +39,7 @@
             <div class="login_check">
               <input
               v-model="save_id"
+              @change="setupSetting"
               type="checkbox"
               name="loginCheck"
               id="cheeckSaveId">
@@ -110,17 +106,15 @@ export default {
     const save_id = ref(false);
     const SAVETOKEN = 'user_save_token';
 
-    // const loginName = localStorage.getItem(SAVETOKEN);
-    // console.log(loginName)
-
-    // 아이디 정보 받아와, 아이디 체크 처리
-    const setupSetting = () => {
-        let check = localStorage.getItem(this.SAVETOKEN)
-        if (check !== null) {
-          this.identifier = check
-          this.save_id = true
-        }
-      };
+    // 아이디 저장
+    function loginChange(){
+      const loginName = localStorage.getItem(SAVETOKEN);
+      if(loginName){
+        identifier.value = loginName
+        save_id.value = true
+      }
+    }
+    loginChange();
 
     // 로컬스토리지에 아이디 값 저장.
     const saveIdinCookie = () => {
@@ -140,6 +134,7 @@ export default {
           password: password.value
         })
         .then(() => {
+          saveIdinCookie();
           router.push({ name : 'index'});
           alert(identifier.value + "님 환영 합니다!")
           console.log( identifier.value )
@@ -170,7 +165,7 @@ export default {
       password,
       save_id,
       loginUser,
-      setupSetting,
+      loginChange,
       saveIdinCookie,
     }
   }
