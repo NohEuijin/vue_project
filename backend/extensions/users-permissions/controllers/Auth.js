@@ -118,7 +118,7 @@ module.exports = {
       const validPassword = await strapi.plugins[
         'users-permissions'
       ].services.user.validatePassword(params.password, user.password);
-      
+
       if (!validPassword) {
         // try 값 0 삽입 => 비밀번호 처음 틀렸을 경우
         if (user.try === null) {
@@ -459,7 +459,9 @@ module.exports = {
       );
     }
 
-    const role = await strapi
+    // role 변경
+    // console.log(params)
+    const role = params.role ? {id: params.role} : await strapi
       .query('role', 'users-permissions')
       .findOne({ type: settings.default_role }, []);
 
@@ -590,42 +592,7 @@ module.exports = {
           user: sanitizedUser,
         });
       }
-      // console.log('created user test ::', user)
-      // 아이디 생성 후, 연결된 사업지 1개 생성
-      const randomString = Math.random().toString(36).substring(2, 11)
-      const groupData = {
-        groupcode: randomString,
-        groupname: `${params.username}님 사업지`,
-        constname: `${params.username}님 사업지`,
-        managername: params.username,
-        isuse: 1,
-        user: user.id,
-      }
-      // 생성된 난수로 된 사업지가 있는지 Duplicate check
-      const dupleCheck = await strapi.services.groups.findOne({ groupcode: randomString })
-      if (dupleCheck === null) {
-        try {
-          await strapi.services.groups.create(groupData)
-        } catch (err) {
-          console.log({ err })
-        }
-      } else {
-        // 생성된 난수로 된 사업지가 이미 존재해서 groupcode 난수를 새로 생성한 뒤, 생성
-        const randomString2 = Math.random().toString(36).substring(1, 11)
-        const groupData2 = {
-          groupcode: randomString2,
-          groupname: `${params.username}님 사업지`,
-          constname: `${params.username}님 사업지`,
-          managername: params.username,
-          isuse: 1,
-          user: user.id,
-        }
-        try {
-          await strapi.services.groups.create(groupData2)
-        } catch (err) {
-          console.log({ err })
-        }
-      }
+
     } catch (err) {
       const adminError = _.includes(err.message, 'username')
         ? {

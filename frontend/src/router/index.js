@@ -5,12 +5,85 @@ const routes = [
   {
     path: '/',
     redirect:'/index',
-
   },
+
   {
-    path: '/admin',
+    path: '/',
     name: 'admin',
     component: () => import('@/layouts/admin/DashboardLayout.vue'),
+    redirect:'admin/dashboard',
+    children:[
+      {
+        path: 'admin/dashboard',
+        name: 'dashboard',
+        component: () => import('@/views/admin/dashboard/DefaultDashboard.vue'),
+      },
+      {
+        path: 'admin/mainposter',
+        name: 'mainposter',
+        component: () => import('@/views/admin/menagement/mainposter/MainFrame.vue'),
+      },
+      {
+        path: 'admin/mainposter/register',
+        name: 'mpRegister',
+        component: () => import('@/views/admin/menagement/mainposter/PostRegistration.vue'),
+      },
+      {
+        path: 'admin/mainposter/detail',
+        name: 'mpdetail',
+        component: () => import('@/views/admin/menagement/mainposter/PostDetail.vue'),
+      },
+      {
+        path: 'admin/mainposter/modify',
+        name: 'mpmodify',
+        component: () => import('@/views/admin/menagement/mainposter/PostModify.vue'),
+      },
+      {
+        path: 'admin/membership',
+        name: 'membership',
+        component: () => import('@/views/admin/menagement/membership/MemberFrame.vue'),
+      },
+      {
+        path: 'admin/membership/detail/:id',
+        name: 'msdetail',
+        component: () => import('@/views/admin/menagement/membership/MemberDetail.vue'),
+      },
+      {
+        path: 'admin/notice',
+        name: 'notice',
+        component: () => import('@/views/admin/menagement/notice/NoticeFrame.vue'),
+      },
+      {
+        path: 'admin/notice/detail',
+        name: 'ndetail',
+        component: () => import('@/views/admin/menagement/notice/NoticeDetail.vue'),
+      },
+      {
+        path: 'admin/notice/modify',
+        name: 'nmodify',
+        component: () => import('@/views/admin/menagement/notice/NoticeModify.vue'),
+      },
+      {
+        path: 'admin/notice/register',
+        name: 'nregister',
+        component: () => import('@/views/admin/menagement/notice/NoticeRegistration.vue'),
+      },
+      {
+        path: 'admin/sales',
+        name: 'sales',
+        component: () => import('@/views/admin/menagement/sales/SalesFrame.vue'),
+      },
+    ]
+  },
+  {
+    path: '/admin/login',
+    name: 'adminlogin',
+    component: () => import('@/views/admin/authentication/auth/LoginPage.vue'),
+  },
+  {
+    path: '/admin/register',
+    name: 'adminregister',
+    component: () => import('@/views/admin/authentication/auth/RegisterPage.vue'),
   },
   {
     path: '/index',

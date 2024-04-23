@@ -1,9 +1,9 @@
 .v-list-item {
   &.v-list-item--border {
     border-color: rgb(var(--v-border-color));
-    border-width: 0 0 1px 0;
+      border-width: 1;
     &:last-child {
-      border-width: 0;
+      border-width: 1;
     }
   }
   &.v-list-item--variant-tonal {

@@ -1,10 +1,11 @@
 .v-footer {
   background: rgb(var(--v-theme-containerbg));
+  background: none !important;
   padding: 24px 16px 0px;
   margin-top: auto;
   position: unset;
   a {
-    text-decoration: unset;
+    text-decoration: unset; 
     &:hover {
       text-decoration: underline;
     }

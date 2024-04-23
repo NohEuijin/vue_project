@@ -7,73 +7,87 @@ const projects = shallowRef([
   {
     number: 13256498,
     order: 125,
-    name: 'Keyboard',
-    amount: '$70,999',
+    name: '범죄도시4',
+    amount: '14,000' + '원',
     priority: 'rejected'
   },
   {
     number: 13286564,
     order: 100,
-    name: 'Computer Accessories',
-    amount: '$83,348',
+    name: '쿵푸팬더4',
+    amount: '28,000' + '원',
     priority: 'approved'
   },
   {
     number: 84564564,
     order: 40,
-    name: 'Camera Lens',
-    amount: '$40,570',
-    priority: 'rejected'
-  },
-  {
-    number: 86739658,
-    order: 99,
-    name: 'TV',
-    amount: '$410,780',
+    name: '파묘',
+    amount: '40,570' + '원',
     priority: 'pending'
   },
   {
-    number: 98652366,
-    order: 50,
-    name: 'Handset',
-    amount: '$10,239',
-    priority: 'approved'
-  },
-  {
-    number: 98753263,
-    order: 89,
-    name: 'Mouse',
-    amount: '$10,570',
+    number: 13256498,
+    order: 125,
+    name: '범죄도시4',
+    amount: '14,000' + '원',
     priority: 'rejected'
   },
   {
-    number: 98753275,
-    order: 185,
-    name: 'Desktop',
-    amount: '$98,063',
-    priority: 'approved'
-  },
-  {
-    number: 98753291,
+    number: 13286564,
     order: 100,
-    name: 'Chair',
-    amount: '$14,001',
-    priority: 'pending'
-  },
-  {
-    number: 98756325,
-    order: 355,
-    name: 'Mobile',
-    amount: '$90,989',
+    name: '쿵푸팬더4',
+    amount: '28,000' + '원',
     priority: 'approved'
   },
   {
-    number: 98764564,
-    order: 300,
-    name: 'Laptop',
-    amount: '$180,139',
+    number: 84564564,
+    order: 40,
+    name: '파묘',
+    amount: '40,570' + '원',
+    priority: 'rejected'
+  },
+  {
+    number: 13256498,
+    order: 125,
+    name: '범죄도시4',
+    amount: '14,000' + '원',
     priority: 'pending'
-  }
+  },
+  {
+    number: 13286564,
+    order: 100,
+    name: '쿵푸팬더4',
+    amount: '28,000' + '원',
+    priority: 'approved'
+  },
+  {
+    number: 84564564,
+    order: 40,
+    name: '파묘',
+    amount: '40,570' + '원',
+    priority: 'rejected'
+  },
+  {
+    number: 13256498,
+    order: 125,
+    name: '범죄도시4',
+    amount: '14,000' + '원',
+    priority: 'pending'
+  },
+  {
+    number: 13286564,
+    order: 100,
+    name: '쿵푸팬더4',
+    amount: '28,000' + '원',
+    priority: 'pending'
+  },
+  {
+    number: 84564564,
+    order: 40,
+    name: '파묘',
+    amount: '40,570' + '원',
+    priority: 'rejected'
+  },
 ]);
 </script>
 
@@ -92,22 +106,22 @@ const projects = shallowRef([
       <tbody>
         <tr v-for="item in projects" :key="item.name">
           <td class="py-3">
-            <router-link to="/dashboard/default" class="text-secondary link-hover">{{ item.number }}</router-link>
+            <router-link to="/admin/dashboard/" class="text-secondary link-hover">{{ item.number }}</router-link>
           </td>
           <td class="py-3">{{ item.name }}</td>
           <td class="py-3 text-right" style="min-width: 100px">{{ item.order }}</td>
           <td class="py-3">
             <v-chip variant="text" size="small" class="px-0" v-if="item.priority === 'rejected'">
               <v-avatar size="8" color="error" variant="flat" class="mr-2"></v-avatar>
-              <p class="text-h6 mb-0">Rejected</p>
+              <p class="text-h6 mb-0">취소</p>
             </v-chip>
             <v-chip variant="text" size="small" class="px-0" v-else-if="item.priority === 'approved'">
               <v-avatar size="8" color="success" variant="flat" class="mr-2"></v-avatar>
-              <p class="text-h6 mb-0">Approved</p>
+              <p class="text-h6 mb-0">완료</p>
             </v-chip>
             <v-chip variant="text" size="small" class="px-0" v-else>
               <v-avatar size="8" color="warning" variant="flat" class="mr-2"></v-avatar>
-              <p class="text-h6 mb-0">Pending</p>
+              <p class="text-h6 mb-0">대기</p>
             </v-chip>
           </td>
           <td class="py-3 text-right" style="min-width: 100px">{{ item.amount }}</td>

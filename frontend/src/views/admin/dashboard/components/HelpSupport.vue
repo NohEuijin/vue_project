@@ -1,10 +1,12 @@
 <template>
-  <v-card variant="outlined" class="withbg">
-    <v-card-text>
+  <v-card variant="outlined" class="withbg" color="info">
+    <v-card-text class="help_box">
       <div class="d-flex align-center justify-space-between">
         <div>
-          <h5 class="text-h5 mb-0">Help & Support Chat</h5>
-          <span class="text-caption text-lightText">Typical replay within 5 min</span>
+          <h5 class="text-h6 mb-0">도움 및 기술 지원</h5>
+          <span class="text-caption text-lightText">
+            최신 AI 지혜에게 물어 보세요!
+          </span>
         </div>
         <div class="d-flex align-center justify-center flex-wrap flex-row-reverse">
           <v-avatar size="35" variant="outlined" color="surface" class="ml-n2">
@@ -21,9 +23,13 @@
           </v-avatar>
         </div>
       </div>
-      <v-btn color="primary" block variant="flat" density="comfortable" class="mt-6" href="https://codedthemes.support-hub.io/" target="_"
-        >Need Help?</v-btn
-      >
+      <v-btn color="info" block variant="flat" density="comfortable" class="mt-6" href="https://protectx.imweb.me/" target="_"
+        >도움이 필요하다면?</v-btn>
     </v-card-text>
   </v-card>
 </template>
+<style lang="scss">
+// .help_box{
+//   border-color: #c7c7c7 !important;
+// }
+</style>

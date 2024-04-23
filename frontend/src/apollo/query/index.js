@@ -24,6 +24,9 @@ export const myData = gql`
       id
     	name
       username
+      role{
+        id
+      }
     }
   }
 `
@@ -36,24 +39,39 @@ export const myData = gql`
 
 //자유게시판 리스트
 export const freeBoardList = gql`
-  query freeBoardList($sortCondition:String, $search:String, $start:Int, $limit:Int){
-    freeBoardsConnection(where:{title_contains:$search}){
-      aggregate{
-        count
+query freeBoardList(
+  $sortCondition:String,
+  $search:String,
+  $start:Int,
+  $limit:Int
+){
+  freeBoardsConnection(
+    where:{
+      title_contains:$search
+    }){
+    aggregate{
+      count
+    }
+  }
+    freeBoards(
+      sort:$sortCondition,
+      where:{
+        title_contains:$search
+      },
+      start:$start,
+      limit:$limit
+    ){
+      id
+      title
+      content
+      created_at
+      updated_at
+      viewcount
+      user{
+        username
       }
     }
-      freeBoards(sort:$sortCondition,where:{title_contains:$search}, start:$start, limit:$limit){
-        id
-        title
-        content
-        created_at
-        updated_at
-        viewcount
-        user{
-          username
-        }
-      }
-    }
+  }
 `
 
 //자유게시판 글 상세보기
@@ -92,4 +110,126 @@ query replyList($freeBoard_id:ID){
   }
 }
 `
+/**
 
+여기서 부터 관리자 관련
+
+*/
+
+
+/*
+
+role:1 회원만 검색
+$search : 검색
+$start:Int,$limit:Int : 페이징
+$usernameContains : 카테고리(아이디)
+$nameContains : 카테고리(이름)
+$startDate : 시작 날짜
+$endDate : 마지막 날짜,
+
+created_at_gte:$startDate
+created_at_lte:$endDate
+= gte(여기서)~lte(여기까지) 검색
+
+aggregate
+: 쿼리 내 필드의 계산, 평균화, 합계 또는
+최소값 또는 최대값 찾기와 같은 집계 작업을 수행
+
+*/
+export const userList = gql`
+query userList(
+  $start:Int,
+  $limit:Int,
+  $usernameContains:String,
+  $nameContains:String,
+  $startDate:DateTime,
+  $endDate:DateTime,
+  $allSearch:JSON,
+){
+  usersConnection(
+    where:{
+      _or:$allSearch,
+      username_contains:$usernameContains,
+      name_contains:$nameContains,
+      created_at_gte:$startDate,
+      created_at_lte:$endDate,
+      role:"1"
+    }){
+    aggregate{
+      count
+    }
+  }
+  users(
+    where:{
+      _or:$allSearch,
+      username_contains:$usernameContains,
+      name_contains:$nameContains,
+      role: "1",
+      created_at_gte:$startDate,
+      created_at_lte:$endDate,
+    },
+    start:$start,
+    limit:$limit
+  ){
+    id
+    username
+    name
+    phone
+    email
+    created_at
+    role{
+      id
+    }
+  }
+}
+`
+
+export const userDetail = gql`
+query userDetail(
+  $id:ID,
+  $username : String,
+  $name : String,
+  $email : String,
+  $phone : String,
+  $addressZipCode : String,
+  $address : String,
+  $addressDetail : String,
+)
+{
+  users(
+    where:{
+			id:$id,
+      username:$username,
+      name:$name,
+      email:$email,
+      phone:$phone,
+      addressZipCode:$addressZipCode,
+      address:$address,
+      addressDetail:$addressDetail
+    }
+  ){
+    id
+    username
+    name
+    phone
+    email
+    created_at
+    free_boards{
+      id
+      title
+      created_at
+      viewcount
+    }
+  }
+  repliesConnection(where : {user:{id:$id}}){
+    aggregate{
+      count
+    }
+  }
+  freeBoardsConnection(where : {user:{id:$id}}){
+    aggregate{
+      count
+    }
+  }
+}
+`

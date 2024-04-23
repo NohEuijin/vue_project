@@ -1,70 +1,52 @@
-// icons
-import {
-  QuestionOutlined,
-  DashboardOutlined,
-  ChromeOutlined,
-  LoginOutlined,
-  ProfileOutlined,
-  FontSizeOutlined,
-  BgColorsOutlined,
-  BarcodeOutlined,
-  CrownOutlined
-} from '@ant-design/icons-vue';
-
 const sidebarItem = [
   { header: 'Navigation' },
   {
     title: 'Dashboard',
-    icon: DashboardOutlined,
-    to: '/dashboard'
+    icon: 'mdi-chart-box-outline',
+    to: '/admin/dashboard'
   },
   { header: 'Authentication' },
   {
     title: 'Login',
-    icon: LoginOutlined,
-    to: '/auth/login'
+    icon: 'mdi-login',
+    to: '/admin/login'
   },
   {
     title: 'Register',
-    icon: ProfileOutlined,
-    to: '/auth/register'
+    icon: 'mdi-account-plus-outline',
+    to: '/admin/register'
   },
-  { header: 'Utilities' },
+  { header: 'Management' },
   {
-    title: 'Typography',
-    icon: FontSizeOutlined,
-    to: '/typography'
-  },
-  {
-    title: 'Color',
-    icon: BgColorsOutlined,
-    to: '/colors'
+    title: 'MainPoster',
+    icon: 'mdi-movie-minus-outline',
+    to: '/admin/mainposter'
   },
   {
-    title: 'Shadow',
-    icon: BarcodeOutlined,
-    to: '/shadow'
+    title: 'MemberShip',
+    icon: 'mdi-card-account-details-outline',
+    to: '/admin/membership'
   },
   {
-    title: 'Ant Icons',
-    icon: CrownOutlined,
-    to: '/icon/ant'
+    title: 'Notice',
+    icon: 'mdi-human-male-board-poll',
+    to: '/admin/notice'
+  },
+  {
+    title: 'Sales',
+    icon: 'mdi-hand-coin-outline',
+    to: '/admin/sales'
   },
   { header: 'Support' },
   {
-    title: 'Sample Page',
-    icon: ChromeOutlined,
-    to: '/sample-page'
-  },
-  {
-    title: 'Documentation',
-    icon: QuestionOutlined,
-    to: 'https://codedthemes.gitbook.io/mantis-vuetify/',
+    title: 'Technology',
+    icon: 'mdi-wrench-cog',
+    to: 'https://protectx.imweb.me/',
     type: 'external',
-    chip: 'gitbook',
+    chip: 'protect',
     chipColor: 'secondary',
     chipVariant: 'flat'
-  }
+  },
 ];
 
 export default sidebarItem;

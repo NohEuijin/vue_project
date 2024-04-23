@@ -1,0 +1,34 @@
+// @import './reset.scss' ;
+
+@import './variables';
+@import 'vuetify/styles/main.sass';
+@import './override';
+@import './layout/container';
+@import './layout/sidebar';
+@import './layout/footer';
+@import './layout/topbar';
+
+@import './components/VAlert';
+@import './components/VList';
+@import './components/VButtons';
+@import './components/VCard';
+@import './components/VChip';
+@import './components/VBadge';
+@import './components/VBreadcrumb';
+@import './components/VField';
+@import './components/VInput';
+@import './components/VNavigationDrawer';
+@import './components/VShadow';
+@import './components/VTextField';
+@import './components/VTextarea';
+
+@import './page/dashboards';
+@import './page/postRegistration';
+
+@import './mainpage/_fixheader';
+@import './mainpage/_footerall';
+@import './mainpage/_freeboard';
+@import './mainpage/_membershiplist';
+
+
+

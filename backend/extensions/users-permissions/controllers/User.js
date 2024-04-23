@@ -43,18 +43,18 @@ module.exports = {
    * Retrieve user records.
    * @return {Object|Array}
    */
-  async find(ctx, next, { populate } = {}) {
-    let users;
+  // async find(ctx, next, { populate } = {}) {
+  //   let users;
 
-    if (_.has(ctx.query, '_q')) {
-      // use core strapi query to search for users
-      users = await strapi.query('user', 'users-permissions').search(ctx.query, populate);
-    } else {
-      users = await strapi.plugins['users-permissions'].services.user.fetchAll(ctx.query, populate);
-    }
+  //   if (_.has(ctx.query, '_q')) {
+  //     // use core strapi query to search for users
+  //     users = await strapi.query('user', 'users-permissions').search(ctx.query, populate);
+  //   } else {
+  //     users = await strapi.plugins['users-permissions'].services.user.fetchAll(ctx.query, populate);
+  //   }
 
-    ctx.body = users.map(sanitizeUser);
-  },
+  //   ctx.body = users.map(sanitizeUser);
+  // },
 
   /**
    * Retrieve a user record.
@@ -129,7 +129,7 @@ module.exports = {
   async updatePassword(ctx) {
     const params = ctx.request.body.input
     const user = await strapi.query('user', 'users-permissions').findOne({ email: params.email })
-    
+
     const authCodeCheck = await strapi.query('send-email').findOne({ useremail: user.email, _sort: 'id:desc' },)
     const password = await strapi.plugins['users-permissions'].services.user.hashPassword({
       password: params.password,

@@ -9,20 +9,30 @@ import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 
 // Composables
-import { createVuetify } from 'vuetify'
+import { createVuetify } from 'vuetify';
+import { DefaultTheme } from '@/theme/LightTheme';
 
-// https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
   theme: {
+    defaultTheme: 'DefaultTheme',
     themes: {
       light: {
         colors: {
-          primary: '#1867C0',
-          secondary: '#5CBBF6',
-          purple2 : '#261235',
-          blue2 : '#21baff',
         }
-      }
+      },
+      DefaultTheme // DefaultTheme 추가
+    }
+  },
+  defaults: {
+    VBtn: {},
+    VCard: {
+      rounded: 'md'
+    },
+    VTextField: {
+      rounded: 'lg'
+    },
+    VTooltip: {
+      location: 'top'
     }
   }
-})
+});

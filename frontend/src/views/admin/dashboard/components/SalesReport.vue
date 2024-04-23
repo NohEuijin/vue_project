@@ -1,7 +1,7 @@
-<script setup lang="ts">
+<script setup>
 import { computed, ref } from 'vue';
 import { useTheme } from 'vuetify';
-import { getPrimary, getLightBorder, getSecondary } from './UpdateColors';
+import { getPrimary, getLightBorder, getSecondary } from './UpdateColors.js';
 
 const theme = useTheme();
 const WarningColor = theme.current.value.colors.warning;
@@ -10,7 +10,7 @@ const chartOptions1 = computed(() => {
   return {
     chart: {
       type: 'bar',
-      height: 360,
+      height: 340,
       fontFamily: `inherit`,
       foreColor: getSecondary.value,
       offsetY: 20,
@@ -152,17 +152,17 @@ const chartOptions1 = computed(() => {
 const barChart1 = {
   series: [
     {
-      name: 'Income',
+      name: '소득',
       data: [180, 90, 135, 114, 120, 145]
     },
     {
-      name: 'Cost Of Sales',
+      name: '원가',
       data: [120, 45, 78, 150, 168, 99]
     }
   ]
 };
 
-const items = ref(['Today', 'This month', 'This year']);
+const items = ref(['today', 'month', 'year']);
 </script>
 
 <template>

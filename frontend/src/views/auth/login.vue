@@ -21,9 +21,10 @@
              type="text"
              id="userId"
              clearable="true"
-             maxlength="13"
+             maxlength="20"
              placeholder="아이디 또는 이메일을 입력해 주세요.">
-            <input v-model="password"
+            <input
+            v-model="password"
             @keyup.enter="loginUser"
             type="password"
             id="userPassword"
@@ -39,7 +40,6 @@
             <div class="login_check">
               <input
               v-model="save_id"
-              @change="setupSetting"
               type="checkbox"
               name="loginCheck"
               id="cheeckSaveId">
@@ -133,11 +133,15 @@ export default {
           identifier: identifier.value,
           password: password.value
         })
-        .then(() => {
-          saveIdinCookie();
+        .then((res) => {
+          if(res.role.id === "1"){
+            saveIdinCookie();
           router.push({ name : 'index'});
-          alert(identifier.value + "님 환영 합니다!")
+          alert(res.name + "님 환영 합니다!")
           console.log( identifier.value )
+          }else{
+            alert("잘못된 접근 입니다!")
+          }
         })
       }
       catch({err}){
@@ -253,9 +257,9 @@ export default {
   line-height: 40px;
   padding: 0 18px;
 }
-input + input {
+/* input + input {
     margin-top: 10px;
-}
+} */
 .btn_login{
   position: absolute;
   right: 0;

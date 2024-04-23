@@ -7,6 +7,9 @@
     padding-left: 7px;
   }
 }
+.ps__thumb-y, .ps__rail-y{
+  height: 0px !important;
+}
 /*This is for the Vertical sidebar*/
 .scrollnavbar {
   height: calc(100vh - 151px);
@@ -53,7 +56,7 @@
     border-radius: 0;
     padding-inline-start: calc(20px + var(--indent-padding) / 2) !important;
     .v-list-item__prepend {
-      margin-inline-end: 13px;
+      // margin-inline-end: 13px;
     }
     .v-list-item__append {
       font-size: 0.875rem;

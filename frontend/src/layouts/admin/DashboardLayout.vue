@@ -2,8 +2,8 @@
 // import { RouterView } from 'vue-router';
 // import LoaderWrapper from './LoaderWrapper.vue';
 import VerticalSidebarVue from './vertical-sidebar/VerticalSidebar.vue';
-// import VerticalHeaderVue from './vertical-header/VerticalHeader.vue';
-// import FooterPanel from './footer/FooterPanel.vue';
+import VerticalHeaderVue from './vertical-header/VerticalHeader.vue';
+import FooterPanel from './footer/FooterPanel.vue';
 </script>
 
 <!--
@@ -19,19 +19,21 @@ import VerticalSidebarVue from './vertical-sidebar/VerticalSidebar.vue';
     <v-app
     :class="[]">
       <VerticalSidebarVue />
+      <VerticalHeaderVue />
 
       <v-main class="page-wrapper">
         <v-container>
           <div>
             <!-- Loader start -->
-
+            <!-- <LoaderWrapper /> -->
             <!-- Loader end -->
+            <router-view></router-view>
 
           </div>
         </v-container>
         <v-container class="pt-0">
           <div>
-
+            <FooterPanel />
           </div>
         </v-container>
       </v-main>

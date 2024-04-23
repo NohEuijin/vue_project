@@ -1,8 +1,5 @@
 <template>
-      <HeadBanner/>
-      <HeaderSection/>
       <div class="sub_section">
-        <HeadSilde />
         <!-- 중앙 컨텐츠 -->
         <div class="contents_main">
 
@@ -11,16 +8,7 @@
       </div>
 </template>
 
-<script>
-import HeadBanner from '../layouts/index/header/HeadBanner.vue';
-import HeaderSection from '../layouts/index/header/HeaderSection.vue';
-export default {
-  name:'test11',
-  components:{
-    HeadBanner,
-    HeaderSection
-  }
-}
+
 </script>
 
 <style>

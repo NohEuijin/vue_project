@@ -1,5 +1,17 @@
-<script setup>
-const props = defineProps({ item: Object, level: Number });
+<script>
+import { ref } from 'vue';
+
+export default {
+  props: ['item', 'level'],
+  setup(props) {
+
+    const level = ref(props.level);
+
+    return {
+      level
+    };
+  }
+}
 </script>
 
 <template>
@@ -15,9 +27,12 @@ const props = defineProps({ item: Object, level: Number });
   >
     <!---If icon-->
     <template v-slot:prepend>
-      <component :is="props.item.icon" class="iconClass" :level="props.level"></component>
+      <v-icon :icon="item.icon" size="20" class="ml-1">
+      </v-icon>
     </template>
-    <v-list-item-title>{{ $t(item.title) }}</v-list-item-title>
+    <v-list-item-title>
+      {{ item.title }}
+    </v-list-item-title>
     <!---If Caption-->
     <v-list-item-subtitle v-if="item.subCaption" class="text-caption mt-n1 hide-menu">
       {{ item.subCaption }}
@@ -37,3 +52,6 @@ const props = defineProps({ item: Object, level: Number });
     </template>
   </v-list-item>
 </template>
+<style lang="scss">
+
+</style>

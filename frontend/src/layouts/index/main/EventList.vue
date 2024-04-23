@@ -28,7 +28,7 @@
                 </li>
                 <li class="event_img5">
                   <a href="">
-                    <img src="https://cf.lottecinema.co.kr//Media/Event/5f6eb01d82e143beae40f971770f07e2.jpg" alt="">
+                    <img src="https://cf.lottecinema.co.kr//Media/Event/e22da8a4188348929df938c2ccdc5a55.jpg" alt="">
                   </a>
                 </li>
                 <li class="event_img1">

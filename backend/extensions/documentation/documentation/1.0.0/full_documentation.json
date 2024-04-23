@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "04/05/2024 7:24:01 AM"
+    "x-generation-date": "04/24/2024 8:08:44 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -3758,6 +3758,9 @@
               "addressDetail": {
                 "type": "string"
               },
+              "addressDong": {
+                "type": "string"
+              },
               "free_boards": {
                 "type": "array",
                 "items": {
@@ -3769,9 +3772,6 @@
                 "items": {
                   "type": "string"
                 }
-              },
-              "addressDong": {
-                "type": "string"
               },
               "created_by": {
                 "type": "string"
@@ -3953,6 +3953,9 @@
               "addressDetail": {
                 "type": "string"
               },
+              "addressDong": {
+                "type": "string"
+              },
               "free_boards": {
                 "type": "array",
                 "items": {
@@ -3964,9 +3967,6 @@
                 "items": {
                   "type": "string"
                 }
-              },
-              "addressDong": {
-                "type": "string"
               },
               "created_by": {
                 "type": "string"
@@ -4149,6 +4149,9 @@
                 "addressDetail": {
                   "type": "string"
                 },
+                "addressDong": {
+                  "type": "string"
+                },
                 "free_boards": {
                   "type": "array",
                   "items": {
@@ -4160,9 +4163,6 @@
                   "items": {
                     "type": "string"
                   }
-                },
-                "addressDong": {
-                  "type": "string"
                 },
                 "created_by": {
                   "type": "string"
@@ -4295,6 +4295,9 @@
           "addressDetail": {
             "type": "string"
           },
+          "addressDong": {
+            "type": "string"
+          },
           "free_boards": {
             "type": "array",
             "items": {
@@ -4365,9 +4368,6 @@
                 }
               }
             }
-          },
-          "addressDong": {
-            "type": "string"
           }
         }
       },
@@ -4424,6 +4424,9 @@
           "addressDetail": {
             "type": "string"
           },
+          "addressDong": {
+            "type": "string"
+          },
           "free_boards": {
             "type": "array",
             "items": {
@@ -4435,9 +4438,6 @@
             "items": {
               "type": "string"
             }
-          },
-          "addressDong": {
-            "type": "string"
           },
           "created_by": {
             "type": "string"

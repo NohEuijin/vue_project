@@ -2,9 +2,13 @@
   --theme-color-background: #ffffff;
   --theme-color-font: #333333;
 }
+/*
+@import url()
+: 을 사용하면 api 로 인식하고 느리게 호출한다.
+*/
+// @import '@/assets/css/layout/_sidebar.scss';
 
 /************* Font *************/
-@import url(./reset.scss) ;
 /* 한글 noto Sans */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
 
@@ -23,6 +27,12 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'GowunDodum-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 
 body {
   // font-family: 'Roboto', 'Noto Sans KR', sans-serif;
@@ -30,7 +40,7 @@ body {
   line-height: 1.1;
   letter-spacing: -0.03em;
   font-weight: 500;
-  font-family: "Noto Sans KR", "Roboto", "dotum", "sans-serif";
+  font-family: "Noto Sans KR", "Roboto", "dotum", "sans-serif", "GowunDodum-Regular";
 }
 /************* Font *************/
 
@@ -45,16 +55,16 @@ body {
 .main-lay-1 {
   margin: 15% auto;
 }
-.admin {
-  display: flex;
-  min-height: 100vh;
-  background-color: #f0f3f8;
-}
+// .admin {
+//   display: flex;
+//   min-height: 100vh;
+//   background-color: #f0f3f8;
+// }
 
-.dashboard {
-  min-height: 100vh;
-  background-color: #f0f3f8;
-}
+// .dashboard {
+//   min-height: 100vh;
+//   background-color: #f0f3f8;
+// }
 *{
   margin: 0;
   padding : 0;
@@ -71,9 +81,9 @@ img{
 div{
   display: block;
 }
-html, body{
-  min-width: 1024px;
-}
+// html, body{
+//   min-width: 1024px;
+// }
 label{
   cursor: pointer;
 }
@@ -82,9 +92,9 @@ em, p, address{
   font-style: normal;
   font-weight: 600;
 }
-select:focus, textarea:focus, a:focus, input:focus, button:focus{
-  outline: 3px solid rgba(255, 37, 52, .3);
-}
+// select:focus, textarea:focus, a:focus, input:focus, button:focus{
+//   outline: 3px solid rgba(255, 37, 52, .3);
+// }
 .contents_main{
   width: 980px;
   margin: 0 auto;

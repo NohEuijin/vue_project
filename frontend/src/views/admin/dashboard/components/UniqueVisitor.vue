@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { computed, ref } from 'vue';
 import { getPrimary, getdarkPrimary, getLightBorder, getSecondary } from './UpdateColors';
 
@@ -99,11 +99,11 @@ const chartOptions2 = computed(() => {
 const areaChart1 = {
   series: [
     {
-      name: 'Page Views',
+      name: '총 방문자 수',
       data: [31, 40, 28, 51, 42, 109, 100]
     },
     {
-      name: 'Sessions',
+      name: '금일 방문자 수',
       data: [11, 32, 45, 32, 34, 52, 41]
     }
   ]
@@ -112,11 +112,11 @@ const areaChart1 = {
 const areaChart2 = {
   series: [
     {
-      name: 'Page Views',
+      name: '총 회원가입 수',
       data: [76, 85, 101, 98, 87, 105, 91, 114, 94, 86, 115, 35]
     },
     {
-      name: 'Sessions',
+      name: '금일 회원가입 수',
       data: [110, 60, 150, 35, 60, 36, 26, 45, 65, 52, 53, 41]
     }
   ]
@@ -129,11 +129,11 @@ const tab = ref(1);
   <v-card class="title-card" variant="text">
     <v-card-item class="pb-2 px-0 pt-0">
       <div class="d-flex justify-space-between">
-        <v-card-title class="text-h5">Unique Visitor</v-card-title>
+        <v-card-title class="text-h6">User Status</v-card-title>
         <div class="d-flex flex-wrap">
           <v-tabs v-model="tab" color="primary" class="tabBtn" density="compact" hide-slider>
-            <v-tab value="one" class="mr-1" variant="outlined" rounded="md"> Month </v-tab>
-            <v-tab value="two" variant="outlined" rounded="md"> Week </v-tab>
+            <v-tab value="one" variant="outlined" rounded="md"> Month </v-tab>
+            <v-tab value="two" class="mr-8" variant="outlined" rounded="md"> Week </v-tab>
           </v-tabs>
         </div>
       </div>
@@ -141,14 +141,13 @@ const tab = ref(1);
     <v-card-text class="rounded-md overflow-hidden">
       <v-window v-model="tab">
         <v-window-item value="one">
-          <apexchart type="area" height="450" :options="chartOptions2" :series="areaChart2.series"> </apexchart>
+          <apexchart type="area" height="420" :options="chartOptions2" :series="areaChart2.series"> </apexchart>
         </v-window-item>
 
         <v-window-item value="two">
-          <apexchart type="area" height="450" :options="chartOptions1" :series="areaChart1.series"> </apexchart>
+          <apexchart type="area" height="420" :options="chartOptions1" :series="areaChart1.series"> </apexchart>
         </v-window-item>
       </v-window>
     </v-card-text>
   </v-card>
 </template>
-450

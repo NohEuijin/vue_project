@@ -16,6 +16,12 @@ module.exports = {
       username: String!
       email: String!
       password: String!
+      name : String,
+      phone : String,
+      addressZipCode : String,
+      address : String,
+      addressDong : String,
+      addressDetail : String,
       role: ID
     }
     input UsersPermissionsPasswordInput {

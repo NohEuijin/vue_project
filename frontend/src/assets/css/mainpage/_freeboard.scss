@@ -1,0 +1,220 @@
+.n_contents{
+  margin-top: 120px;
+
+  width: 980px;
+  margin: 0 auto;
+}
+.title_top{
+  margin-bottom: 20px;
+  padding: 25px 0 14px;
+  border-bottom: 1px solid #EEE;
+}
+.title_top .tit{
+  font-size: 25px;
+  font-weight: 500;
+}
+.tab td{
+  /* width: 100px; */
+  /* 줄바꿈 방지 */
+  /* white-space : nowrap; */
+  /* 너비 넘어선 글자 히든 처리 */
+  overflow : hidden;
+  /* 숨겨진 영역 ... 처리 */
+  text-overflow : ellipsis;
+}
+
+.tab_wrap.outer{
+  padding-top: 80px;
+}
+.tab_wrap {
+    position: relative;
+}
+.tab_wrap > li > .tab_tit {
+    position: absolute;
+    top: 0;
+}
+
+.tab_wrap.outer > li.active > .tab_tit {
+  border-bottom: 2px solid #111;
+    color: #000;
+}
+.tab_wrap.outer > li > .tab_tit{
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #CCC;
+  font-size: 15px;
+  color: #7F7F7F;
+}
+.tab_wrap > li.active > .tab_con {
+    overflow: inherit;
+    position: relative;
+    width: auto;
+    height: auto;
+}
+.tab_wrap > li > .tab_con.ty2 {
+    margin-top: -8px;
+}
+.faq_icon_wrap.lotcipassfaq {
+    padding: 12px;
+}
+.faq_icon_wrap {
+    position: relative;
+    background: #F5F5F5;
+    /* padding: 12px 13px; */
+    margin-bottom: 48px;
+    white-space: nowrap;
+    text-align: center;
+}
+.faq_icon_wrap.lotcipassfaq button {
+  width: 90px;
+  padding: 54px 0 14px;
+
+  margin-left: 4px;
+}
+.faq_icon_wrap button {
+  display: inline-block;
+  border: 1px solid #EEEEEE;
+  background: transparent no-repeat top 23px center;
+  font-size: 13px;
+  text-align: center;
+}
+.faq_icon_wrap button.active {
+  background-color: #fff;
+  border-color: #C9C9C9;
+}
+.search_wrap{
+  position: relative;
+  border: 1px solid #DDDDDD;
+  border-radius: 4px;
+  background: #F8F8F8;
+  padding: 22px 22px;
+  -webkit-border-radius: 4px;
+}
+.search_wrap input{
+  width: 340px;
+  margin-right: 8px;
+
+  height: 40px;
+  line-height: 40px;
+  padding: 0 18px;
+
+  background-color: #fff;
+  font-size: 14px;
+  box-sizing: border-box;
+  border: 1px solid #DDD;
+
+  vertical-align: middle;
+}
+.search_wrap .btn_col2{
+  width: 86px;
+  height: 38px;
+  line-height: 34px;
+  vertical-align: middle;
+
+  display: inline-block;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid #414141;
+  font-size: 14px;
+  color: #ffffff !important;
+  text-align: center;
+
+  background-color: #414141;
+
+  margin-left: 20px;
+}
+.txt_help_wrap{
+  float: right;
+  border-left: 1px solid rgba(0, 0, 0, .27);
+  padding: 0 25px;
+  margin-left: 20px;
+  font-size: 12px;
+}
+.txt_help_wrap p{
+  color: #666666;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.txt_help_wrap a{
+  color: #000;
+  text-decoration: underline;
+  margin-right: 24px;
+}
+table{
+  width: 100%;
+  border-spacing: 0;
+}
+.tb_acc_wrap thead th{
+  border-bottom-color: #BBBBBB;
+  font-weight: bold;
+}
+.tb_acc_wrap th{
+  position: relative;
+  border-bottom: 1px solid #EEEEEE;
+  padding: 15px 0;
+  font-size: 15px;
+  text-align: center;
+  line-height: 24px;
+}
+.tb_acc_wrap td {
+    position: relative;
+    border-bottom: 1px solid #EEEEEE;
+    padding: 15px 0;
+    font-size: 15px;
+    text-align: center;
+    line-height: 24px;
+}
+.pagination{
+  position: relative;
+  margin-top: 45px;
+  text-align: center;
+}
+
+.pagination ol{
+  display: inline-block;
+  margin: 0;
+  vertical-align: middle;
+}
+.pagination li{
+  float: left;
+}
+.strong_p{
+    /* text-decoration: underline; */
+    opacity: 1;
+}
+.strong_p{
+  display: inline-block;
+  width: 16px;
+  height: 17px;
+  line-height: 17px;
+  padding: 0 5px;
+  font-size: 15px;
+  color: #000;
+  /* opacity: .6; */
+  vertical-align: middle;
+}
+.nomal_p{
+  display: inline-block;
+  width: 16px;
+  height: 17px;
+  line-height: 17px;
+  padding: 0 5px;
+  font-size: 15px;
+  color: #000;
+  opacity: .6;
+  vertical-align: middle;
+}
+.test_raido{
+  margin: 20px auto;
+  margin-left: 10px;
+  font-weight: 600;
+}
+.test_raido input{
+  margin-right: 1px;
+  cursor: pointer;
+}
+.text_box{
+  display: flex;
+  width: 190px;
+  height: 40px;
+}

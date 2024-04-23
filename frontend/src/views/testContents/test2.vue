@@ -1,5 +1,5 @@
 <template>
-  <div> 테스트2이야</div>
+  wefwef
 </template>
 
 <script>

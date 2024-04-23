@@ -19,9 +19,9 @@
       "via": "replies"
     },
     "user": {
-      "via": "replies",
       "plugin": "users-permissions",
-      "model": "user"
+      "model": "user",
+      "via": "replies"
     }
   }
 }

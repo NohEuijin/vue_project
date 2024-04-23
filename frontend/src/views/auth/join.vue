@@ -228,7 +228,7 @@
             <label for="userId" class="input-title">주소</label>
         </div>
 
-        <div class="address-main user-input">
+        <div class="mb-2">
         </div>
             <input
             v-model="addressDong"
@@ -245,6 +245,7 @@
         value="우편번호 찾기" >
         주소찾기
         </button>
+
     </div>
 </div>
     <!-- 회원 정보 입력 끝 -->
@@ -362,7 +363,6 @@ export default {
   @param {checkedTerms} 각 약관 동의 여부 체크
   @param {toggleAllTerms} 전체 동의 체크시 메소드
   @param {checkTotalTerm} 각 약관 동의에 따른 메소드
-  @author 노의진
   */
   const terms = [
       { name: '서비스 이용약관', link: '#' },
@@ -420,11 +420,11 @@ watch(checkedTerms, (allValue) => {
       addressDetail: addressDetail.value,
     }
     console.log(form)
-    // await store.dispatch('createUser', form).then((res) => {
-    //   console.log(res);
+    await store.dispatch('register', form).then((res) => {
+      console.log(res);
 
-    //   router.push({ name : 'login'});
-    // })
+      router.push({ name : 'login'});
+    })
   };
 
   /**유효성 검사
@@ -963,8 +963,8 @@ select:focus, textarea:focus, a:focus, input:focus, button:focus{
     margin-top: 20px;
 }
 .user-input {
-    position: relative;
-    padding-bottom: 10px;
+   position: relative;
+  padding-bottom: 10px;
 }
 .join-img {
     position: absolute;

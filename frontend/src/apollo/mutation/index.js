@@ -5,35 +5,40 @@ username = userId
 */
 
 //  회원가입
-export const createUser = gql `
-mutation createUser(
+export const register = gql `
+mutation register(
   $username : String!,
   $password : String!,
+  $email : String!,
   $name : String,
   $phone : String,
-  $email : String!,
   $addressZipCode : String,
   $address : String,
   $addressDong : String,
   $addressDetail : String,
+  $role :ID
 ){
-  createUser(
+  register(
     input : {
-      data:{
       username : $username,
       password : $password,
+      email : $email,
       name : $name,
       phone : $phone,
-      email : $email,
       addressZipCode : $addressZipCode,
       address : $address,
       addressDong : $addressDong,
       addressDetail : $addressDetail,
-      }
+      role :$role
     })
     {
+      jwt
       user{
       id
+        role{
+          id
+          name
+        }
     }
   }
 }
@@ -55,6 +60,10 @@ export const login = gql`
         user{
         id,
         username,
+        role{
+          id
+          name
+        }
       }
     }
   }
@@ -216,4 +225,63 @@ export const deleteReply = gql`
       }
     }
   }
+`
+
+/**
+
+여기서 부터 관리자 관련
+
+*/
+
+
+// 관리자 승인 대기 ( role = 4 )
+
+export const updateAdmin = gql`
+mutation updateAdmin(
+  $id:ID!,
+  $email : String,
+  $password : String,
+  $name : String,
+  $role:ID
+){
+  updateUser(
+    input : {
+      where :{
+        id:$id,
+      }
+      data:{
+      email : $email,
+      password : $password,
+      name:$name,
+      role:$role,
+      }
+    })
+    {
+      user{
+      id
+        role{
+          id
+          name
+        }
+    }
+  }
+}
+`
+export const deleteuser = gql`
+mutation deleteUser(
+  $id: ID!
+){
+  deleteUser(
+    input: {
+      where: {
+        id: $id
+      }
+    }
+  )
+  {
+    user {
+      id
+    }
+  }
+}
 `

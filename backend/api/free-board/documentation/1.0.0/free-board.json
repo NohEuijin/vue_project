@@ -593,6 +593,9 @@
               "addressDetail": {
                 "type": "string"
               },
+              "addressDong": {
+                "type": "string"
+              },
               "free_boards": {
                 "type": "array",
                 "items": {
@@ -604,9 +607,6 @@
                 "items": {
                   "type": "string"
                 }
-              },
-              "addressDong": {
-                "type": "string"
               },
               "created_by": {
                 "type": "string"

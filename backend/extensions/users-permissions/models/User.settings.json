@@ -72,16 +72,16 @@
     "addressDetail": {
       "type": "text"
     },
-    "free_boards": {
-      "collection": "free-board",
-      "via": "user"
-    },
-    "replies": {
-      "collection": "reply",
-      "via": "user"
-    },
     "addressDong": {
       "type": "string"
+    },
+    "free_boards": {
+      "via": "user",
+      "collection": "free-board"
+    },
+    "replies": {
+      "via": "user",
+      "collection": "reply"
     }
   }
 }

@@ -1,66 +1,62 @@
 <script setup>
-
+import WidgetFive from './components/WidgetFive.vue';
+import UniqueVisitor from './components/UniqueVisitor.vue';
+import IncomeOverview from './components/IncomeOverview.vue';
+import RecentOrder from './components/RecentOrder.vue';
+import AnalyticsReport from './components/AnalyticsReport.vue';
+import SalesReport from './components/SalesReport.vue';
+import TransactionHistory from './components/TransactionHistory.vue';
+import HelpSupport from './components/HelpSupport.vue';
 </script>
 <template>
-  <!-- -------------------------------------------------------------------- -->
-  <!-- Total widgets -->
-  <!-- -------------------------------------------------------------------- -->
-  <!-- <WidgetFive /> -->
+
+  <WidgetFive />
 
   <v-row class="mb-0">
-    <!-- -------------------------------------------------------------------- -->
-    <!-- Unique visitor -->
-    <!-- -------------------------------------------------------------------- -->
     <v-col cols="12" md="8">
-      <!-- <UniqueVisitor /> -->
-    </v-col>
 
-    <!-- -------------------------------------------------------------------- -->
-    <!-- Income overview -->
-    <!-- -------------------------------------------------------------------- -->
+      <UniqueVisitor />
+
+    </v-col>
     <v-col cols="12" md="4">
-      <!-- <IncomeOverview /> -->
+
+      <IncomeOverview />
+
     </v-col>
   </v-row>
   <v-row class="mb-0">
-    <!-- -------------------------------------------------------------------- -->
-    <!-- Recent order -->
-    <!-- -------------------------------------------------------------------- -->
     <v-col cols="12" md="8">
-      <!-- <RecentOrder /> -->
-    </v-col>
 
-    <!-- -------------------------------------------------------------------- -->
-    <!-- Analytics Report -->
-    <!-- -------------------------------------------------------------------- -->
+      <RecentOrder />
+
+    </v-col>
     <v-col cols="12" md="4">
-      <!-- <AnalyticsReport /> -->
+
+      <AnalyticsReport />
+
     </v-col>
   </v-row>
   <v-row>
-    <!-- -------------------------------------------------------------------- -->
-    <!-- Sales Report -->
-    <!-- -------------------------------------------------------------------- -->
     <v-col cols="12" md="7">
-      <!-- <SalesReport /> -->
+
+      <SalesReport />
+
     </v-col>
 
     <v-col cols="12" md="5">
       <v-row>
-        <!-- -------------------------------------------------------------------- -->
-        <!-- Transaction History -->
-        <!-- -------------------------------------------------------------------- -->
         <v-col cols="12">
-          <!-- <TransactionHistory /> -->
-        </v-col>
 
-        <!-- -------------------------------------------------------------------- -->
-        <!-- Help support -->
-        <!-- -------------------------------------------------------------------- -->
+          <TransactionHistory />
+
+        </v-col>
         <v-col cols="12">
-          <!-- <HelpSupport /> -->
+
+          <HelpSupport />
+          
         </v-col>
       </v-row>
     </v-col>
   </v-row>
 </template>
+

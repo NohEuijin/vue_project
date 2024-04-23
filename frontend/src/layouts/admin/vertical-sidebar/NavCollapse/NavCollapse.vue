@@ -1,9 +1,19 @@
-<script setup>
+<script>
+import { ref } from 'vue';
 import NavItem from '../NavItem/NavItem.vue';
 
-const props = defineProps({ item: Object, level: Number });
-</script>
+export default {
+  props: ['item', 'level'],
+  setup(props) {
 
+    const level = ref(props.level);
+
+    return {
+      level
+    };
+  }
+}
+</script>
 <template>
   <!-- ---------------------------------------------- -->
   <!---Item Childern -->
@@ -30,8 +40,8 @@ const props = defineProps({ item: Object, level: Number });
     <!---Sub Item-->
     <!-- ---------------------------------------------- -->
     <template v-for="(subitem, i) in item.children" :key="i">
-      <NavCollapse :item="subitem" v-if="subitem.children" :level="props.level + 1" />
-      <NavItem :item="subitem" :level="props.level + 1" v-else></NavItem>
+      <NavCollapse :item="subitem" v-if="subitem.children" :level="level + 1" />
+      <NavItem :item="subitem" :level="level + 1" v-else />
     </template>
   </v-list-group>
 

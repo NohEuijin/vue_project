@@ -156,14 +156,14 @@ async function getFreeBoard(){
 }
 
 /**조회수 증가(day 기준)
-@param {getLastViewedDate} 게시물 마지막 조회 일자, 로컬스토리지에서 가져옴
-@param {setLastViewedDate} 게시물의 마지막 조회 일자, 로컬 스토리지에 저장
-@param {isNextDay} 다음 일자인지 확인
-@param {increaseViewCount} 조회수 증가
+{getLastViewedDate} 게시물 마지막 조회 일자, 로컬스토리지에서 가져옴
+{setLastViewedDate} 게시물의 마지막 조회 일자, 로컬 스토리지에 저장
+{isNextDay} 다음 일자인지 확인
+{increaseViewCount} 조회수 증가
 : 마지막 조회가 없거나 현재 일자와 마지막 조회 일자가 다른 경우, 조회수 증가
-@param {increaseViewCount} 조회수 증가
+{increaseViewCount} 조회수 증가
 @author 노의진
-@returns returns
+
 */
 function getLastViewedDate() {
   return localStorage.getItem(`lastViewedDate_${route.params.id}_${userId.value.id}`);
@@ -206,8 +206,8 @@ async function deleteBoard() {
 }
 
 /**댓글
-@param {getReplys} 댓글리스트
-@param {submitReplyForm} 댓글저장
+ {getReplys} 댓글리스트
+ {submitReplyForm} 댓글저장
 @author 노의진
 */
 let replyList = ref([]);

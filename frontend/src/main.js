@@ -5,16 +5,30 @@
  * 전역에 사용하려면 설치후 이곳에 import 해서 사용하여야 한다.
  */
 
-import router from './router'
-
+/** Vue */
 import App from './App.vue'
-// import index from './views/index.vue'
+import { createApp } from 'vue';
 import store from '@/store'
-import { createApp } from 'vue'
+/** Router */
+import router from './router'
+/** Scss */
+import '@/assets/css/global.scss'
+import '@/assets/css/style.scss'
+
+// import index from './views/index.vue'
+
+import PerfectScrollbar from 'vue3-perfect-scrollbar';
 import { registerPlugins } from '@/plugins'
 import { VueDaumPostcode } from 'vue-daum-postcode'
-
-// import dayjs from 'dayjs'
+/** VueApexCharts */
+import VueApexCharts from "vue3-apexcharts";
+/** Vuetify */
+import vuetify from './plugins/vuetify'
+/** Vcalendar : 달력 라이브러리 */
+import VCalendar from 'v-calendar';
+import 'v-calendar/style.css';
+/** dayjs */
+import dayjs from 'dayjs'
 
 /**
 TOKENNAME : 사용자의 인증 상태를 추적하는 데 사용
@@ -64,9 +78,17 @@ router.beforeEach( async (to, from, next) => {
   }
 })
 
-const app = createApp(App).use(store)
+/** Vue Appicaiotn Setting */
+// 모듈과 라이브 러리 등록!
+const app = createApp(App)
 app.component('VueDaumPostcode', VueDaumPostcode)
+app.use(store)
+app.use(PerfectScrollbar)
+app.use(VueApexCharts)
+app.use(vuetify)
+app.use(VCalendar, {})
 
 registerPlugins(app)
-// app.config.globalProperties.$dayjs = dayjs
+app.config.globalProperties.$dayjs = dayjs
+//연결
 app.mount('#app')

@@ -40,7 +40,7 @@
         <ul class="g_menu3all">
           <li>
             <a
-            :class="{ 'btn_my2': joinState === '회원가입' }"
+            :class="{ 'btn_my2': joinState }"
             @click="$router.push({name:'join'})"
             >{{ joinState }}
           </a>
@@ -133,11 +133,11 @@
       <!-- tit end -->
     </ul>
     <ul class="g_menu3">
-      <li>
+      <li v-show="!($store.state.meData && $store.state.meData.id)">
         <a
-          :class="{ 'btn_my': joinState === '회원가입' }"
+          class="btn_my"
           @click="$router.push({name:'join'})"
-          >{{ joinState }}
+          >회원가입
         </a>
       </li>
       <li>
@@ -213,12 +213,12 @@ export default {
   }
   userData();
 
-  let joinState = "회원가입";
+  let joinState = ref("회원가입");
   function joinStateCheck(){
     if(store.state.meData && store.state.meData.id){
-      joinState = '';
+      joinState.value = '';
     }else{
-      joinState = "회원가입";
+      joinState.value = "회원가입";
     }
   }
   joinStateCheck();
@@ -243,6 +243,7 @@ export default {
   //로그아웃
   const logout = () => {
   store.dispatch('logout')
+
   // alert("로그아웃 되었습니다!")
   }
 
@@ -262,47 +263,10 @@ export default {
     routerName.value = route.name
     console.log(routerName.value)
     loginState();
-    // joinStateCheck();
-    if(store.state.meData && store.state.meData.id){
-      joinState = '';
-    }else{
-      joinState = "회원가입";
-    }
+    joinStateCheck();
   })
 
-  /*
-  bannerShow 초기 true로 설정되어 있어 배너가 표시,
-  bannerClose 함수 호출로 배너가 숨겨짐.
-  */
-  const bannerShow = ref(true);
-  const bannerClose = () => {
-    bannerShow.value = false;
-  }
-  const banners = [
-    {
-      img: "https://cf2.lottecinema.co.kr/lotte_image/2024/BobMarley_OneLove/0313/BobMarley_OneLove_98080.jpg",
-      bg : 'purple2'
-    },
-    {
-      img: "https://cf2.lottecinema.co.kr/lotte_image/2024/TheBraveBeluga/TheBraveBeluga_98080.jpg",
-      bg : 'blue2'
-    },
-    {
-      img: "https://cf2.lottecinema.co.kr/lotte_image/2024/BreadBarbershop/BreadBarbershop_980807.jpg",
-      bg : 'black'
-    },
-  ];
-  const bannerIndex = ref(Math.floor(Math.random() * banners.length));
-    setInterval(() => {
-    bannerIndex.value = Math.floor(Math.random() * banners.length);
-    console.log(bannerIndex)
-  },20000); //20 seconds
-
     return{
-      banners,
-      bannerIndex,
-      bannerShow,
-      bannerClose,
       userData,
       joinState,
       header_auth,
@@ -316,79 +280,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/css/global.scss';
-/* 배너 */
-.inner{
-  position: relative;
-  width: 980px;
-  height: 80px;
-  margin: 0 auto;
-  overflow: hidden;
-}
-.btn-close{
-  position:absolute;
-  background: url(https://www.lottecinema.co.kr/NLCHS/Content/images/icon/close_19_wht.png) no-repeat 50% 50%;
-  width: 20px;
-  height: 20px;
-  top: 40%;
-  right: 0;
-}
 
- /* 헤더 세션 */
- .header_section_all{
-  position: relative;
-  height: 114px;
-  border-bottom: 1px solid #EEE;
-  background-color: #fff;
-  color: #000;
-}
- /* 헤더 fixed 시 css */
-
-/* 로고 */
-.logo1{
-  position: absolute;
-  z-index: 1;
-  top: 18px;
-  left: 50%;
-  margin-left: -109px;
-  text-indent: -9999em;
-  background : url("https://www.lottecinema.co.kr/NLCHS/Content/images/common/logo.png") ;
-
-  width: 219px;
-  height: 37px;
-}
-.logo1 a{
-  display: block;
-  width: 219px;
-  height: 37px;
-}
-
-/* 왼쪽 ul 테그 정리 */
-.gnb{
-  border-bottom: 1px solid #656565;
-  position: relative;
-  width: 980px;
-  height: 70px;
-  margin: 0 auto;
-}
- .g_menu1all{
-  float: left;
-  margin-top: 40px;
-  opacity: 1;
-  color: #656565;
-}
-.g_menu1all li{
-  margin-right: 14px;
-  float: left;
-}
-.g_menu1all a{
-  height: 14px;
-  line-height: 14px;
-  background-repeat: no-repeat;
-  background-position: 0 center;
-  display: block;
-  color: #656565;
-}
 .afb1{
     background-image: url(https://www.lottecinema.co.kr/NLCHS/Content/images/icon/gnb_facebook.png);
     padding-left: 18px;
@@ -402,45 +294,7 @@ export default {
   background-image: url(https://www.lottecinema.co.kr/NLCHS/Content/images/icon/gnb_follow2.png);
   padding-left: 17px;
 }
-/* 오른쪽 ul 테그 정리 */
-.g_menu2all{
-  opacity: 1;
-  float: right;
-  margin-top: 40px;
-  color: #656565;
-}
-.g_menu2all li{
-  margin-right: 14px;
-  float: left;
-}
-.g_menu2all a{
-  height: 14px;
-  line-height: 14px;
-  background-repeat: no-repeat;
-  background-position: 0 center;
-  display: block;
-  color: #656565;
-}
-/* 오른쪽 아래 ul 테그 정리 */
-.g_menu3all{
-  position: absolute;
-  right: 0;
-  top: 86px;
-  margin-top: 0;
-}
-.g_menu3all li{
-  margin-right: 25px;
-  float: left;
-}
-.g_menu3all a{
-  height: 14px;
-  line-height: 14px;
-  font-size: 11px;
-  background-repeat: no-repeat;
-  background-position: 0 center;
-  display: block;
-  color: #656565;
-}
+
 .btn_my2{
   background-image: url(https://www.lottecinema.co.kr/NLCHS/Content/images/icon/nav_side_my.png);
   padding-left: 15px;
@@ -457,65 +311,7 @@ export default {
   color: #656565;
   text-indent: -9999em
 }
- /* 메인 nav1 */
-.nav1{
-  width: 980px;
-  margin: 3px auto 0;
-  text-align: center;
-}
-.nav1 li{
-  display: inline-block;
 
-}
-.nav1 a{
-  color: #000;
-  line-height: 40px;
-  position: relative;
-  padding: 0 24px;
-  font-size: 14px;
-  letter-spacing: 0.1em;
-}
- /* none 세션 */
-.nav1 .display{
-  display: none;
-  background-color: rgba(0, 0, 0, .7);
-  position: absolute;
-  z-index: 2;
-  left: 0;
-  right: 0;
-  top: 114px;
-  height: 38px;
-  text-align: center;
-}
-.nav1 .before2{
-  opacity: 1;
-  position: absolute;
-  top: 83%;
-  height: 9px;
-  margin-top: -5px;
-  border-left: 1px solid #c0c0c0;
-}
-
- /* 헤더 세션 */
- .header_section{
-  position : absolute;
-  z-index: 2;
-  height: 194px;
-  width: 100%;
-  background: linear-gradient(to bottom, rgba(29,29,31,1) 0%,rgba(0,0,0,0) 100%);
-   /* background-color:gray;  */
-}
-// 헤더 fixed 시 css
-.header_section.fixed{
-  border-bottom: 1px solid #EEE;
-  background: #fff;
-  position: fixed;
-  z-index: 90;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 43px;
-}
 /* 로고 */
 .logo{
   position: absolute;
@@ -526,36 +322,7 @@ export default {
   text-indent: -9999em;
   background : url("https://www.lottecinema.co.kr/NLCHS/Content/images/common/logo_wht.png") no-repeat center center;
 }
-.logo a{
-  display: block;
-  width: 219px;
-  height: 37px;
-}
-/* 왼쪽 ul 테그 정리 */
-.gnb1{
-  border-bottom: 1px solid rgba(255, 255, 255, .3);
-  position: relative;
-  width: 980px;
-  height: 70px;
-  margin: 0 auto;
-}
- .g_menu1{
-  opacity: .5;
-  float: left;
-  margin-top: 40px;
-}
-.g_menu1 li{
-  margin-right: 14px;
-  float: left;
-}
-.g_menu1 a{
-  height: 14px;
-  line-height: 14px;
-  background-repeat: no-repeat;
-  background-position: 0 center;
-  display: block;
-  color: #FFF;
-}
+
 .afb{
     background-image: url(https://www.lottecinema.co.kr/NLCHS/Content/images/icon/gnb_facebook_wht.png);
     padding-left: 18px;
@@ -569,44 +336,7 @@ export default {
   background-image: url(https://www.lottecinema.co.kr/NLCHS/Content/images/icon/gnb_follow_wht.png);
   padding-left: 17px;
 }
-/* 오른쪽 ul 테그 정리 */
-.g_menu2{
-  opacity: .5;
-  float: right;
-  margin-top: 40px;
-}
-.g_menu2 li{
-  margin-right: 14px;
-  float: left;
-}
-.g_menu2 a{
-  height: 14px;
-  line-height: 14px;
-  background-repeat: no-repeat;
-  background-position: 0 center;
-  display: block;
-  color: #FFF;
-}
-/* 오른쪽 아래 ul 테그 정리 */
-.g_menu3{
-  position: absolute;
-  right: 0;
-  top: 88px;
-  margin-top: 0;
-}
-.g_menu3 li{
-  margin-right: 25px;
-  float: left;
-}
-.g_menu3 a{
-  height: 14px;
-  line-height: 14px;
-  font-size: 11px;
-  background-repeat: no-repeat;
-  background-position: 0 center;
-  display: block;
-  color: #FFF;
-}
+
 .btn_my{
   background-image: url(https://www.lottecinema.co.kr/NLCHS/Content/images/icon/nav_side_my_wht.png);
   padding-left: 15px;
@@ -623,35 +353,4 @@ export default {
   color: #FFF;
   text-indent: -9999em
 }
- /* 메인 nav */
-.nav{
-  width: 980px;
-  margin: 3px auto 0;
-  text-align: center;
-}
-.nav li{
-  display: inline-block;
-
-}
-.nav a{
-  color: #FFF;
-  line-height: 40px;
-  position: relative;
-  padding: 0 24px;
-  font-size: 14px;
-  letter-spacing: 0.1em;
-}
-// none 세션
-.nav .display{
-  display: none;
-  background-color: rgba(0, 0, 0, .7);
-  position: absolute;
-  z-index: 2;
-  left: 0;
-  right: 0;
-  top: 114px;
-  height: 38px;
-  text-align: center;
-}
-
 </style>
