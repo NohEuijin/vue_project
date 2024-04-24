@@ -30,39 +30,41 @@
       <tr>
         <td class="bg-gray100">번호</td>
         <td>
-          <span>1</span>
+          <span>
+             {{ user.id }}
+          </span>
         </td>
         <td class="bg-gray100">휴대폰번호</td>
         <td>
-          <span>01023588910</span>
+          <span>{{ user.phone }}</span>
         </td>
       </tr>
       <tr>
         <td class="bg-gray100">아이디</td>
         <td>
-          <span>shdmlwls2</span>
+          <span>{{ user.username }}</span>
         </td>
         <td class="bg-gray100" rowspan="3">주소</td>
         <td>
-          <span>701756</span>
+          <span>{{ user.addressZipCode }}</span>
         </td>
       </tr>
       <tr>
         <td class="bg-gray100">이름</td>
         <td>
-          <span>조용팔</span>
+          <span>{{ user.name }}</span>
         </td>
         <td>
-          <span>서울시 독산동 독산주공아파트</span>
+          <span>{{ user.address }}</span>
         </td>
       </tr>
       <tr>
         <td class="bg-gray100">이메일</td>
         <td>
-          <span>shdmlwls2@naver.com</span>
+          <span>{{ user.email }}</span>
         </td>
         <td>
-          <span> 104동 110</span>
+          <span>{{ user.addressDetail }}</span>
         </td>
       </tr>
     </tbody>
@@ -84,14 +86,68 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="msd_td_list">
-          <td>제목이다</td>
-          <td>작성일이다</td>
-          <td>댓글이다</td>
-          <td>조회이다</td>
+        <tr
+        v-for="(freeboards, index) of freeboardList" :key="index"
+        class="msd_td_list">
+          <td>
+            {{ truncateText(freeboards.title || "Null" , 30) }}
+          </td>
+          <td>
+            {{ formatDate(freeboards.created_at || "Null")  }}
+          </td>
+          <td>
+            {{ freeboards.replycount }}
+          </td>
+          <td>
+            {{ freeboards.viewcount || "0" }}
+          </td>
         </tr>
       </tbody>
     </table>
+    <div class="pagination">
+      <ol>
+        <li
+        v-for="(page, pageIdx) of page_count" :key="`page-${pageIdx}`">
+          <a class="strong_p"
+          :class="[start_page === page ? ('text-red') : null]"
+          @click="clickPagination(page)">
+          {{ page }}
+          </a>
+        </li>
+      </ol>
+    </div>
+<!-- <div class="pagination">
+<ol>
+<li v-for="pageNumber in page_count" :key="`page-${pageNumber}`">
+  <a class="strong_p"
+      :class="[start_page === pageNumber ? 'text-red' : null]"
+      @click="clickPagination(pageNumber)">
+    {{ pageNumber }}
+  </a>
+</li>
+</ol>
+</div> -->
+    <!-- <div class="pagination">
+      <ol>
+        <li>
+          <a class="strong_p">
+          1
+          </a>
+          <a class="strong_p">
+          2
+          </a>
+          <a class="strong_p">
+          3
+          </a>
+          <a class="strong_p">
+          4
+          </a>
+          <a class="strong_p">
+          5
+          </a>
+        </li>
+      </ol>
+    </div> -->
   </v-col>
   </v-col>
   <v-col cols="6">
@@ -128,28 +184,68 @@
 export default {
   data() {
     return {
-      mainImgPreview:'',
-      subImgPreviews:[],
+      user:'',
+      replycount:'',
+      start_page:1,
+      total_page:0,
+      items_per_page:10,
+      freeboardList:[],
     };
   },
   methods: {
-    handleMainImgChange(event) {
-      const file = event.target.files[0];
-      this.mainImgPreview = URL.createObjectURL(file);
-    },
-    handleSubImgChange(event) {
-      const files = event.target.files;
-      const newFiles = Array.from(files).slice(0, 4);
-      this.subImgPreviews = [];
-      console.log(files)
-      console.log(newFiles)
-      for (let i = 0; i < newFiles.length; i++) {
-        this.subImgPreviews.push(URL.createObjectURL(newFiles[i]));
-      }
-    }
-  },
-  created() {
+    async getuserDetail(){
+      try{
+        let form = {
+          id: this.$route.params.id,
+          start: (this.start_page - 1) * this.items_per_page,
+          limit: this.start_page * this.items_per_page
+        }
+        let res = await this.$store.dispatch('userDetail',form);
+        console.log(res)
+        this.user = res.users[0]
+        let new_board_list = []
+        if(Array.isArray(res.freeBoards) && res.freeBoards.length > 0){
+          for(let i = 0; i < res.freeBoards.length; i++){
+            let el = res.freeBoards[i]
+            el["replycount"] = el.replies.length
+            new_board_list.push(el)
+          }
+        }
+        this.freeboardList = new_board_list
 
+        console.log(this.page_count)
+        }catch(err){
+          console.log(err)
+      }
+    },
+    formatDate(dateString){
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year} - ${month} - ${day}`;
+  },
+  clickPagination(value){
+    console.log(this.value)
+    console.log(value)
+    this.start_page = value
+    this.getuserDetail()
+  },
+  truncateText(text,maxLength){
+    if(text.length > maxLength){
+      return text.substring(0, maxLength) + '...';
+    }
+    return text;
+  },
+  },
+  computed:{
+    page_count:function() {
+    return this.total_page === 0 ? 0 : Math.floor((this.total_page / this.items_per_page)) +
+      (this.total_page % this.items_per_page > 0 ? 1 : 0);
+  },
+  },
+  async mounted(){
+    await this.getuserDetail();
   },
 };
 </script>
@@ -209,6 +305,8 @@ table{
   background-color: rgb(240, 240, 240) !important;
   font-weight: 600 !important;
   border: 1px solid #f5f5f5 !important;
+  height: 30px;
+  font-size: 13px;
 }
 .msd_th_list > th:nth-child(1){
   width: 300px;
@@ -220,17 +318,21 @@ table{
   width: 70px;
 }
 .msd_th_list > th:nth-child(4){
-  width: 50px;
+  width: 70px;
 }
 .msd_td_list > td:nth-child(n){
   text-align: center !important;
   border: 1px solid #f5f5f5 !important;
+  height: 30px;
+  // font-size: 13px;
 }
 .msd_th_list2 > th:nth-child(n){
   text-align: center !important;
   background-color: rgb(240, 240, 240) !important;
   font-weight: 600 !important;
   border: 1px solid #f5f5f5 !important;
+  height: 30px;
+  font-size: 13px;
 }
 .msd_th_list2 > th:nth-child(1){
   width: 250px;
@@ -247,6 +349,8 @@ table{
 .msd_td_list2 > td:nth-child(n){
   text-align: center !important;
   border: 1px solid #f5f5f5 !important;
+  height: 30px;
+  // font-size: 13px;
 }
 
 </style>

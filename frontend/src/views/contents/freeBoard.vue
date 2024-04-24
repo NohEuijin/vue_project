@@ -219,10 +219,11 @@ import { onMounted  } from 'vue';
   async function getFreeBoards(){
     let form = {
       start: (start_page.value - 1) * items_per_page.value,
-      limit: start_page.value * items_per_page.value,
+      limit: items_per_page.value,
+      // limit: start_page.value * items_per_page.value,
       sortCondition: dataDesc.value === '최신' ? 'updated_at:desc' : (dataDesc.value === '조회' ? 'viewcount:desc' : 'id:asc')
     }
-
+    // console.log(items_per_page.value)
     // searchText 값 존재 = form[search] 값 = 검색
     if(searchText.value){
       form["search"] = searchText.value
@@ -232,9 +233,19 @@ import { onMounted  } from 'vue';
     await store.dispatch('freeBoardList', form)
     .then((res) => {
       console.log(res);
+      console.log(res.freeBoards[0])
       total_page.value = res.freeBoardsConnection.aggregate.count;
       freeBoardList.value = res.freeBoards;
+
+      // username = null 인 회원 글 삭제
+        for (const board of res.freeBoards) {
+        if (!board.user || !board.user.username) {
+          // console.log('User name is null:', board);
+          deleteBoard(board);
+        }
+      }
     }
+
     )
     .catch(err => console.error(err));
 
@@ -243,6 +254,15 @@ import { onMounted  } from 'vue';
       confirm("검색 결과가 존재하지 않습니다.")
       searchText.value ='';
       await getFreeBoards();
+    }
+  }
+  // 글 삭제
+  async function deleteBoard(board) {
+      try {
+      await store.dispatch('deleteFreeBoard', { id: board.id});
+      router.push({ name: 'freeBoard' });
+    } catch (err) {
+      console.log(err);
     }
   }
 

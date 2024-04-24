@@ -186,50 +186,68 @@ query userList(
 
 export const userDetail = gql`
 query userDetail(
-  $id:ID,
-  $username : String,
-  $name : String,
-  $email : String,
-  $phone : String,
-  $addressZipCode : String,
-  $address : String,
-  $addressDetail : String,
-)
-{
-  users(
-    where:{
-			id:$id,
-      username:$username,
-      name:$name,
-      email:$email,
-      phone:$phone,
-      addressZipCode:$addressZipCode,
-      address:$address,
-      addressDetail:$addressDetail
+  $id: ID
+  $username: String
+  $name: String
+  $email: String
+  $phone: String
+  $addressZipCode: String
+  $address: String
+  $addressDetail: String
+  $start: Int
+  $limit: Int
+  $title: String
+  $viewcount: Int
+) {
+  freeBoards(
+    where: {
+    user: {
+      id: $id
     }
-  ){
+      title: $title
+      viewcount: $viewcount
+    }
+    start: $start
+    limit: $limit
+  ) {
+    id
+    title
+    created_at
+    viewcount
+    replies{
+      id
+      content
+    }
+  }
+  users(
+    where: {
+      id: $id
+      username: $username
+      name: $name
+      email: $email
+      phone: $phone
+      addressZipCode: $addressZipCode
+      address: $address
+      addressDetail: $addressDetail
+    }
+  ) {
     id
     username
     name
     phone
     email
     created_at
-    free_boards{
-      id
-      title
-      created_at
-      viewcount
-    }
   }
-  repliesConnection(where : {user:{id:$id}}){
-    aggregate{
+  repliesConnection(where: { user: { id: $id } }) {
+    aggregate {
       count
     }
   }
-  freeBoardsConnection(where : {user:{id:$id}}){
-    aggregate{
+  freeBoardsConnection(where: { user: { id: $id } }) {
+    aggregate {
       count
     }
   }
 }
+
 `

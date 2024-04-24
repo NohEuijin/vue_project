@@ -13,7 +13,7 @@ const breadcrumbs = shallowRef([
   {
     title: 'Main Poster',
     disabled: false,
-    href: '/mainposter'
+    href: '/admin/mainposter'
   },
   {
     title: 'Modify',

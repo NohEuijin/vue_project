@@ -219,7 +219,6 @@ export default {
         {title:"아이디",value:"usernameContains"},
         {title:"이름",value:"nameContains"}
       ],
-
       page_count:computed(()=>{
         return this.total_page === 0 ? 0 : Math.floor((this.total_page / this.items_per_page))
         + (this.total_page % this.items_per_page > 0 ? 1 : 0)
@@ -309,22 +308,36 @@ export default {
       this.getUserList();
     },
     togglechecks() {
-    const checkAllCheckbox = document.querySelector('.ms_in_check_all');
-    const isChecked = checkAllCheckbox.checked;
-    const checkboxes = document.querySelectorAll('.ms_in_check');
+      const checkAllCheckbox = document.querySelector('.ms_in_check_all');
+      const isChecked = checkAllCheckbox.checked;
+      const checkboxes = document.querySelectorAll('.ms_in_check');
+
     checkboxes.forEach(checkbox => {
       checkbox.checked = isChecked;
     });
+
     if (isChecked) {
       this.userList.forEach(user => {
         this.handleCheck(user.id);
       });
+    }else{
+      this.selectedUserIds = [];
     }
   },
-    handleCheck(userId) {
-    console.log(userId);
-    this.selectedUserIds.push(userId);
-  },
+  handleCheck(userId) {
+    const members = [...this.selectedUserIds];
+    const index = members.indexOf(userId);
+    if (index !== -1) {
+        // If userId exists in members array, remove it
+        members.splice(index, 1);
+    } else {
+        // If userId doesn't exist, add it
+        members.push(userId);
+    }
+    console.log(members);
+
+    this.selectedUserIds = members;
+},
   async deleteUser() {
   for (const userId of this.selectedUserIds) {
     await this.$store.dispatch('deleteuser', { id: userId });

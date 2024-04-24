@@ -40,7 +40,7 @@ export default {
   const bannerIndex = ref(Math.floor(Math.random() * banners.length));
     setInterval(() => {
     bannerIndex.value = Math.floor(Math.random() * banners.length);
-    console.log(bannerIndex)
+    // console.log(bannerIndex)
   },20000); //20 seconds
     return{
       banners,

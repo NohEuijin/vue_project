@@ -114,6 +114,9 @@
                       취소
                     </button>
                   </div>
+                  <div v-else>
+
+                  </div>
               </div>
           </div>
           <!-- 댓글 list 끝 -->
@@ -136,6 +139,7 @@ const freeBoard = ref('');
 // store.state.meData 에서 userId를 가지고오고 체크
 const userId = computed(() => store.state.meData);
 console.log(userId.value.id)
+
 
 onMounted(async () => {
   await getFreeBoard();
@@ -216,6 +220,7 @@ const content = ref('');
 async function getReplys(){
   await store.dispatch('replyList',{freeBoard_id:freeBoard.value.id})
   .then((res)=>{
+    console.log(res)
       replyList.value = res.replies;
     }
   )
