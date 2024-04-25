@@ -11,7 +11,7 @@
     <span>등록</span>
   </v-btn>
 </v-col>
-<v-col class="pa-0 d-flex mp_main_table">
+<v-col class="pa-0 d-flex ms_main_table">
   <!-- <v-col class="pa-0 mp_mt_vc1">주문일자</v-col> -->
   <v-col cols="5
 
@@ -20,7 +20,7 @@
       <v-col
         cols="5"
         lg="4"
-        class="pa-0 ml-5 mp_cal"
+        class="pa-0 ml-5 ms_cal"
         density="compact"
         hide-details="true"
       >
@@ -49,7 +49,7 @@
           </template>
           <v-date-picker
             v-if="menu1"
-            v-model="date"
+            v-model="start_date"
             no-title
             @update:model-value="inputClose"
           ></v-date-picker>
@@ -59,7 +59,7 @@
       <v-col
         cols="5"
         lg="4"
-        class="pa-0 mp_cal"
+        class="pa-0 ms_cal"
         density="compact"
         hide-details="true"
       >
@@ -87,9 +87,10 @@
           </template>
           <v-date-picker
             v-if="menu2"
-            v-model="date2"
+            v-model="end_date"
             no-title
             @update:model-value="inputClose2"
+
           ></v-date-picker>
         </v-menu>
       </v-col>
@@ -98,12 +99,13 @@
   <!-- <v-col cols="1" class="ml-7">키워드</v-col> -->
   <v-col cols="2" class="pa-0">
     <v-select
+    v-model="selete_choice"
     class="pa-0 mp_select"
     density="compact"
     hide-details="true"
     placeholder="Category"
     underline="none"
-    :items="['주문번호','아이디','주문상품']"
+    :items="select_list"
     >
     </v-select>
   </v-col>
@@ -113,13 +115,15 @@
     prepend-inner-icon="mdi-magnify"
     hide-details="true"
     density="compact"
+    v-model="search_text"
     placeholder="내용 입력"
     >
   </v-text-field>
   </v-col>
     <v-col cols="1" class="pa-0">
     <v-btn
-    class="pa-0 ml-1 mp_vbtn"
+    @click="deBounceSearch"
+    class="pa-0 ml-1 ms_vbtn"
     >검색</v-btn>
   </v-col>
 </v-col>
@@ -130,35 +134,46 @@
   dense
   >
     <thead>
-      <tr class="mp_list_table_tr">
-        <th><input type="checkbox" class="mp_in_check"></th>
-        <th>주문번호</th>
-        <th>아이디</th>
-        <th>주문 상품</th>
-        <th>총 주문수량</th>
-        <th>총 금액</th>
-        <th>주문 날짜</th>
+      <tr class="ms_list_table_tr">
+        <th>
+          <input
+          @click="togglechecks"
+          type="checkbox"
+          class="ms_in_check_all">
+        </th>
+        <th>번호</th>
+        <th>영화이름</th>
+        <th>감독</th>
+        <th>상영시작일</th>
+        <th>상영종료일</th>
+        <th>등록날짜</th>
         <th>비 고</th>
       </tr>
     </thead>
     <tbody>
       <tr
-      class="mp_list_table_tb_tr"
-      v-for="order in orders" :key="order.orderNumber">
-      <td><input type="checkbox" class="mp_in_check"></td>
-        <td>{{ order.orderNumber }}</td>
-        <td>{{ order.orderAccount }}</td>
-        <td>{{ order.orderProducts }}</td>
-        <td>{{ order.totalQuantity }}</td>
-        <td>{{ order.totalAmount }}</td>
-        <td>{{ order.orderDate }}</td>
-        <td class="pa-0 mp_read_td">
-
+      class="ms_list_table_tb_tr"
+      v-for="(posters, index) of posterList" :key="index"
+      >
+        <td>
+          <input
+          @click="handleCheck(posters.id)"
+          type="checkbox"
+          class="ms_in_check"
+          >
+        </td>
+        <td>{{ posters.id }}</td>
+        <td>{{ posters.name }}</td>
+        <td>{{ posters.director }}</td>
+        <td>{{ posters.starttime }}</td>
+        <td>{{ posters.endtime }}</td>
+        <td>{{ posterFormatDate(posters.created_at) }}</td>
+        <td class="pa-0 ms_read_td">
           <v-btn
-          @click="$router.push({name:'mpdetail'})"
+          @click="$router.push({name:'mpdetail',params:{id:posters.id}})"
           width="100%"
           color="gray100"
-          class="pa-0 mp_read_movie"
+          class="pa-0 ms_read_movie"
           elevation="0"
           >
             <span>상세보기</span>
@@ -167,46 +182,63 @@
       </tr>
     </tbody>
   </v-table>
+
+  <div class="pagination">
+    <ol>
+      <li
+      v-for="(page, pageIdx) of page_count" :key="`page-${pageIdx}`">
+        <a class="strong_p"
+        :class="[start_page === page ? ('text-red') : null]"
+        @click="clickPagination(page)">
+        {{ page }}
+        </a>
+      </li>
+    </ol>
+  </div>
 </template>
 
 <script>
 import dayjs from 'dayjs';
+import { computed } from 'vue';
 export default {
   data() {
+    const today = new Date();
     return {
-      orders: [
-        {
-          orderNumber: '001',
-          orderAccount: '김철수',
-          orderProducts: '어벤져스: 엔드게임',
-          totalQuantity: 2,
-          totalAmount: 30000,
-          orderDate: '2024-04-10',
-          remarks: '3D 상영'
-        },
-        {
-          orderNumber: '002',
-          orderAccount: '이영희',
-          orderProducts: '스파이더맨: 파 프롬 홈',
-          totalQuantity: 3,
-          totalAmount: 45000,
-          orderDate: '2024-04-11',
-          remarks: 'IMAX 상영'
-        },
-
+      today:today,
+      start_date:new Date(today.getFullYear(), today.getMonth(), 1),
+      end_date:new Date(today.getFullYear(), today.getMonth() + 1, 0),
+      menu1:false,
+      menu2:false,
+      posterList:[],
+      start_page:1,
+      total_page:0,
+      items_per_page:10,
+      search_text:'',
+      data_desc:'',
+      selete_choice:'allSearch',
+      lodingTime:200,
+      lodingTimer:null,
+      selectedPosterIds:[],
+      select_list:[
+        {title:"전체",value:"allSearch"},
+        {title:"이름",value:"nameContains"},
+        {title:"장르",value:"genreContains"},
+        {title:"감독",value:"directorContains"},
       ],
-      date: new Date(),
-      date2: new Date(),
-      menu1: false,
-      menu2: false,
+      page_count:computed(()=>{
+        return this.total_page === 0 ? 0 : Math.floor((this.total_page / this.items_per_page))
+        + (this.total_page % this.items_per_page > 0 ? 1 : 0)
+      }),
+
+
     };
   },
   computed: {
     computedDateFormatted() {
-      return this.formatDate(this.date);
+      return this.formatDate(this.start_date);
     },
     computedDateFormatted2() {
-      return this.formatDate2(this.date2);
+      return this.formatDate2(this.end_date);
     },
   },
   methods: {
@@ -217,108 +249,119 @@ export default {
       this.menu2 = true;
     },
     inputClose(newDate){
-      this.date = newDate || new Date();
+      this.start_date = newDate || new Date();
       this.menu1 = false;
     },
     inputClose2(newDate){
-      this.date2 = newDate || new Date();
+      this.end_date = newDate || new Date();
       this.menu2 = false;
     },
-    formatDate(date) {
-      if (!date) return null
-      return dayjs(date).format('YYYY-MM-DD')
+    formatDate(start_date) {
+      if (!start_date) return null
+      return dayjs(start_date).format('YYYY-MM-DD')
     },
-    formatDate2(date2) {
-      if (!date2) return null
-      return dayjs(date2).format('YYYY-MM-DD')
+    formatDate2(end_date) {
+      if (!end_date) return null
+      return dayjs(end_date).format('YYYY-MM-DD')
     },
+    async getPosterList(){
+      let form = {
+        start : (this.start_page - 1) * this.items_per_page,
+        limit : this.start_page * this.items_per_page,
+        startDate : this.start_date.toISOString(),
+        endDate : this.end_date.toISOString(),
+      }
+      if(this.selete_choice === "allSearch"){
+        form["allSearch"] =[{genre_contains : this.search_text}, {name_contains:this.search_text},{director_contains : this.search_text}]
+
+      }else{
+        form[this.selete_choice]=this.search_text;
+        form["allSearch"] =[{genre_contains : this.search_text}, {name_contains:this.search_text},{director_contains : this.search_text}]
+      }
+
+      console.log(form)
+
+      await this.$store.dispatch('posterList', form)
+      .then((res) => {
+        console.log(res);
+        this.total_page = res.postersConnection.aggregate.count;
+        this.posterList = res.posters;
+      })
+      .catch((err) => console.log(err))
+    },
+    posterFormatDate(dateString) {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
+      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    },
+    search(){
+      this.getPosterList();
+    },
+    deBounceSearch(){
+      clearTimeout(this.lodingTimer);
+      this.lodingTimer=setTimeout(()=>{
+        this.search();
+        this.lodingTimer =null;
+      },this.lodingTime)
+    },
+    clickPagination(value){
+      this.start_page = value;
+      this.getPosterList();
+    },
+    togglechecks() {
+      const checkAllCheckbox = document.querySelector('.ms_in_check_all');
+      const isChecked = checkAllCheckbox.checked;
+      const checkboxes = document.querySelectorAll('.ms_in_check');
+
+    checkboxes.forEach(checkbox => {
+      checkbox.checked = isChecked;
+    });
+
+    if (isChecked) {
+      this.posterList.forEach(potser => {
+        this.handleCheck(potser.id);
+      });
+    }else{
+      this.selectedPosterIds = [];
+    }
   },
+  handleCheck(potserId) {
+    const members = [...this.selectedPosterIds];
+    const index = members.indexOf(potserId);
+    if (index !== -1) {
+        members.splice(index, 1);
+    } else {
+        members.push(potserId);
+    }
+    console.log(members);
+
+    this.selectedPosterIds = members;
+},
+// async deletePoster() {
+//   if(!this.selectedPosterIds.length ){
+//     alert("선택된 영화가 존재하지 않습니다")
+//   }else{
+//     const deleteconfirm = confirm("삭제 처리 하시겠습니까?")
+//       if(deleteconfirm){
+//         for (const potserId of this.selectedPosterIds) {
+//         await this.$store.dispatch('', { id: potserId });
+//       }
+//       this.selectedPosterIds = [];
+//       this.getPosterList();
+//       }
+//     }
+//   return;
+// },
+
+  },
+  // vue 2는 mouted = vue 3 onMount
+  async mounted() {
+    await this.getPosterList()
+  }
 };
 </script>
-
-<style lang="scss">
-.mp_read_td{
-  border: 1px solid #f5f5f5 !important;
-}
-.mp_cal{
-cursor: pointer;
-}
-.v-field__overlay{
- position: relative !important;
-}
-.mp_list_table_tr > th:nth-child(n){
-  text-align: center !important;
-  background-color: rgb(240, 240, 240) !important;
-  font-weight: 600 !important;
-  border: 1px solid #f5f5f5 !important;
-}
-.mp_list_table_tb_tr > td:nth-child(n){
-  text-align: center !important;
-  border: 1px solid #f5f5f5 !important;
-}
-.mp_vbtn{
-  // max-width: 31px !important;
-  // min-width: 80px !important;
-  height:40px !important;
-  font-size:14px !important;
-  font-weight:600 !important;
-  background-color: #efefef !important;
-  // border: 1px solid rgb(200, 200, 200) !important;
-  border-radius: 4px;
-  color: rgb(116, 116, 116) !important;
-}
-.v-table{
-  line-height: 0 !important;
-}
-.mp_main_table{
-  text-align: end;
-  background-color: rgb(240, 240, 240);
-  font-size: 13px;
-  font-weight: 500 !important;
-  /* text-align: center; */
-  align-items: center;
-  // max-width: 100%;
-  // min-width: 100%;
-  height: 43px;
-  // min-height: unset !important;
-  /* border-bottom: 3px solid rgb(204, 204, 204) !important; */
-}
-
-.v_input_box{
-  color: #8f8f8f;
-}
-.v-text-field input{
-  color: black !important;
-}
-// .mp_read_movi:hover:not(table-column){
-//   background-color: rgba(6, 141, 141, 0.3);
-// }
-.mp_read_movie span{
-  font-weight: 600;
-  color: rgb(97, 97, 97) !important;
-}
-// .mp_mt_vc{
-//   max-width : 10%;
-// }
-
-// 등록 버튼
-.mp_reg_box{
-  width: 100%;
-  text-align: end;
-}
-.mp_reg_btn, .mp_del_btn{
-  border: 1px solid rgb(226, 226, 226) !important;
-  // background-color: rgb(240, 240, 240);
-}
-.mp_reg_btn span,.mp_del_btn span{
-  font-weight: 600;
-  font-size: 14px;
-  color: rgb(97, 97, 97) !important;
-}
-// 체크
-.mp_in_check{
-  width: 15px;
-  height: 15px;
-  cursor: pointer;
-}
-</style>

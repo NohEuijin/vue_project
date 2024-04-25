@@ -2,23 +2,18 @@
 import { ref, shallowRef } from 'vue';
 
 import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
-import Nmodify from '@/layouts/admin/management/notice/Nmodify.vue';
+import WaitingList from '@/layouts/admin/management/waitinglist/WaitingList.vue';
 
-const page = ref({ title: 'Modify' });
+const page = ref({ title: 'WaitingAdminList' });
 const breadcrumbs = shallowRef([
   {
     title: 'Management',
     disabled: false,
   },
   {
-    title: 'Notice',
-    disabled: false,
-    href: '/notice'
-  },
-  {
-    title: 'Modify',
+    title: 'WaitingList',
     disabled: true,
-    href: '/'
+    href: '#'
   }
 ]);
 </script>
@@ -28,7 +23,10 @@ const breadcrumbs = shallowRef([
 
   <v-row class="mt-0">
     <v-col cols="12" md="12">
-      <Nmodify />
+      <WaitingList />
     </v-col>
   </v-row>
 </template>
+<style>
+
+</style>

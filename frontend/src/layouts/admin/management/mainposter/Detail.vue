@@ -16,12 +16,6 @@
       <span>목록</span>
     </v-btn>
    </v-col>
-  <v-form
-  @submit.prevent="{submit, cancel}"
-  id="goods-img-form"
-  enctype="multipart/form-data"
-  >
-
     <v-table
     class="pa-0 mp_dt_table"
     density="compact"
@@ -31,75 +25,43 @@
       <tr>
         <td class="bg-gray100">제목</td>
         <td>
-          <input
-          type="text"
-          placeholder="제목입력"
-          v-model="제목입력"
-          />
+          {{ poster.name }}
         </td>
         <td class="bg-gray100">장르</td>
         <td>
-          <input
-          type="text"
-          placeholder="장르입력"
-          v-model="장르입력"
-          />
+          {{ poster.genre }}
         </td>
       </tr>
       <tr>
         <td class="bg-gray100">상영일</td>
         <td>
-          <input
-          type="text"
-          placeholder="상영일 입력"
-          v-model="상영일입력"
-          />
+          {{ poster.starttime }} ~ {{ poster.endtime }}
         </td>
         <td class="bg-gray100">감독</td>
         <td>
-          <input
-          type="text"
-          placeholder="감독 입력"
-          v-model="감독입력"
-          />
+          {{ poster.director }}
         </td>
       </tr>
       <tr>
         <td class="bg-gray100">상영시간</td>
         <td>
-          <input
-          type="text"
-          placeholder="상영 시간 입력"
-          v-model="상영시간입력"
-          />
+          {{ poster.showtime }}
         </td>
         <td class="bg-gray100" rowspan="2">출연</td>
         <td rowspan="2">
-          <textarea
-          type="text"
-          placeholder="출연진 입력"
-          v-model="출연입력"
-          ></textarea>
+          {{ poster.appearance }}
         </td>
       </tr>
       <tr>
         <td class="bg-gray100">관람연령</td>
         <td>
-          <input
-          type="text"
-          placeholder="연령 입력"
-          v-model="연령입력"
-          />
+          {{ poster.viewage }}
         </td>
       </tr>
       <tr>
         <td class="bg-gray100">줄거리</td>
-        <td colspan="4">
-          <textarea
-          type="text"
-          placeholder="줄거리 입력"
-          v-model="줄거리입력"
-          ></textarea>
+        <td class="poster_summary" colspan="4">
+          {{ poster.summary }}
         </td>
       </tr>
     </tbody>
@@ -112,35 +74,32 @@
     <div class="goods-imgs-wrap">
   <!-- 메인 포스터 이미지 -->
   <div class="goods-main-img-file">
-    <input
+    <!-- <input
     type="file"
     @change="handleMainImgChange"
     name="goodsMainImg"
     id="goods-main-img"
-    accept="image/*"/>
+    accept="image/*"/> -->
   </div>
   <!-- 서브 포스터 이미지 -->
   <div class="goods-detail-img-file">
-    <input
+    <!-- <input
     type="file"
     @change="handleSubImgChange"
     name="goodsDetailImg"
     id="goods-detail-img"
     accept="image/*"
-    multiple/>
+    multiple/> -->
   </div>
   <!-- 메인 및 상세 이미지 미리보기가 표시될 영역 -->
   <div class="image-lists">
     <ul class="image-lists-ul">
       <!-- 미리보기는 여기에 표시됩니다 -->
       <div class="goods-main-img-p">
-        <img
-        v-if="mainImgPreview"
-        :src="mainImgPreview"
-        alt="Main Image Preview"
-        class="preview-image">
+        <!-- {{ poster?.mainposter ? backUrl + poster.mainposter.url : "" }} -->
+        <img :src="poster?.mainposter ? backUrl + poster.mainposter.url : ''" alt="">
         <div class="img-title">
-            <span>메인 포스터 사진</span>
+            <span>스틸컷 사진</span>
         </div>
     </div>
 
@@ -162,16 +121,16 @@
   </div>
 </div>
   </v-container>
-
-</v-form>
 </template>
 
 <script>
 export default {
   data() {
     return {
+      backUrl: import.meta.env.VUE_APP_BACKEND_URL,
       mainImgPreview:'',
       subImgPreviews:[],
+      poster:'',
     };
   },
   methods: {
@@ -188,52 +147,32 @@ export default {
       for (let i = 0; i < newFiles.length; i++) {
         this.subImgPreviews.push(URL.createObjectURL(newFiles[i]));
       }
+    },
+    async getposter(){
+      try{
+        let res = await this.$store.dispatch('posterDetail',{id:this.$route.params.id});
+      console.log(res)
+      this.poster=res.posters[0];
+      }catch(err){
+        console.log(err)
+      }
     }
   },
-  created() {
-
+  async mounted(){
+    await this.getposter();
   },
 };
 </script>
 
 <style lang="scss">
-.mp_dt_table{
-  border: 1px solid rgb(226, 226, 226) !important;
-  text-align: start;
-  font-weight: 600;
+.poster_summary{
+  width: 500px;
+  height: auto;
+  white-space:pre;
 }
-.mp_dt_table td{
-  border: 1px solid rgb(226, 226, 226) !important;
-}
-.mp_dt_table input{
-  width: 100%;
-  height: 30px;
-  padding: 10px;
+.goods-main-img-p img{
+  width: 220px;
+  height: 350px;
   border-radius: 4px;
-  font-weight: 500 !important;
-}
-.mp_dt_table textarea{
-  width: 100%;
-  height: 60px;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 4px;
-  font-weight: 500 !important;
-  resize: none;
-}
-// 등록 버튼
-.mp_dt_submit_box{
-  width: 100%;
-  text-align: end;
-}
-.mp_dt_submit{
-  // position: absolute;
-  border: 1px solid rgb(226, 226, 226) !important;
-  // background-color: rgb(240, 240, 240);
-}
-.mp_dt_submit span{
-  font-weight: 600;
-  font-size: 14px;
-  color: rgb(97, 97, 97) !important;
 }
 </style>

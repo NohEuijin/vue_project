@@ -84,3 +84,31 @@ cursor: pointer;
   height: 15px;
   cursor: pointer;
 }
+.mp_read_movie span{
+  font-weight: 600;
+  color: rgb(97, 97, 97) !important;
+}
+.mp_reg_check_all{
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+.mp_reg_check{
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+// 삭제 버튼
+.mp_reg_box{
+  width: 100%;
+  text-align: end;
+}
+.mp_reg_btn, .mp_del_btn{
+  border: 1px solid rgb(226, 226, 226) !important;
+  // background-color: rgb(240, 240, 240);
+}
+.mp_reg_btn span,.mp_del_btn span{
+  font-weight: 600;
+  font-size: 14px;
+  color: rgb(97, 97, 97) !important;
+}

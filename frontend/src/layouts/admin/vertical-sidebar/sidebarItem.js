@@ -28,9 +28,9 @@ const sidebarItem = [
     to: '/admin/membership'
   },
   {
-    title: 'Notice',
+    title: 'WaitingAdminList',
     icon: 'mdi-human-male-board-poll',
-    to: '/admin/notice'
+    to: '/admin/waitinglist'
   },
   {
     title: 'Sales',

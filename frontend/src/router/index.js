@@ -29,7 +29,7 @@ const routes = [
         component: () => import('@/views/admin/menagement/mainposter/PostRegistration.vue'),
       },
       {
-        path: 'admin/mainposter/detail',
+        path: 'admin/mainposter/detail/:id',
         name: 'mpdetail',
         component: () => import('@/views/admin/menagement/mainposter/PostDetail.vue'),
       },
@@ -49,24 +49,9 @@ const routes = [
         component: () => import('@/views/admin/menagement/membership/MemberDetail.vue'),
       },
       {
-        path: 'admin/notice',
-        name: 'notice',
-        component: () => import('@/views/admin/menagement/notice/NoticeFrame.vue'),
-      },
-      {
-        path: 'admin/notice/detail',
-        name: 'ndetail',
-        component: () => import('@/views/admin/menagement/notice/NoticeDetail.vue'),
-      },
-      {
-        path: 'admin/notice/modify',
-        name: 'nmodify',
-        component: () => import('@/views/admin/menagement/notice/NoticeModify.vue'),
-      },
-      {
-        path: 'admin/notice/register',
-        name: 'nregister',
-        component: () => import('@/views/admin/menagement/notice/NoticeRegistration.vue'),
+        path: 'admin/waitinglist',
+        name: 'waitinglist',
+        component: () => import('@/views/admin/menagement/waitinglist/WaitingListFrame.vue'),
       },
       {
         path: 'admin/sales',

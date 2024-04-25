@@ -118,6 +118,7 @@ query replyList($freeBoard_id:ID){
 
 
 /*
+유저 리스트
 
 role:1 회원만 검색
 $search : 검색
@@ -183,7 +184,7 @@ query userList(
   }
 }
 `
-
+//유저 상세 보기
 export const userDetail = gql`
 query userDetail(
   $id: ID
@@ -250,4 +251,124 @@ query userDetail(
   }
 }
 
+`
+//관리자 대기 검색
+export const waitingAdminList = gql`
+query waitingAdminList(
+  $start:Int,
+  $limit:Int,
+  $usernameContains:String,
+  $nameContains:String,
+  $startDate:DateTime,
+  $endDate:DateTime,
+  $allSearch:JSON,
+){
+  usersConnection(
+    where:{
+      _or:$allSearch,
+      username_contains:$usernameContains,
+      name_contains:$nameContains,
+      created_at_gte:$startDate,
+      created_at_lte:$endDate,
+      role:"4"
+    }){
+    aggregate{
+      count
+    }
+  }
+  users(
+    where:{
+      _or:$allSearch,
+      username_contains:$usernameContains,
+      name_contains:$nameContains,
+      role: "4",
+      created_at_gte:$startDate,
+      created_at_lte:$endDate,
+    },
+    start:$start,
+    limit:$limit
+  ){
+    id
+    username
+    name
+    email
+    created_at
+    role{
+      id
+    }
+  }
+}
+`
+
+//영화 리스트
+export const posterList = gql`
+query posterList(
+  $start:Int,
+  $limit:Int,
+  $nameContains:String,
+  $genreContains:String,
+  $directorContains:String,
+  $startDate:DateTime,
+  $endDate:DateTime,
+  $allSearch:JSON,
+){
+  postersConnection(
+    where:{
+      _or:$allSearch
+      genre_contains:$genreContains
+      name_contains:$nameContains
+      director_contains:$directorContains
+      created_at_gte:$startDate
+      created_at_lte:$endDate
+    }){
+    aggregate{
+      count
+    }
+  }
+  posters(
+    where:{
+      _or:$allSearch
+      genre_contains:$genreContains
+      name_contains:$nameContains
+      director_contains:$directorContains
+      created_at_gte:$startDate
+      created_at_lte:$endDate
+    },
+    start:$start,
+    limit:$limit
+  ){
+      id
+      name
+      director
+      starttime
+      endtime
+      created_at
+  }
+}
+`
+
+//영화 상세보기
+export const posterDetail = gql`
+query posterDetail($id:ID){
+  posters(where: {id:$id}){
+    id
+    name
+    genre
+    director
+    appearance
+    viewage
+    showtime
+    starttime
+    endtime
+    summary
+    mainposter{
+      id
+      url
+    }
+    stillcut{
+      id
+      url
+    }
+  }
+}
 `

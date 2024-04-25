@@ -1,0 +1,70 @@
+{
+  "kind": "collectionType",
+  "collectionName": "posters",
+  "info": {
+    "name": "Poster",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "genre": {
+      "type": "string"
+    },
+    "director": {
+      "type": "string"
+    },
+    "appearance": {
+      "type": "string"
+    },
+    "starttime": {
+      "type": "date"
+    },
+    "endtime": {
+      "type": "date"
+    },
+    "summary": {
+      "type": "text"
+    },
+    "mainposter": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "stillcut": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "showtime": {
+      "type": "integer"
+    },
+    "viewage": {
+      "type": "enumeration",
+      "enum": [
+        "all",
+        "r12",
+        "r15",
+        "r19"
+      ]
+    }
+  }
+}

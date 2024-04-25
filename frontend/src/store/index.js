@@ -1,12 +1,32 @@
 /* eslint-disable no-empty-pattern */
 import { createStore } from 'vuex'
 import apollo from '@/apollo/config'
-import { register, login,
-  createFreeBoard, modifyFreeBoard,
-  deleteFreeBoard, createReply,
-  modifyReply, deleteReply,
-  updateAdmin, deleteuser } from '@/apollo/mutation'
-import { myData, freeBoardList, freeBoardDetail, replyList, duplicateUser, duplicateEmail, userList, userDetail } from '@/apollo/query'
+import {
+  register,
+  login,
+  createFreeBoard,
+  modifyFreeBoard,
+  deleteFreeBoard,
+  createReply,
+  modifyReply,
+  deleteReply,
+  updateAdmin,
+  deleteuser,
+  posterRegistration,
+} from '@/apollo/mutation'
+import {
+  myData,
+  freeBoardList,
+  freeBoardDetail,
+  replyList,
+  duplicateUser,
+  duplicateEmail,
+  userList,
+  userDetail,
+  waitingAdminList,
+  posterList,
+  posterDetail,
+} from '@/apollo/query'
 import { moduleA } from '@/store/moduleA'
 import { moduleB } from '@/store/moduleB'
 
@@ -358,8 +378,71 @@ Authorization: 'Bearer ' + localStorage.getItem(TOKENNAME),
         reject(err)
       })
     })
-  }
+  },
 
+  waitingAdminList({commit} , input ){
+    return new Promise((resolve, reject) => {
+      apollo.clients['defaultClient']
+      .query({
+        query:waitingAdminList,
+        variables:input
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
+
+  posterList({commit} , input ){
+    return new Promise((resolve, reject) => {
+      apollo.clients['defaultClient']
+      .query({
+        query:posterList,
+        variables:input
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
+
+  posterRegistration({commit} , input ){
+    return new Promise((resolve, reject) => {
+      apollo.clients['defaultClient']
+      .mutate({
+        mutation:posterRegistration,
+        variables:input
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
+
+  posterDetail({commit} , input ){
+    return new Promise((resolve, reject) => {
+      apollo.clients['defaultClient']
+      .query({
+        query:posterDetail,
+        variables:input
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
 
   },
 

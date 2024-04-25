@@ -14,7 +14,6 @@ module.exports = {
     'plugin:vue/essential',
     'prettier',
     'plugin:prettier/recommended',
-    'html'
   ],
   // 코드 정리 플러그인 추가
   plugins: ['prettier'],

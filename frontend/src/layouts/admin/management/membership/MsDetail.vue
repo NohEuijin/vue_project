@@ -4,7 +4,7 @@
      @click="$router.push({name:'membership'})"
      class="pa-0 ms_dt_submit">
       <span>목록</span>
-    </v-btn>
+    </v-btn> 
     <!-- <v-btn
      @click="$router.push({name:'mpmodify'})"
      class="pa-0 ml-3 ms_dt_submit">
@@ -188,7 +188,7 @@ export default {
       replycount:'',
       start_page:1,
       total_page:0,
-      items_per_page:10,
+      items_per_page:9,
       freeboardList:[],
     };
   },
@@ -198,10 +198,11 @@ export default {
         let form = {
           id: this.$route.params.id,
           start: (this.start_page - 1) * this.items_per_page,
-          limit: this.start_page * this.items_per_page
+          limit: this.items_per_page
         }
         let res = await this.$store.dispatch('userDetail',form);
-        console.log(res)
+        // console.log(form)
+        // console.log(res)
         this.user = res.users[0]
         let new_board_list = []
         if(Array.isArray(res.freeBoards) && res.freeBoards.length > 0){
@@ -212,7 +213,7 @@ export default {
           }
         }
         this.freeboardList = new_board_list
-
+        this.total_page = res.freeBoardsConnection.aggregate.count
         console.log(this.page_count)
         }catch(err){
           console.log(err)
@@ -239,7 +240,7 @@ export default {
   },
   },
   computed:{
-    page_count:function() {
+    page_count() {
     return this.total_page === 0 ? 0 : Math.floor((this.total_page / this.items_per_page)) +
       (this.total_page % this.items_per_page > 0 ? 1 : 0);
   },

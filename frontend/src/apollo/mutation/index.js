@@ -234,8 +234,7 @@ export const deleteReply = gql`
 */
 
 
-// 관리자 승인 대기 ( role = 4 )
-
+// 관리자 승인( role = 4=> )
 export const updateAdmin = gql`
 mutation updateAdmin(
   $id:ID!,
@@ -267,6 +266,7 @@ mutation updateAdmin(
   }
 }
 `
+//유저 탈퇴
 export const deleteuser = gql`
 mutation deleteUser(
   $id: ID!
@@ -284,4 +284,60 @@ mutation deleteUser(
     }
   }
 }
+`
+
+//영화 등록
+export const posterRegistration = gql`
+mutation posterRegistration(
+  $name : String,
+  $genre : String,
+  $director : String,
+  $appearance : String,
+  $viewage : ENUM_POSTER_VIEWAGE,
+  $showtime : Int,
+  $starttime : Date,
+  $endtime : Date,
+  $summary : String,
+  $mainposter :ID,
+  $stillcut :[ID],
+){
+  createPoster(
+    input : {
+      data:{
+     	name: $name
+      genre: $genre
+      director: $director
+      appearance: $appearance
+      viewage: $viewage
+      showtime: $showtime
+      starttime: $starttime
+      endtime: $endtime
+      summary: $summary
+      mainposter: $mainposter
+      stillcut: $stillcut
+      }
+      }
+    ){
+    poster{
+      id
+      name
+      genre
+      director
+      appearance
+      viewage
+      showtime
+      starttime
+      endtime
+      summary
+      mainposter{
+        id
+      }
+      stillcut{
+        id
+      }
+    }
+  }
+}
+
+
 `

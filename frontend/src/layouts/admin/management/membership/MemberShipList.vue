@@ -338,13 +338,21 @@ export default {
 
     this.selectedUserIds = members;
 },
-  async deleteUser() {
-  for (const userId of this.selectedUserIds) {
-    await this.$store.dispatch('deleteuser', { id: userId });
-  }
-  this.selectedUserIds = [];
-  this.getUserList();
-}
+async deleteUser() {
+  if(!this.selectedUserIds.length ){
+    alert("선택된 회원이 존재하지 않습니다")
+  }else{
+    const deleteconfirm = confirm("탈퇴 처리 하시겠습니까?")
+      if(deleteconfirm){
+        for (const userId of this.selectedUserIds) {
+        await this.$store.dispatch('deleteuser', { id: userId });
+      }
+      this.selectedUserIds = [];
+      this.getWaitAdminList();
+      }
+    }
+  return;
+},
 
   },
   // vue 2는 mouted = vue 3 onMount
