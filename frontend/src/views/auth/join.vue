@@ -1161,7 +1161,7 @@ em, p, address{
 .site-linker a{
   display: block;
   padding: 2px 10px;
-  font-size: inherit;
+  /* font-size: inherit; */
   color: #8a8a8a;
   text-decoration: none;
 }

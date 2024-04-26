@@ -96,13 +96,12 @@
     <ul class="image-lists-ul">
       <!-- 미리보기는 여기에 표시됩니다 -->
       <div class="goods-main-img-p">
-        <!-- {{ poster?.mainposter ? backUrl + poster.mainposter.url : "" }} -->
-        <img :src="poster?.mainposter ? backUrl + poster.mainposter.url : ''" alt="">
+        <img :src="poster?.mainposter ? backUrl + poster.mainposter.url : ''" alt="Image does not exist!">
         <div class="img-title">
-            <span>스틸컷 사진</span>
+            <span>메인 포스터 사진</span>
         </div>
     </div>
-
+<!--
     <div v-for="(subImgPreview, index) in subImgPreviews" :key="index" class="goods-detail-img-p">
       <div v-if="subImgPreview" >
         <img :src="subImgPreview" :alt="'Detail Image Preview ' + (index + 1)" class="preview-image">
@@ -115,7 +114,21 @@
       <div class="img-title">
         <span>서브 포스터 사진</span>
       </div>
-    </li>
+    </li> -->
+    <!--  -->
+    <div v-for="(image, index) in poster.stillcut" :key="index" class="goods-detail-img-p">
+      <div v-if="image">
+        <img :src="image ? backUrl + image.url: ''" alt="'Image does not exist'">
+        <div class="img-title" >
+          <span>스틸컷 사진-{{ index + 1 }}</span>
+        </div>
+      </div>
+    </div>
+    <!-- <li v-if="poster.stillcut.length===0" class="goods-detail-img-p">
+      <div class="img-title">
+        <span>스틸컷 사진</span>
+      </div>
+    </li> -->
       <!--  -->
     </ul>
   </div>
@@ -134,20 +147,20 @@ export default {
     };
   },
   methods: {
-    handleMainImgChange(event) {
-      const file = event.target.files[0];
-      this.mainImgPreview = URL.createObjectURL(file);
-    },
-    handleSubImgChange(event) {
-      const files = event.target.files;
-      const newFiles = Array.from(files).slice(0, 4);
-      this.subImgPreviews = [];
-      console.log(files)
-      console.log(newFiles)
-      for (let i = 0; i < newFiles.length; i++) {
-        this.subImgPreviews.push(URL.createObjectURL(newFiles[i]));
-      }
-    },
+    // handleMainImgChange(event) {
+    //   const file = event.target.files[0];
+    //   this.mainImgPreview = URL.createObjectURL(file);
+    // },
+    // handleSubImgChange(event) {
+    //   const files = event.target.files;
+    //   const newFiles = Array.from(files).slice(0, 4);
+    //   this.subImgPreviews = [];
+    //   console.log(files)
+    //   console.log(newFiles)
+    //   for (let i = 0; i < newFiles.length; i++) {
+    //     this.subImgPreviews.push(URL.createObjectURL(newFiles[i]));
+    //   }
+    // },
     async getposter(){
       try{
         let res = await this.$store.dispatch('posterDetail',{id:this.$route.params.id});
@@ -171,6 +184,11 @@ export default {
   white-space:pre;
 }
 .goods-main-img-p img{
+  width: 220px;
+  height: 350px;
+  border-radius: 4px;
+}
+.goods-detail-img-p img{
   width: 220px;
   height: 350px;
   border-radius: 4px;

@@ -220,7 +220,7 @@ img{
   color: inherit;
   border: none;
   padding: 0 !important;
-  font: inherit;
+  /* font: inherit; */
   opacity: .6;
   position: absolute;
 }
@@ -243,7 +243,7 @@ span{
     color: inherit;
     border: none;
     padding: 0 !important;
-    font: inherit;
+    /* font: inherit; */
 }
 .owl_dots span{
   width: 6px;

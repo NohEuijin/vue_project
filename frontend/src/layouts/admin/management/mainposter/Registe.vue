@@ -23,7 +23,7 @@
           <input
           type="text"
           placeholder="제목입력"
-          v-model="제목입력"
+          v-model="name"
           />
         </td>
         <td class="bg-gray100">장르</td>
@@ -31,7 +31,7 @@
           <input
           type="text"
           placeholder="장르입력"
-          v-model="장르입력"
+          v-model="genre"
           />
         </td>
       </tr>
@@ -41,7 +41,7 @@
           <input
           type="text"
           placeholder="상영일 입력"
-          v-model="상영일입력"
+          v-model="starttime"
           />
         </td>
         <td class="bg-gray100">감독</td>
@@ -49,7 +49,7 @@
           <input
           type="text"
           placeholder="감독 입력"
-          v-model="감독입력"
+          v-model="director"
           />
         </td>
       </tr>
@@ -59,36 +59,50 @@
           <input
           type="text"
           placeholder="상영 시간 입력"
-          v-model="상영시간입력"
+          v-model="showtime"
           />
         </td>
         <td class="bg-gray100" rowspan="2">출연</td>
         <td rowspan="2">
-          <textarea
+          <v-textarea
           type="text"
+          hide-details
+          variant="outlined none"
           placeholder="출연진 입력"
-          v-model="출연입력"
-          ></textarea>
+          v-model="appearance"
+          ></v-textarea>
         </td>
       </tr>
       <tr>
         <td class="bg-gray100">관람연령</td>
         <td>
-          <input
+          <!-- <input
           type="text"
           placeholder="연령 입력"
-          v-model="연령입력"
-          />
+          v-model="viewage"
+          /> -->
+          <v-select
+          class="items_select"
+          placeholder="연령"
+          :items="age_item"
+          hide-details
+          variant="outlined none"
+          density="compact"
+          v-model="viewage"
+          >
+          </v-select>
         </td>
       </tr>
       <tr>
         <td class="bg-gray100">줄거리</td>
         <td colspan="4">
-          <textarea
+          <v-textarea
           type="text"
           placeholder="줄거리 입력"
-          v-model="줄거리입력"
-          ></textarea>
+          hide-details
+          variant="outlined none"
+          v-model="summary"
+          ></v-textarea>
         </td>
       </tr>
     </tbody>
@@ -161,12 +175,26 @@ export default {
     return {
       mainImgPreview:'',
       subImgPreviews:[],
+      name:'',
+      genre:'',
+      director:'',
+      appearance:'',
+      viewage:'',
+      showtime:'',
+      starttime:'',
+      endtime:'',
+      summary:'',
+      mainposter:'',
+      stillcut:[],
+      age_item : ['all','r12','r15','r19'],
     };
   },
   methods: {
     handleMainImgChange(event) {
       const file = event.target.files[0];
       this.mainImgPreview = URL.createObjectURL(file);
+      this.mainPoster = file;
+      // console.log(this.mainPoster)
     },
     handleSubImgChange(event) {
       const files = event.target.files;
@@ -177,10 +205,30 @@ export default {
       for (let i = 0; i < newFiles.length; i++) {
         this.subImgPreviews.push(URL.createObjectURL(newFiles[i]));
       }
-    }
-  },
-  created() {
+      this.stillcut = files
+      // console.log(this.stillcut)
+    },
+    async potserRegistaion(){
+      const form = {
+        name : this.name,
+        genre : this.genre,
+        director : this.director,
+        appearance : this.appearance,
+        viewage : this.viewage,
+        showtime : this.showtime,
+        starttime : this.starttime,
+        endtime : this.endtime,
+        summary : this.summary,
+        mainposter : this.mainposter,
+        stillcut : this.stillcut,
+      }
+      console.log(form);
+      await this.$store.dispatch('posterRegistation',form)
+      .then((res)=>{
+        console.log(res);
 
+      })
+    }
   },
 };
 </script>
@@ -209,6 +257,9 @@ export default {
   border-radius: 4px;
   font-weight: 500 !important;
   resize: none;
+  // font-size: 12px !important;
+  // font: initial !important;
+  // font:initial; 또는 font: unset;
 }
 // 등록 버튼
 .mp_reg_submit_box{
@@ -225,5 +276,9 @@ export default {
   font-weight: 600;
   font-size: 14px;
   color: rgb(97, 97, 97) !important;
+}
+.items_select{
+  font-weight: 600 !important;
+
 }
 </style>
