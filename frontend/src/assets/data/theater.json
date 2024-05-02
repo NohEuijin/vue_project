@@ -1,0 +1,30 @@
+{
+  "location":[
+    {"title" : "전체", "value":"all"},
+    {"title" : "서울", "value":"서울"},
+    {"title" : "경기/인천", "value":"경기/인천"},
+    {"title" : "충청/대전", "value":"충청/대전"},
+    {"title" : "전라/광주", "value":"전라/광주"},
+    {"title" : "경북/대구", "value":"경북/대구"},
+    {"title" : "경남/부산/울산", "value":"경남/부산/울산"},
+    {"title" : "제주", "value":"제주"}
+  ],
+
+  "theater":{
+    "서울":[
+    {"title":"가산디지털", "value":"가산디지털"},
+    {"title":"가양", "value":"가양"},
+    {"title":"강동", "value":"강동"},
+    {"title":"목동", "value":"목동"}
+  ],
+  "경기/인천":[
+    {"title":"광교", "value":"광교"},
+    {"title":"광명", "value":"광명"},
+    {"title":"라페", "value":"라페"}
+  ],
+  "충청/대전" :[
+    {"title":"당진", "value":"당진"},
+    {"title":"대전", "value":"대전"}
+  ]
+  }
+}

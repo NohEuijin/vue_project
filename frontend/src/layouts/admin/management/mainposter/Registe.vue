@@ -1,12 +1,10 @@
 <template>
   <v-form
-  @submit.prevent="{submit, cancel}"
   id="goods-img-form"
-  enctype="multipart/form-data"
   >
     <v-col cols="12" class="pa-0 mp_reg_submit_box">
      <v-btn
-     @click="$router.push({name:'mainposter'})"
+     @click="posterRegistrationFrom"
      class="pa-0 mp_reg_submit">
       <span>등록</span>
     </v-btn>
@@ -37,12 +35,94 @@
       </tr>
       <tr>
         <td class="bg-gray100">상영일</td>
-        <td>
-          <input
+        <td class="mr_search2">
+          <!-- <input
           type="text"
           placeholder="상영일 입력"
           v-model="starttime"
-          />
+          /> -->
+    <div class="d-flex btn-group mr_search">
+      <v-col
+        cols="4"
+        lg="4"
+        class="pa-0 ml-2 ms_cal"
+        density="compact"
+        hide-details="true"
+      >
+        <v-menu
+          v-model="menu1"
+          :close-on-content-click="false"
+          transition="scale-transition"
+          offset-y
+          max-width="290px"
+          min-width="auto"
+          hide-details="true"
+        >
+          <template v-slot:activator="{}">
+            <v-text-field
+              class="calendar_text"
+              v-model="computedDateFormatted"
+              label=""
+              hint=""
+              persistent-hint
+              prepend-icon="mdi-calendar"
+              :size="10"
+              hide-details="true"
+              opacity="-0.06"
+              @click="openCalendar"
+              variant="plain"
+              readonly
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-if="menu1"
+            v-model="start_date"
+            no-title
+            @update:model-value="inputClose"
+          ></v-date-picker>
+        </v-menu>
+      </v-col>
+      <v-col cols="1" class="pa-0 mt-5">~</v-col>
+      <v-col
+        cols="4"
+        lg="4"
+        class="pa-0 ms_cal"
+        density="compact"
+        hide-details="true"
+      >
+        <v-menu
+          v-model="menu2"
+          :close-on-content-click="false"
+          transition="scale-transition"
+          offset-y
+          max-width="290px"
+          min-width="auto"
+          hide-details="true"
+        >
+          <template v-slot:activator="{}">
+            <v-text-field
+              class="calendar_text"
+              v-model="computedDateFormatted2"
+              label=""
+              hint=""
+              persistent-hint
+              prepend-icon="mdi-calendar"
+              readonly
+              hide-details="true"
+              @click="openCalendar2"
+              variant="plain"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-if="menu2"
+            v-model="end_date"
+            no-title
+            @update:model-value="inputClose2"
+
+          ></v-date-picker>
+        </v-menu>
+      </v-col>
+    </div>
         </td>
         <td class="bg-gray100">감독</td>
         <td>
@@ -67,8 +147,9 @@
           <v-textarea
           type="text"
           hide-details
-          variant="outlined none"
+          variant="plain"
           placeholder="출연진 입력"
+          density="compact"
           v-model="appearance"
           ></v-textarea>
         </td>
@@ -82,11 +163,10 @@
           v-model="viewage"
           /> -->
           <v-select
-          class="items_select"
-          placeholder="연령"
+          class="pa-1 ml-2 items_select"
           :items="age_item"
           hide-details
-          variant="outlined none"
+          variant="plain"
           density="compact"
           v-model="viewage"
           >
@@ -100,7 +180,8 @@
           type="text"
           placeholder="줄거리 입력"
           hide-details
-          variant="outlined none"
+          variant="plain"
+          density="compact"
           v-model="summary"
           ></v-textarea>
         </td>
@@ -170,8 +251,10 @@
 </template>
 
 <script>
+import dayjs from 'dayjs';
 export default {
   data() {
+    const today = new Date();
     return {
       mainImgPreview:'',
       subImgPreviews:[],
@@ -187,98 +270,121 @@ export default {
       mainposter:'',
       stillcut:[],
       age_item : ['all','r12','r15','r19'],
+      menu1:false,
+      menu2:false,
+      today:today,
+      start_date:new Date(today.getFullYear(), today.getMonth(), 1),
+      end_date:new Date(today.getFullYear(), today.getMonth() + 1, 0),
+      uploaded_id : {
+        main:"",
+        sub:[],
+      }
+
     };
   },
   methods: {
+    async uploadImages(){
+      if(!this.mainposter?.id){
+        await this.$store.dispatch('upload', {files: this.mainposter}).then((res) => {console.log(res,'메인이미지')
+        this.mainposter["id"] = res.data[0].id
+      })
+      }
+      for( let i = 0 ; i < this.stillcut.length; i++){
+        if(!this.stillcut[i].id){
+          await this.$store.dispatch('upload', {files:this.stillcut[i]}).then((res) => {console.log(res,'스틸컷')
+          this.stillcut[i]["id"] = res.data[0].id
+        })
+        }
+      }
+    },
+
     handleMainImgChange(event) {
       const file = event.target.files[0];
       this.mainImgPreview = URL.createObjectURL(file);
-      this.mainPoster = file;
-      // console.log(this.mainPoster)
+      this.mainposter = event.target.files[0];
+      // console.log(this.mainposter)
     },
     handleSubImgChange(event) {
       const files = event.target.files;
       const newFiles = Array.from(files).slice(0, 4);
       this.subImgPreviews = [];
-      console.log(files)
-      console.log(newFiles)
+      const importantInfo = [];
       for (let i = 0; i < newFiles.length; i++) {
         this.subImgPreviews.push(URL.createObjectURL(newFiles[i]));
       }
-      this.stillcut = files
+      this.stillcut = event.target.files;
       // console.log(this.stillcut)
     },
-    async potserRegistaion(){
+    async posterRegistrationFrom(){
+      await this.uploadImages()
+      let still_id = []
+      for(let i = 0; i < this.stillcut.length; i++){
+        still_id.push(this.stillcut[i].id)
+      }
+      // console.log(still_id)
+
+
       const form = {
         name : this.name,
         genre : this.genre,
         director : this.director,
         appearance : this.appearance,
         viewage : this.viewage,
-        showtime : this.showtime,
+        showtime : parseInt(this.showtime),
         starttime : this.starttime,
         endtime : this.endtime,
         summary : this.summary,
-        mainposter : this.mainposter,
-        stillcut : this.stillcut,
+        mainposter : this.mainposter.id,
+        stillcut : still_id,
       }
       console.log(form);
-      await this.$store.dispatch('posterRegistation',form)
-      .then((res)=>{
-        console.log(res);
 
-      })
-    }
+  let confirmRegister = confirm("등록 하시겠습니까?")
+    if(confirmRegister){
+    await this.$store.dispatch('posterRegistration',form).then((res)=> {
+    console.log(res);
+    // this.$router.push({name : 'mainposter'})
+    }).catch((err) =>{
+    console.log(err)
+    })
+    this.$router.push({name : 'mainposter'})
+  }
+    },
+    openCalendar(){
+      this.menu1 = true;
+    },
+    openCalendar2(){
+      this.menu2 = true;
+    },
+    inputClose(newDate){
+      this.start_date = newDate || new Date();
+      this.menu1 = false;
+    },
+    inputClose2(newDate){
+      this.end_date = newDate || new Date();
+      this.menu2 = false;
+    },
+    formatDate(start_date) {
+      if (!start_date) return null
+      this.starttime = dayjs(start_date).format('YYYY-MM-DD');
+      // console.log(this.starttime)
+      return dayjs(start_date).format('YYYY-MM-DD')
+
+    },
+    formatDate2(end_date) {
+      if (!end_date) return null
+      this.endtime= dayjs(end_date).format('YYYY-MM-DD')
+      // console.log(this.endtime)
+      return dayjs(end_date).format('YYYY-MM-DD')
+    },
+  },
+  computed:{
+    computedDateFormatted() {
+      return this.formatDate(this.start_date);
+    },
+    computedDateFormatted2() {
+      return this.formatDate2(this.end_date);
+    },
   },
 };
 </script>
-
-<style lang="scss">
-.mp_reg_table{
-  border: 1px solid rgb(226, 226, 226) !important;
-  text-align: start;
-  font-weight: 600;
-}
-.mp_reg_table td{
-  border: 1px solid rgb(226, 226, 226) !important;
-}
-.mp_reg_table input{
-  width: 100%;
-  height: 30px;
-  padding: 10px;
-  border-radius: 4px;
-  font-weight: 500 !important;
-}
-.mp_reg_table textarea{
-  width: 100%;
-  height: 60px;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 4px;
-  font-weight: 500 !important;
-  resize: none;
-  // font-size: 12px !important;
-  // font: initial !important;
-  // font:initial; 또는 font: unset;
-}
-// 등록 버튼
-.mp_reg_submit_box{
-  width: 100%;
-  text-align: end;
-}
-.mp_reg_submit{
-  // position: absolute;
-  margin: 10px;
-  border: 1px solid rgb(226, 226, 226) !important;
-  // background-color: rgb(240, 240, 240);
-}
-.mp_reg_submit span{
-  font-weight: 600;
-  font-size: 14px;
-  color: rgb(97, 97, 97) !important;
-}
-.items_select{
-  font-weight: 600 !important;
-
-}
-</style>

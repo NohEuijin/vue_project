@@ -40,6 +40,7 @@ class="pa-0 ms_del_btn">
             opacity="-0.06"
             @click="openCalendar"
             readonly
+            variant
           ></v-text-field>
         </template>
         <v-date-picker
@@ -77,7 +78,7 @@ class="pa-0 ms_del_btn">
             readonly
             hide-details="true"
             @click="openCalendar2"
-
+            variant
           ></v-text-field>
         </template>
         <v-date-picker
@@ -101,6 +102,7 @@ class="pa-0 ms_del_btn">
   placeholder="Category"
   underline="none"
   :items="select_list"
+  variant
   >
   </v-select>
 </v-col>
@@ -112,6 +114,7 @@ class="pa-0 ms_del_btn">
   density="compact"
   v-model="search_text"
   placeholder="내용 입력"
+  variant
   >
 </v-text-field>
 </v-col>

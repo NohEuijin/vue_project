@@ -1,9 +1,14 @@
 <template>
-    <v-col cols="12" class="pa-0 mb-5 ms_del_box">
+  <v-col cols="12" class="pa-0 mb-5 mp_reg_box">
     <v-btn
-      @click="deleteUser"
-  class="pa-0 ms_del_btn">
-    <span>탈퇴</span>
+  @click="deletePoster"
+  class="pa-0 mp_del_btn">
+    <span>삭제</span>
+  </v-btn>
+    <v-btn
+  @click="$router.push({name : 'mpRegister'})"
+  class="pa-0 ml-3 mp_reg_btn">
+    <span>등록</span>
   </v-btn>
 </v-col>
 <v-col class="pa-0 d-flex ms_main_table">
@@ -39,7 +44,7 @@
               hide-details="true"
               opacity="-0.06"
               @click="openCalendar"
-              variant
+              variant="plain"
               readonly
             ></v-text-field>
           </template>
@@ -78,7 +83,7 @@
               readonly
               hide-details="true"
               @click="openCalendar2"
-              variant
+              variant="plain"
             ></v-text-field>
           </template>
           <v-date-picker
@@ -102,7 +107,7 @@
     placeholder="Category"
     underline="none"
     :items="select_list"
-    variant
+    variant="plain"
     >
     </v-select>
   </v-col>
@@ -114,7 +119,7 @@
     density="compact"
     v-model="search_text"
     placeholder="내용 입력"
-    variant
+    variant="plain"
     >
   </v-text-field>
   </v-col>
@@ -139,36 +144,36 @@
           type="checkbox"
           class="ms_in_check_all">
         </th>
-        <th>회원번호</th>
-        <th>아이디</th>
-        <th>이름</th>
-        <th>휴대폰번호</th>
-        <th>이메일</th>
-        <th>가입 날짜</th>
+        <th>번호</th>
+        <th>영화이름</th>
+        <th>감독</th>
+        <th>상영시작일</th>
+        <th>상영종료일</th>
+        <th>등록날짜</th>
         <th>비 고</th>
       </tr>
     </thead>
     <tbody>
       <tr
       class="ms_list_table_tb_tr"
-      v-for="(users, index) of userList" :key="index"
+      v-for="(posters, index) of posterList" :key="index"
       >
         <td>
           <input
-          @click="handleCheck(users.id)"
+          @click="handleCheck(posters.id)"
           type="checkbox"
           class="ms_in_check"
           >
         </td>
-        <td>{{ users.id }}</td>
-        <td>{{ users.username }}</td>
-        <td>{{ users.name }}</td>
-        <td>{{ users.phone }}</td>
-        <td>{{ users.email }}</td>
-        <td>{{ userFormatDate(users.created_at) }}</td>
+        <td>{{ posters.id }}</td>
+        <td>{{ posters.name }}</td>
+        <td>{{ posters.director }}</td>
+        <td>{{ posters.starttime }}</td>
+        <td>{{ posters.endtime }}</td>
+        <td>{{ posterFormatDate(posters.created_at) }}</td>
         <td class="pa-0 ms_read_td">
           <v-btn
-          @click="$router.push({name:'msdetail',params:{id:users.id}})"
+          @click="$router.push({name:'mpdetail',params:{id:posters.id}})"
           width="100%"
           color="gray100"
           class="pa-0 ms_read_movie"
@@ -207,7 +212,7 @@ export default {
       end_date:new Date(today.getFullYear(), today.getMonth() + 1, 0),
       menu1:false,
       menu2:false,
-      userList:[],
+      posterList:[],
       start_page:1,
       total_page:0,
       items_per_page:10,
@@ -216,18 +221,17 @@ export default {
       selete_choice:'allSearch',
       lodingTime:200,
       lodingTimer:null,
-      selectedUserIds:[],
+      selectedPosterIds:[],
       select_list:[
         {title:"전체",value:"allSearch"},
-        {title:"아이디",value:"usernameContains"},
-        {title:"이름",value:"nameContains"}
+        {title:"이름",value:"nameContains"},
+        {title:"장르",value:"genreContains"},
+        {title:"감독",value:"directorContains"},
       ],
       page_count:computed(()=>{
         return this.total_page === 0 ? 0 : Math.floor((this.total_page / this.items_per_page))
         + (this.total_page % this.items_per_page > 0 ? 1 : 0)
       }),
-
-
     };
   },
   computed: {
@@ -261,7 +265,7 @@ export default {
       if (!end_date) return null
       return dayjs(end_date).format('YYYY-MM-DD')
     },
-    async getUserList(){
+    async getPosterList(){
       let form = {
         start : (this.start_page - 1) * this.items_per_page,
         limit : this.start_page * this.items_per_page,
@@ -269,24 +273,24 @@ export default {
         endDate : this.end_date.toISOString(),
       }
       if(this.selete_choice === "allSearch"){
-        form["allSearch"] =[{username_contains : this.search_text}, {name_contains:this.search_text}]
+        form["allSearch"] =[{genre_contains : this.search_text}, {name_contains:this.search_text},{director_contains : this.search_text}]
 
       }else{
         form[this.selete_choice]=this.search_text;
-        form["allSearch"] =[{username_contains : this.search_text}, {name_contains:this.search_text}]
+        form["allSearch"] =[{genre_contains : this.search_text}, {name_contains:this.search_text},{director_contains : this.search_text}]
       }
 
-      console.log(form)
+      // console.log(form)
 
-      await this.$store.dispatch('userList', form)
+      await this.$store.dispatch('posterList', form)
       .then((res) => {
-        console.log(res);
-        this.total_page = res.usersConnection.aggregate.count;
-        this.userList = res.users;
+        // console.log(res);
+        this.total_page = res.postersConnection.aggregate.count;
+        this.posterList = res.posters;
       })
       .catch((err) => console.log(err))
     },
-    userFormatDate(dateString) {
+    posterFormatDate(dateString) {
       const date = new Date(dateString);
       const year = date.getFullYear();
       const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -297,7 +301,7 @@ export default {
       return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     },
     search(){
-      this.getUserList();
+      this.getPosterList();
     },
     deBounceSearch(){
       clearTimeout(this.lodingTimer);
@@ -308,7 +312,7 @@ export default {
     },
     clickPagination(value){
       this.start_page = value;
-      this.getUserList();
+      this.getPosterList();
     },
     togglechecks() {
       const checkAllCheckbox = document.querySelector('.ms_in_check_all');
@@ -320,38 +324,36 @@ export default {
     });
 
     if (isChecked) {
-      this.userList.forEach(user => {
-        this.handleCheck(user.id);
+      this.posterList.forEach(potser => {
+        this.handleCheck(potser.id);
       });
     }else{
-      this.selectedUserIds = [];
+      this.selectedPosterIds = [];
     }
   },
-  handleCheck(userId) {
-    const members = [...this.selectedUserIds];
-    const index = members.indexOf(userId);
+  handleCheck(potserId) {
+    const members = [...this.selectedPosterIds];
+    const index = members.indexOf(potserId);
     if (index !== -1) {
-        // If userId exists in members array, remove it
         members.splice(index, 1);
     } else {
-        // If userId doesn't exist, add it
-        members.push(userId);
+        members.push(potserId);
     }
-    console.log(members);
+    // console.log(members);
 
-    this.selectedUserIds = members;
+    this.selectedPosterIds = members;
 },
-async deleteUser() {
-  if(!this.selectedUserIds.length ){
-    alert("선택된 회원이 존재하지 않습니다")
+async deletePoster() {
+  if(!this.selectedPosterIds.length ){
+    alert("체크 해주세요!")
   }else{
-    const deleteconfirm = confirm("탈퇴 처리 하시겠습니까?")
+    const deleteconfirm = confirm("삭제 하시겠습니까?")
       if(deleteconfirm){
-        for (const userId of this.selectedUserIds) {
-        await this.$store.dispatch('deleteuser', { id: userId });
+        for (const potserId of this.selectedPosterIds) {
+        await this.$store.dispatch('deletePoster', { id: potserId });
       }
-      this.selectedUserIds = [];
-      this.getWaitAdminList();
+      this.selectedPosterIds = [];
+      this.getPosterList();
       }
     }
   return;
@@ -360,7 +362,7 @@ async deleteUser() {
   },
   // vue 2는 mouted = vue 3 onMount
   async mounted() {
-    await this.getUserList()
+    await this.getPosterList()
   }
 };
 </script>

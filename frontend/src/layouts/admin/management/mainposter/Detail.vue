@@ -1,12 +1,12 @@
 <template>
       <v-col cols="12" class="pa-0 mb-5 mp_dt_submit_box">
     <v-btn
-     @click="$router.push({name:'mpmodify'})"
+     @click="$router.push({name:'mpmodify',params:{id:poster.id}})"
      class="pa-0 mp_dt_submit">
       <span>수정</span>
     </v-btn>
     <v-btn
-     @click="$router.push({name:'mainposter'})"
+     @click=deletePoster
      class="pa-0 ml-3 mp_dt_submit">
       <span>삭제</span>
     </v-btn>
@@ -48,7 +48,7 @@
           {{ poster.showtime }}
         </td>
         <td class="bg-gray100" rowspan="2">출연</td>
-        <td rowspan="2">
+        <td class="pa-3 poster_appearance" rowspan="2">
           {{ poster.appearance }}
         </td>
       </tr>
@@ -60,7 +60,7 @@
       </tr>
       <tr>
         <td class="bg-gray100">줄거리</td>
-        <td class="poster_summary" colspan="4">
+        <td class="pa-3 poster_summary" colspan="4">
           {{ poster.summary }}
         </td>
       </tr>
@@ -147,20 +147,6 @@ export default {
     };
   },
   methods: {
-    // handleMainImgChange(event) {
-    //   const file = event.target.files[0];
-    //   this.mainImgPreview = URL.createObjectURL(file);
-    // },
-    // handleSubImgChange(event) {
-    //   const files = event.target.files;
-    //   const newFiles = Array.from(files).slice(0, 4);
-    //   this.subImgPreviews = [];
-    //   console.log(files)
-    //   console.log(newFiles)
-    //   for (let i = 0; i < newFiles.length; i++) {
-    //     this.subImgPreviews.push(URL.createObjectURL(newFiles[i]));
-    //   }
-    // },
     async getposter(){
       try{
         let res = await this.$store.dispatch('posterDetail',{id:this.$route.params.id});
@@ -169,8 +155,18 @@ export default {
       }catch(err){
         console.log(err)
       }
-    }
+    },
+    async deletePoster() {
+    const deleteconfirm = confirm("삭제 하시겠습니까?")
+    // console.log(this.$route.params.id)
+    // console.log(this.poster.id)
+    if(deleteconfirm){
+      await this.$store.dispatch('deletePoster', { id:this.$route.params.id });
+      this.$router.push({name:'mainposter'})
+      }
+    },
   },
+
   async mounted(){
     await this.getposter();
   },
@@ -179,9 +175,15 @@ export default {
 
 <style lang="scss">
 .poster_summary{
-  width: 500px;
+  // overflow: auto;
+  width: auto;
   height: auto;
   white-space:pre;
+  line-height: 20px !important;
+}
+.poster_appearance{
+  white-space:pre;
+  line-height: 20px !important;
 }
 .goods-main-img-p img{
   width: 220px;

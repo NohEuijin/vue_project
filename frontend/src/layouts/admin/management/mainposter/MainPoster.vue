@@ -1,7 +1,7 @@
 <template>
   <v-col cols="12" class="pa-0 mb-5 mp_reg_box">
     <v-btn
-  @click="$router.push({name : '/'})"
+  @click="deletePoster"
   class="pa-0 mp_del_btn">
     <span>삭제</span>
   </v-btn>
@@ -44,6 +44,7 @@
               hide-details="true"
               opacity="-0.06"
               @click="openCalendar"
+              variant="plain"
               readonly
             ></v-text-field>
           </template>
@@ -82,7 +83,7 @@
               readonly
               hide-details="true"
               @click="openCalendar2"
-
+              variant="plain"
             ></v-text-field>
           </template>
           <v-date-picker
@@ -106,6 +107,7 @@
     placeholder="Category"
     underline="none"
     :items="select_list"
+    variant="plain"
     >
     </v-select>
   </v-col>
@@ -117,6 +119,7 @@
     density="compact"
     v-model="search_text"
     placeholder="내용 입력"
+    variant="plain"
     >
   </v-text-field>
   </v-col>
@@ -225,12 +228,6 @@ export default {
         {title:"장르",value:"genreContains"},
         {title:"감독",value:"directorContains"},
       ],
-      page_count:computed(()=>{
-        return this.total_page === 0 ? 0 : Math.floor((this.total_page / this.items_per_page))
-        + (this.total_page % this.items_per_page > 0 ? 1 : 0)
-      }),
-
-
     };
   },
   computed: {
@@ -240,6 +237,10 @@ export default {
     computedDateFormatted2() {
       return this.formatDate2(this.end_date);
     },
+    page_count(){
+      return this.total_page === 0 ? 0 : Math.floor((this.total_page / this.items_per_page))
+      + (this.total_page % this.items_per_page > 0 ? 1 : 0)
+    }
   },
   methods: {
     openCalendar(){
@@ -279,11 +280,11 @@ export default {
         form["allSearch"] =[{genre_contains : this.search_text}, {name_contains:this.search_text},{director_contains : this.search_text}]
       }
 
-      console.log(form)
+      // console.log(form)
 
       await this.$store.dispatch('posterList', form)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.total_page = res.postersConnection.aggregate.count;
         this.posterList = res.posters;
       })
@@ -338,25 +339,25 @@ export default {
     } else {
         members.push(potserId);
     }
-    console.log(members);
+    // console.log(members);
 
     this.selectedPosterIds = members;
 },
-// async deletePoster() {
-//   if(!this.selectedPosterIds.length ){
-//     alert("선택된 영화가 존재하지 않습니다")
-//   }else{
-//     const deleteconfirm = confirm("삭제 처리 하시겠습니까?")
-//       if(deleteconfirm){
-//         for (const potserId of this.selectedPosterIds) {
-//         await this.$store.dispatch('', { id: potserId });
-//       }
-//       this.selectedPosterIds = [];
-//       this.getPosterList();
-//       }
-//     }
-//   return;
-// },
+async deletePoster() {
+  if(!this.selectedPosterIds.length ){
+    alert("체크 해주세요!")
+  }else{
+    const deleteconfirm = confirm("삭제 하시겠습니까?")
+      if(deleteconfirm){
+        for (const potserId of this.selectedPosterIds) {
+        await this.$store.dispatch('deletePoster', { id: potserId });
+      }
+      this.selectedPosterIds = [];
+      this.getPosterList();
+      }
+    }
+  return;
+},
 
   },
   // vue 2는 mouted = vue 3 onMount

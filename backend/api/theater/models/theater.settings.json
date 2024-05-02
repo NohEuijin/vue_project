@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "theaters",
+  "info": {
+    "name": "Theater",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "readytime": {
+      "type": "integer",
+      "default": 15
+    },
+    "posters": {
+      "collection": "poster",
+      "via": "theater"
+    },
+    "ratio": {
+      "type": "string"
+    },
+    "bokdo": {
+      "type": "string"
+    },
+    "blank": {
+      "type": "string"
+    },
+    "schedules": {
+      "via": "theater",
+      "collection": "schedule"
+    }
+  }
+}

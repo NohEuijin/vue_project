@@ -1,6 +1,7 @@
 /* eslint-disable no-empty-pattern */
 import { createStore } from 'vuex'
 import apollo from '@/apollo/config'
+import axios from 'axios'
 import {
   register,
   login,
@@ -13,6 +14,9 @@ import {
   updateAdmin,
   deleteuser,
   posterRegistration,
+  modifyPoster,
+  deletePoster,
+
 } from '@/apollo/mutation'
 import {
   myData,
@@ -26,6 +30,7 @@ import {
   waitingAdminList,
   posterList,
   posterDetail,
+  theaterList,
 } from '@/apollo/query'
 import { moduleA } from '@/store/moduleA'
 import { moduleB } from '@/store/moduleB'
@@ -433,6 +438,75 @@ Authorization: 'Bearer ' + localStorage.getItem(TOKENNAME),
       apollo.clients['defaultClient']
       .query({
         query:posterDetail,
+        variables:input
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
+
+  modifyPoster({commit} , input ){
+    return new Promise((resolve, reject) => {
+      apollo.clients['defaultClient']
+      .mutate({
+        mutation:modifyPoster,
+        variables:input
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
+
+  deletePoster({commit} , input ){
+    return new Promise((resolve, reject) => {
+      apollo.clients['defaultClient']
+      .mutate({
+        mutation:deletePoster,
+        variables:input
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
+
+  upload({}, input) {
+    return new Promise((resolve, reject) => {
+      var formData = new FormData()
+      formData.append('files', input.files)
+      let config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          // Authorization: 'Bearer ' + localStorage.getItem(TOKENNAME),
+        },
+      }
+      axios
+        .post(import.meta.env.VUE_APP_BACKEND_URL + '/upload', formData, config)
+        .then((data) => {
+          resolve(data)
+        })
+        .catch((err) => {
+          reject(err)
+        })
+    })
+  },
+
+  theaterList({commit} , input ){
+    return new Promise((resolve, reject) => {
+      apollo.clients['defaultClient']
+      .query({
+        query:theaterList,
         variables:input
       })
       .then(({data})=>{

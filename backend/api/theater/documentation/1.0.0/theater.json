@@ -1,6 +1,6 @@
 {
   "paths": {
-    "/posters": {
+    "/theaters": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -12,7 +12,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Poster"
+                    "$ref": "#/components/schemas/Theater"
                   }
                 }
               }
@@ -51,7 +51,7 @@
         },
         "summary": "",
         "tags": [
-          "Poster"
+          "Theater"
         ],
         "parameters": [
           {
@@ -201,7 +201,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Poster"
+                  "$ref": "#/components/schemas/Theater"
                 }
               }
             }
@@ -239,7 +239,7 @@
         },
         "summary": "",
         "tags": [
-          "Poster"
+          "Theater"
         ],
         "requestBody": {
           "description": "",
@@ -247,14 +247,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPoster"
+                "$ref": "#/components/schemas/NewTheater"
               }
             }
           }
         }
       }
     },
-    "/posters/count": {
+    "/theaters/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -306,12 +306,12 @@
         },
         "summary": "",
         "tags": [
-          "Poster"
+          "Theater"
         ],
         "parameters": []
       }
     },
-    "/posters/{id}": {
+    "/theaters/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -321,7 +321,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Poster"
+                  "$ref": "#/components/schemas/Theater"
                 }
               }
             }
@@ -359,7 +359,7 @@
         },
         "summary": "",
         "tags": [
-          "Poster"
+          "Theater"
         ],
         "parameters": [
           {
@@ -383,7 +383,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Poster"
+                  "$ref": "#/components/schemas/Theater"
                 }
               }
             }
@@ -421,7 +421,7 @@
         },
         "summary": "",
         "tags": [
-          "Poster"
+          "Theater"
         ],
         "requestBody": {
           "description": "",
@@ -429,7 +429,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPoster"
+                "$ref": "#/components/schemas/NewTheater"
               }
             }
           }
@@ -495,7 +495,7 @@
         },
         "summary": "",
         "tags": [
-          "Poster"
+          "Theater"
         ],
         "parameters": [
           {
@@ -514,7 +514,7 @@
   },
   "components": {
     "schemas": {
-      "Poster": {
+      "Theater": {
         "required": [
           "id"
         ],
@@ -525,102 +525,21 @@
           "name": {
             "type": "string"
           },
-          "genre": {
+          "city": {
             "type": "string"
           },
-          "director": {
+          "title": {
             "type": "string"
           },
-          "appearance": {
-            "type": "string"
+          "readytime": {
+            "type": "integer",
+            "default": 15
           },
-          "starttime": {
-            "type": "string"
-          },
-          "endtime": {
-            "type": "string"
-          },
-          "summary": {
-            "type": "string"
-          },
-          "mainposter": {
-            "required": [
-              "id",
-              "name",
-              "hash",
-              "mime",
-              "size",
-              "url",
-              "provider"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "alternativeText": {
-                "type": "string"
-              },
-              "caption": {
-                "type": "string"
-              },
-              "width": {
-                "type": "integer"
-              },
-              "height": {
-                "type": "integer"
-              },
-              "formats": {
-                "type": "object"
-              },
-              "hash": {
-                "type": "string"
-              },
-              "ext": {
-                "type": "string"
-              },
-              "mime": {
-                "type": "string"
-              },
-              "size": {
-                "type": "number"
-              },
-              "url": {
-                "type": "string"
-              },
-              "previewUrl": {
-                "type": "string"
-              },
-              "provider": {
-                "type": "string"
-              },
-              "provider_metadata": {
-                "type": "object"
-              },
-              "related": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
-          },
-          "stillcut": {
+          "posters": {
             "type": "array",
             "items": {
               "required": [
-                "id",
-                "name",
-                "hash",
-                "mime",
-                "size",
-                "url",
-                "provider"
+                "id"
               ],
               "properties": {
                 "id": {
@@ -629,47 +548,47 @@
                 "name": {
                   "type": "string"
                 },
-                "alternativeText": {
+                "genre": {
                   "type": "string"
                 },
-                "caption": {
+                "director": {
                   "type": "string"
                 },
-                "width": {
+                "appearance": {
+                  "type": "string"
+                },
+                "starttime": {
+                  "type": "string"
+                },
+                "endtime": {
+                  "type": "string"
+                },
+                "summary": {
+                  "type": "string"
+                },
+                "mainposter": {
+                  "type": "string"
+                },
+                "stillcut": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "showtime": {
                   "type": "integer"
                 },
-                "height": {
-                  "type": "integer"
-                },
-                "formats": {
-                  "type": "object"
-                },
-                "hash": {
+                "viewage": {
                   "type": "string"
                 },
-                "ext": {
+                "theater": {
                   "type": "string"
                 },
-                "mime": {
+                "schedule": {
                   "type": "string"
                 },
-                "size": {
-                  "type": "number"
-                },
-                "url": {
-                  "type": "string"
-                },
-                "previewUrl": {
-                  "type": "string"
-                },
-                "provider": {
-                  "type": "string"
-                },
-                "provider_metadata": {
-                  "type": "object"
-                },
-                "related": {
-                  "type": "string"
+                "published_at": {
+                  "type": "datetime"
                 },
                 "created_by": {
                   "type": "string"
@@ -680,113 +599,61 @@
               }
             }
           },
-          "showtime": {
-            "type": "integer"
+          "ratio": {
+            "type": "string"
           },
-          "viewage": {
-            "type": "string",
-            "enum": [
-              "all",
-              "r12",
-              "r15",
-              "r19"
-            ]
+          "bokdo": {
+            "type": "string"
           },
-          "theater": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "city": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "readytime": {
-                "type": "integer"
-              },
-              "posters": {
-                "type": "array",
-                "items": {
+          "blank": {
+            "type": "string"
+          },
+          "schedules": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "starttime": {
+                  "type": "time"
+                },
+                "endtime": {
+                  "type": "time"
+                },
+                "booking": {
+                  "type": "string"
+                },
+                "timecode": {
+                  "type": "string"
+                },
+                "place": {
+                  "type": "integer"
+                },
+                "log": {
+                  "type": "string"
+                },
+                "date": {
+                  "type": "string"
+                },
+                "theater": {
+                  "type": "string"
+                },
+                "poster": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "datetime"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
                   "type": "string"
                 }
-              },
-              "ratio": {
-                "type": "string"
-              },
-              "bokdo": {
-                "type": "string"
-              },
-              "blank": {
-                "type": "string"
-              },
-              "schedules": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "published_at": {
-                "type": "datetime"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
-          },
-          "schedule": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "starttime": {
-                "type": "time"
-              },
-              "endtime": {
-                "type": "time"
-              },
-              "booking": {
-                "type": "string"
-              },
-              "timecode": {
-                "type": "string"
-              },
-              "place": {
-                "type": "integer"
-              },
-              "log": {
-                "type": "string"
-              },
-              "date": {
-                "type": "string"
-              },
-              "theater": {
-                "type": "string"
-              },
-              "poster": {
-                "type": "string"
-              },
-              "published_at": {
-                "type": "datetime"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
               }
             }
           },
@@ -795,46 +662,41 @@
           }
         }
       },
-      "NewPoster": {
+      "NewTheater": {
         "properties": {
           "name": {
             "type": "string"
           },
-          "genre": {
+          "city": {
             "type": "string"
           },
-          "director": {
+          "title": {
             "type": "string"
           },
-          "appearance": {
+          "readytime": {
+            "type": "integer",
+            "default": 15
+          },
+          "posters": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ratio": {
             "type": "string"
           },
-          "starttime": {
+          "bokdo": {
             "type": "string"
           },
-          "endtime": {
+          "blank": {
             "type": "string"
           },
-          "summary": {
-            "type": "string"
-          },
-          "showtime": {
-            "type": "integer"
-          },
-          "viewage": {
-            "type": "string",
-            "enum": [
-              "all",
-              "r12",
-              "r15",
-              "r19"
-            ]
-          },
-          "theater": {
-            "type": "string"
-          },
-          "schedule": {
-            "type": "string"
+          "schedules": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "published_at": {
             "type": "datetime"
@@ -851,7 +713,7 @@
   },
   "tags": [
     {
-      "name": "Poster"
+      "name": "Theater"
     }
   ]
 }

@@ -43,11 +43,13 @@ query freeBoardList(
   $sortCondition:String,
   $search:String,
   $start:Int,
-  $limit:Int
+  $limit:Int,
+  $user_del: Boolean
 ){
   freeBoardsConnection(
     where:{
       title_contains:$search
+      user_null: $user_del
     }){
     aggregate{
       count
@@ -57,6 +59,7 @@ query freeBoardList(
       sort:$sortCondition,
       where:{
         title_contains:$search
+        user_null: $user_del
       },
       start:$start,
       limit:$limit
@@ -67,6 +70,7 @@ query freeBoardList(
       created_at
       updated_at
       viewcount
+
       user{
         username
       }
@@ -369,6 +373,45 @@ query posterDetail($id:ID){
       id
       url
     }
+  }
+}
+`
+
+//지역 상영관 리스트 검색
+export const theaterList = gql`
+query theaterList(
+	$start:Int,
+  $limit:Int,
+  $cityContain:String,
+  $titleContain:String,
+  $startDate:DateTime,
+  $endDate:DateTime,
+){
+  theatersConnection(
+    where:{
+    city:$cityContain,
+    title:$titleContain,
+    created_at_gte:$startDate,
+    created_at_lte:$endDate,
+    }){
+    aggregate{
+      count
+    }
+  }
+  theaters(
+    where:{
+    city:$cityContain,
+    title:$titleContain,
+    created_at_gte:$startDate,
+    created_at_lte:$endDate,
+    },
+  	start:$start,
+    limit:$limit,
+  ){
+    id
+    city
+    title
+    created_at
   }
 }
 `

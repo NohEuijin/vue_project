@@ -19,6 +19,26 @@ const routes = [
         component: () => import('@/views/admin/dashboard/DefaultDashboard.vue'),
       },
       {
+        path: 'admin/theater',
+        name: 'theater',
+        component: () => import('@/views/admin/menagement/theater/TheaterFrame.vue'),
+      },
+      {
+        path: 'admin/theater/detail/:id',
+        name: 'ttDetail',
+        component: () => import('@/views/admin/menagement/theater/TheaterDetail.vue'),
+      },
+      {
+        path: 'admin/schedule',
+        name: 'schedule',
+        component: () => import('@/views/admin/menagement/schedule/ScheduleFrame.vue'),
+      },
+      {
+        path: 'admin/schedule/detail/:id',
+        name: 'sdDetail',
+        component: () => import('@/views/admin/menagement/schedule/ScheduleDetail.vue'),
+      },
+      {
         path: 'admin/mainposter',
         name: 'mainposter',
         component: () => import('@/views/admin/menagement/mainposter/MainFrame.vue'),
@@ -34,7 +54,7 @@ const routes = [
         component: () => import('@/views/admin/menagement/mainposter/PostDetail.vue'),
       },
       {
-        path: 'admin/mainposter/modify',
+        path: 'admin/mainposter/modify/:id',
         name: 'mpmodify',
         component: () => import('@/views/admin/menagement/mainposter/PostModify.vue'),
       },

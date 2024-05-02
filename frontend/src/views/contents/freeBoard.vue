@@ -221,6 +221,7 @@ import { onMounted  } from 'vue';
       start: (start_page.value - 1) * items_per_page.value,
       limit: items_per_page.value,
       // limit: start_page.value * items_per_page.value,
+      user_del:false,
       sortCondition: dataDesc.value === '최신' ? 'updated_at:desc' : (dataDesc.value === '조회' ? 'viewcount:desc' : 'id:asc')
     }
     // console.log(items_per_page.value)
@@ -238,12 +239,12 @@ import { onMounted  } from 'vue';
       freeBoardList.value = res.freeBoards;
 
       // username = null 인 회원 글 삭제
-        for (const board of res.freeBoards) {
-        if (!board.user || !board.user.username) {
-          // console.log('User name is null:', board);
-          deleteBoard(board);
-        }
-      }
+      //   for (const board of res.freeBoards) {
+      //   if (!board.user || !board.user.username) {
+      //     // console.log('User name is null:', board);
+      //     deleteBoard(board);
+      //   }
+      // }
     }
 
     )
@@ -257,14 +258,14 @@ import { onMounted  } from 'vue';
     }
   }
   // 글 삭제
-  async function deleteBoard(board) {
-      try {
-      await store.dispatch('deleteFreeBoard', { id: board.id});
-      router.push({ name: 'freeBoard' });
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  // async function deleteBoard(board) {
+  //     try {
+  //     await store.dispatch('deleteFreeBoard', { id: board.id});
+  //     router.push({ name: 'freeBoard' });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
   //페이지 변경시 => 함수 실행
   //선택한 페이지를 start_page 변수에 할당, 데이터 다시 가져오기

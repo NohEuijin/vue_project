@@ -1,10 +1,11 @@
 <template>
-  <HeadBanner />
-  <FixHeader />
-  <router-view></router-view>
-  <Advertisement />
-  <FooterAll />
-
+  <body>
+    <HeadBanner />
+    <FixHeader />
+    <router-view></router-view>
+    <Advertisement />
+    <FooterAll />
+  </body>
 </template>
 
 <script>

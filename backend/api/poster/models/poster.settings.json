@@ -65,6 +65,14 @@
         "r15",
         "r19"
       ]
+    },
+    "theater": {
+      "via": "posters",
+      "model": "theater"
+    },
+    "schedule": {
+      "via": "poster",
+      "model": "schedule"
     }
   }
 }

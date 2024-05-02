@@ -18,6 +18,16 @@ const sidebarItem = [
   },
   { header: 'Management' },
   {
+    title: 'Theater',
+    icon: 'mdi-television',
+    to: '/admin/theater'
+  },
+  {
+    title: 'Schedule',
+    icon: 'mdi-clock-outline',
+    to: '/admin/schedule'
+  },
+  {
     title: 'MainPoster',
     icon: 'mdi-movie-minus-outline',
     to: '/admin/mainposter'

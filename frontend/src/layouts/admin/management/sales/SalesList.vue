@@ -267,9 +267,7 @@ cursor: pointer;
   border-radius: 4px;
   color: rgb(116, 116, 116) !important;
 }
-.v-table{
-  line-height: 0 !important;
-}
+
 .mp_main_table{
   text-align: end;
   background-color: rgb(240, 240, 240);

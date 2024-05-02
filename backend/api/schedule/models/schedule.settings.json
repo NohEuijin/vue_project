@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "schedules",
+  "info": {
+    "name": "Schedule",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "starttime": {
+      "type": "time"
+    },
+    "endtime": {
+      "type": "time"
+    },
+    "booking": {
+      "type": "text"
+    },
+    "timecode": {
+      "type": "text"
+    },
+    "place": {
+      "type": "integer",
+      "default": 12000
+    },
+    "log": {
+      "type": "string"
+    },
+    "date": {
+      "type": "date"
+    },
+    "theater": {
+      "model": "theater",
+      "via": "schedules"
+    },
+    "poster": {
+      "model": "poster",
+      "via": "schedule"
+    }
+  }
+}

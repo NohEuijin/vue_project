@@ -1,6 +1,6 @@
 {
   "paths": {
-    "/posters": {
+    "/schedules": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -12,7 +12,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Poster"
+                    "$ref": "#/components/schemas/Schedule"
                   }
                 }
               }
@@ -51,7 +51,7 @@
         },
         "summary": "",
         "tags": [
-          "Poster"
+          "Schedule"
         ],
         "parameters": [
           {
@@ -201,7 +201,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Poster"
+                  "$ref": "#/components/schemas/Schedule"
                 }
               }
             }
@@ -239,7 +239,7 @@
         },
         "summary": "",
         "tags": [
-          "Poster"
+          "Schedule"
         ],
         "requestBody": {
           "description": "",
@@ -247,14 +247,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPoster"
+                "$ref": "#/components/schemas/NewSchedule"
               }
             }
           }
         }
       }
     },
-    "/posters/count": {
+    "/schedules/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -306,12 +306,12 @@
         },
         "summary": "",
         "tags": [
-          "Poster"
+          "Schedule"
         ],
         "parameters": []
       }
     },
-    "/posters/{id}": {
+    "/schedules/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -321,7 +321,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Poster"
+                  "$ref": "#/components/schemas/Schedule"
                 }
               }
             }
@@ -359,7 +359,7 @@
         },
         "summary": "",
         "tags": [
-          "Poster"
+          "Schedule"
         ],
         "parameters": [
           {
@@ -383,7 +383,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Poster"
+                  "$ref": "#/components/schemas/Schedule"
                 }
               }
             }
@@ -421,7 +421,7 @@
         },
         "summary": "",
         "tags": [
-          "Poster"
+          "Schedule"
         ],
         "requestBody": {
           "description": "",
@@ -429,7 +429,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPoster"
+                "$ref": "#/components/schemas/NewSchedule"
               }
             }
           }
@@ -495,7 +495,7 @@
         },
         "summary": "",
         "tags": [
-          "Poster"
+          "Schedule"
         ],
         "parameters": [
           {
@@ -514,7 +514,7 @@
   },
   "components": {
     "schemas": {
-      "Poster": {
+      "Schedule": {
         "required": [
           "id"
         ],
@@ -522,175 +522,27 @@
           "id": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
-          },
-          "genre": {
-            "type": "string"
-          },
-          "director": {
-            "type": "string"
-          },
-          "appearance": {
-            "type": "string"
-          },
           "starttime": {
-            "type": "string"
+            "type": "time"
           },
           "endtime": {
+            "type": "time"
+          },
+          "booking": {
             "type": "string"
           },
-          "summary": {
+          "timecode": {
             "type": "string"
           },
-          "mainposter": {
-            "required": [
-              "id",
-              "name",
-              "hash",
-              "mime",
-              "size",
-              "url",
-              "provider"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "alternativeText": {
-                "type": "string"
-              },
-              "caption": {
-                "type": "string"
-              },
-              "width": {
-                "type": "integer"
-              },
-              "height": {
-                "type": "integer"
-              },
-              "formats": {
-                "type": "object"
-              },
-              "hash": {
-                "type": "string"
-              },
-              "ext": {
-                "type": "string"
-              },
-              "mime": {
-                "type": "string"
-              },
-              "size": {
-                "type": "number"
-              },
-              "url": {
-                "type": "string"
-              },
-              "previewUrl": {
-                "type": "string"
-              },
-              "provider": {
-                "type": "string"
-              },
-              "provider_metadata": {
-                "type": "object"
-              },
-              "related": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
+          "place": {
+            "type": "integer",
+            "default": 12000
           },
-          "stillcut": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id",
-                "name",
-                "hash",
-                "mime",
-                "size",
-                "url",
-                "provider"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "alternativeText": {
-                  "type": "string"
-                },
-                "caption": {
-                  "type": "string"
-                },
-                "width": {
-                  "type": "integer"
-                },
-                "height": {
-                  "type": "integer"
-                },
-                "formats": {
-                  "type": "object"
-                },
-                "hash": {
-                  "type": "string"
-                },
-                "ext": {
-                  "type": "string"
-                },
-                "mime": {
-                  "type": "string"
-                },
-                "size": {
-                  "type": "number"
-                },
-                "url": {
-                  "type": "string"
-                },
-                "previewUrl": {
-                  "type": "string"
-                },
-                "provider": {
-                  "type": "string"
-                },
-                "provider_metadata": {
-                  "type": "object"
-                },
-                "related": {
-                  "type": "string"
-                },
-                "created_by": {
-                  "type": "string"
-                },
-                "updated_by": {
-                  "type": "string"
-                }
-              }
-            }
+          "log": {
+            "type": "string"
           },
-          "showtime": {
-            "type": "integer"
-          },
-          "viewage": {
-            "type": "string",
-            "enum": [
-              "all",
-              "r12",
-              "r15",
-              "r19"
-            ]
+          "date": {
+            "type": "string"
           },
           "theater": {
             "required": [
@@ -744,7 +596,7 @@
               }
             }
           },
-          "schedule": {
+          "poster": {
             "required": [
               "id"
             ],
@@ -752,31 +604,46 @@
               "id": {
                 "type": "string"
               },
+              "name": {
+                "type": "string"
+              },
+              "genre": {
+                "type": "string"
+              },
+              "director": {
+                "type": "string"
+              },
+              "appearance": {
+                "type": "string"
+              },
               "starttime": {
-                "type": "time"
+                "type": "string"
               },
               "endtime": {
-                "type": "time"
-              },
-              "booking": {
                 "type": "string"
               },
-              "timecode": {
+              "summary": {
                 "type": "string"
               },
-              "place": {
+              "mainposter": {
+                "type": "string"
+              },
+              "stillcut": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "showtime": {
                 "type": "integer"
               },
-              "log": {
-                "type": "string"
-              },
-              "date": {
+              "viewage": {
                 "type": "string"
               },
               "theater": {
                 "type": "string"
               },
-              "poster": {
+              "schedule": {
                 "type": "string"
               },
               "published_at": {
@@ -795,45 +662,34 @@
           }
         }
       },
-      "NewPoster": {
+      "NewSchedule": {
         "properties": {
-          "name": {
-            "type": "string"
-          },
-          "genre": {
-            "type": "string"
-          },
-          "director": {
-            "type": "string"
-          },
-          "appearance": {
-            "type": "string"
-          },
           "starttime": {
-            "type": "string"
+            "type": "time"
           },
           "endtime": {
+            "type": "time"
+          },
+          "booking": {
             "type": "string"
           },
-          "summary": {
+          "timecode": {
             "type": "string"
           },
-          "showtime": {
-            "type": "integer"
+          "place": {
+            "type": "integer",
+            "default": 12000
           },
-          "viewage": {
-            "type": "string",
-            "enum": [
-              "all",
-              "r12",
-              "r15",
-              "r19"
-            ]
+          "log": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
           },
           "theater": {
             "type": "string"
           },
-          "schedule": {
+          "poster": {
             "type": "string"
           },
           "published_at": {
@@ -851,7 +707,7 @@
   },
   "tags": [
     {
-      "name": "Poster"
+      "name": "Schedule"
     }
   ]
 }

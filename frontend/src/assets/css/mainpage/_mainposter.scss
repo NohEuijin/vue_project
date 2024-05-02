@@ -38,3 +38,56 @@
   font-size: 14px;
   color: rgb(97, 97, 97) !important;
 }
+//mainposter - Registe
+.mp_reg_table{
+  border: 1px solid rgb(226, 226, 226) !important;
+  text-align: start;
+  font-weight: 600;
+}
+.mp_reg_table td{
+  border: 1px solid rgb(226, 226, 226) !important;
+}
+.mp_reg_table input{
+  width: 100%;
+  height: 30px;
+  padding: 10px;
+  border-radius: 4px;
+  font-weight: 500 !important;
+}
+.mp_reg_table textarea{
+  width: 100%;
+  height: 60px;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 4px;
+  font-weight: 500 !important;
+  resize: none;
+  // font-size: 12px !important;
+  // font: initial !important;
+  // font:initial; 또는 font: unset;
+}
+// 등록 버튼
+.mp_reg_submit_box{
+  width: 100%;
+  text-align: end;
+}
+.mp_reg_submit{
+  // position: absolute;
+  margin: 10px;
+  border: 1px solid rgb(226, 226, 226) !important;
+  // background-color: rgb(240, 240, 240);
+}
+.mp_reg_submit span{
+  font-weight: 600;
+  font-size: 14px;
+  color: rgb(97, 97, 97) !important;
+}
+.items_select{
+  font-weight: 600 !important;
+}
+.mr_search2{
+  width: 440px !important;
+}
+.calendar_text .v-input__prepend{
+  margin-top: 4px;
+}

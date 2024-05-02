@@ -338,6 +338,80 @@ mutation posterRegistration(
     }
   }
 }
-
-
 `
+
+//영화 정보 수정
+export const modifyPoster = gql`
+mutation modifyPoster(
+  $id:ID!,
+  $name : String,
+  $genre : String,
+  $director : String,
+  $appearance : String,
+  $viewage : ENUM_POSTER_VIEWAGE,
+  $showtime : Int,
+  $starttime : Date,
+  $endtime : Date,
+  $summary : String,
+  $mainposter :ID,
+  $stillcut :[ID],
+){
+  updatePoster(
+    input : {
+      where:{id:$id}
+      data:{
+     	name: $name
+      genre: $genre
+      director: $director
+      appearance: $appearance
+      viewage: $viewage
+      showtime: $showtime
+      starttime: $starttime
+      endtime: $endtime
+      summary: $summary
+      mainposter: $mainposter
+      stillcut: $stillcut
+      }
+      }
+    ){
+    poster{
+      id
+      name
+      genre
+      director
+      appearance
+      viewage
+      showtime
+      starttime
+      endtime
+      summary
+      mainposter{
+        id
+      }
+      stillcut{
+        id
+      }
+    }
+  }
+}
+`
+
+export const deletePoster = gql`
+mutation deletePoster(
+  $id:ID!
+){
+  deletePoster(
+    input:{
+      where:{
+        id:$id
+      }
+    }
+  ){
+  poster{
+    id
+  }
+}
+}
+`
+
+

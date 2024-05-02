@@ -770,14 +770,14 @@ onUnmounted(() => {
 </script>
 
 <style>
-#KOR{
+/* #KOR{
   font-size: 15px;
   letter-spacing: -0.05em;
 
   font-family: 'GowunDodum-Regular';
   font-weight: normal;
   font-style: normal;
-}
+} */
 em, p, address{
   font-style: normal;
   font-weight: 600;
@@ -821,7 +821,7 @@ select:focus, textarea:focus, a:focus, input:focus, button:focus{
 .mast_body .title{
   margin-bottom: 38px;
   padding: 8px 0;
-  font-weight: 100;
+  font-weight: 400;
   font-size: 28px;
   line-height: 32px;
   color: #000;
@@ -873,7 +873,7 @@ select:focus, textarea:focus, a:focus, input:focus, button:focus{
 .join-term-title p {
   font-size: 13px;
   margin-top: 10px;
-  font-weight: 100;
+  font-weight: 400;
 }
 
 .join-input {
