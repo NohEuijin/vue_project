@@ -409,9 +409,29 @@ query theaterList(
     limit:$limit,
   ){
     id
+    name
     city
     title
     created_at
+  }
+}
+`
+
+export const theaterDetail =  gql`
+query theaterDetail(
+  $id:ID
+){
+  theaters(
+    where:{
+      id:$id
+    }){
+      id
+      city
+      title
+      name
+      ratio
+      bokdo
+      blank
   }
 }
 `

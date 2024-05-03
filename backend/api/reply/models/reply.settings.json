@@ -14,10 +14,6 @@
     "content": {
       "type": "string"
     },
-    "free_board": {
-      "model": "free-board",
-      "via": "replies"
-    },
     "user": {
       "plugin": "users-permissions",
       "model": "user",

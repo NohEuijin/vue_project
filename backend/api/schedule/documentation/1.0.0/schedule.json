@@ -657,6 +657,10 @@
               }
             }
           },
+          "readytime": {
+            "type": "integer",
+            "default": 15
+          },
           "published_at": {
             "type": "datetime"
           }
@@ -691,6 +695,10 @@
           },
           "poster": {
             "type": "string"
+          },
+          "readytime": {
+            "type": "integer",
+            "default": 15
           },
           "published_at": {
             "type": "datetime"

@@ -1294,12 +1294,6 @@
                 "viewcount": {
                   "type": "integer"
                 },
-                "replies": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
                 "published_at": {
                   "type": "datetime"
                 },
@@ -1323,9 +1317,6 @@
                   "type": "string"
                 },
                 "content": {
-                  "type": "string"
-                },
-                "free_board": {
                   "type": "string"
                 },
                 "user": {

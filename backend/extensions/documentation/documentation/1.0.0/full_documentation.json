@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "04/30/2024 11:11:00 AM"
+    "x-generation-date": "05/02/2024 1:12:43 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -5318,37 +5318,6 @@
             "type": "integer",
             "default": 0
           },
-          "replies": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "content": {
-                  "type": "string"
-                },
-                "free_board": {
-                  "type": "string"
-                },
-                "user": {
-                  "type": "string"
-                },
-                "published_at": {
-                  "type": "datetime"
-                },
-                "created_by": {
-                  "type": "string"
-                },
-                "updated_by": {
-                  "type": "string"
-                }
-              }
-            }
-          },
           "published_at": {
             "type": "datetime"
           }
@@ -5368,12 +5337,6 @@
           "viewcount": {
             "type": "integer",
             "default": 0
-          },
-          "replies": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
           },
           "published_at": {
             "type": "datetime"
@@ -5651,6 +5614,9 @@
               "poster": {
                 "type": "string"
               },
+              "readytime": {
+                "type": "integer"
+              },
               "published_at": {
                 "type": "datetime"
               },
@@ -5729,43 +5695,6 @@
           },
           "content": {
             "type": "string"
-          },
-          "free_board": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "content": {
-                "type": "string"
-              },
-              "user": {
-                "type": "string"
-              },
-              "viewcount": {
-                "type": "integer"
-              },
-              "replies": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "published_at": {
-                "type": "datetime"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
           },
           "user": {
             "required": [
@@ -5850,9 +5779,6 @@
       "NewReply": {
         "properties": {
           "content": {
-            "type": "string"
-          },
-          "free_board": {
             "type": "string"
           },
           "user": {
@@ -6012,6 +5938,10 @@
               }
             }
           },
+          "readytime": {
+            "type": "integer",
+            "default": 15
+          },
           "published_at": {
             "type": "datetime"
           }
@@ -6046,6 +5976,10 @@
           },
           "poster": {
             "type": "string"
+          },
+          "readytime": {
+            "type": "integer",
+            "default": 15
           },
           "published_at": {
             "type": "datetime"
@@ -6220,6 +6154,9 @@
                 },
                 "poster": {
                   "type": "string"
+                },
+                "readytime": {
+                  "type": "integer"
                 },
                 "published_at": {
                   "type": "datetime"
@@ -6570,12 +6507,6 @@
                 "viewcount": {
                   "type": "integer"
                 },
-                "replies": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
                 "published_at": {
                   "type": "datetime"
                 },
@@ -6599,9 +6530,6 @@
                   "type": "string"
                 },
                 "content": {
-                  "type": "string"
-                },
-                "free_board": {
                   "type": "string"
                 },
                 "user": {

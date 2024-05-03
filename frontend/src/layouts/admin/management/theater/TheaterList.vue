@@ -146,9 +146,9 @@
           type="checkbox"
           class="ms_in_check_all">
         </th>
-        <th>번호</th>
         <th>지역</th>
-        <th>상영관 이름</th>
+        <th>지점</th>
+        <th>관</th>
         <th>등록날짜</th>
         <th>비 고</th>
       </tr>
@@ -165,9 +165,9 @@
           class="ms_in_check"
           >
         </td>
-        <td>{{ theaters.id }}</td>
         <td>{{ theaters.city }}</td>
         <td>{{ theaters.title }}</td>
+        <td>{{ theaters.name }}</td>
         <td>{{ theaterFormatDate(theaters.created_at) }}</td>
         <td class="pa-0 ms_read_td">
           <v-btn
@@ -267,6 +267,7 @@ export default {
         startDate : this.start_date.toISOString(),
         endDate : this.end_date.toISOString(),
       }
+      // 전체 검색에 대한 처리
       if(this.select_city_choice !== 'all'){
         form["cityContain"] = this.select_city_choice
       }
@@ -275,13 +276,14 @@ export default {
         form["titleContain"] = this.select_title_choice
       }
 
-      console.log(form)
+      // console.log(form)
 
       await this.$store.dispatch('theaterList', form)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.total_page = res.theatersConnection.aggregate.count;
         this.theaterList = res.theaters;
+        // console.log(this.theaterList)
       })
       .catch((err) => console.log(err))
     },
@@ -363,7 +365,7 @@ setupList(){
   }
   new_list_up.unshift({title:"전체", value:"all"})
   this.all_title_listup['all'] = new_list_up
-  console.log(this.all_title_listup)
+  // console.log(this.all_title_listup)
 },
 
   },

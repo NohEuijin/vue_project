@@ -25,10 +25,6 @@
     "viewcount": {
       "type": "integer",
       "default": 0
-    },
-    "replies": {
-      "via": "free_board",
-      "collection": "reply"
     }
   }
 }

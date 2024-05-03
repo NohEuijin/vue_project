@@ -525,43 +525,6 @@
           "content": {
             "type": "string"
           },
-          "free_board": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "content": {
-                "type": "string"
-              },
-              "user": {
-                "type": "string"
-              },
-              "viewcount": {
-                "type": "integer"
-              },
-              "replies": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "published_at": {
-                "type": "datetime"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
-          },
           "user": {
             "required": [
               "id",
@@ -645,9 +608,6 @@
       "NewReply": {
         "properties": {
           "content": {
-            "type": "string"
-          },
-          "free_board": {
             "type": "string"
           },
           "user": {

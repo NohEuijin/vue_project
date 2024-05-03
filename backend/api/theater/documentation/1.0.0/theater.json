@@ -645,6 +645,9 @@
                 "poster": {
                   "type": "string"
                 },
+                "readytime": {
+                  "type": "integer"
+                },
                 "published_at": {
                   "type": "datetime"
                 },

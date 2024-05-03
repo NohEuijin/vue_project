@@ -16,7 +16,6 @@ import {
   posterRegistration,
   modifyPoster,
   deletePoster,
-
 } from '@/apollo/mutation'
 import {
   myData,
@@ -31,6 +30,7 @@ import {
   posterList,
   posterDetail,
   theaterList,
+  theaterDetail,
 } from '@/apollo/query'
 import { moduleA } from '@/store/moduleA'
 import { moduleB } from '@/store/moduleB'
@@ -507,6 +507,22 @@ Authorization: 'Bearer ' + localStorage.getItem(TOKENNAME),
       apollo.clients['defaultClient']
       .query({
         query:theaterList,
+        variables:input
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
+
+  theaterDetail({commit} , input ){
+    return new Promise((resolve, reject) => {
+      apollo.clients['defaultClient']
+      .query({
+        query:theaterDetail,
         variables:input
       })
       .then(({data})=>{

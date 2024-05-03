@@ -40,6 +40,10 @@
     "poster": {
       "model": "poster",
       "via": "schedule"
+    },
+    "readytime": {
+      "default": 15,
+      "type": "integer"
     }
   }
 }
