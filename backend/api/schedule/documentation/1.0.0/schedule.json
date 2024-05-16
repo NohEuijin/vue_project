@@ -522,24 +522,12 @@
           "id": {
             "type": "string"
           },
-          "starttime": {
-            "type": "time"
-          },
-          "endtime": {
-            "type": "time"
-          },
           "booking": {
-            "type": "string"
-          },
-          "timecode": {
             "type": "string"
           },
           "place": {
             "type": "integer",
             "default": 12000
-          },
-          "log": {
-            "type": "string"
           },
           "date": {
             "type": "string"
@@ -585,6 +573,9 @@
                   "type": "string"
                 }
               },
+              "date": {
+                "type": "string"
+              },
               "published_at": {
                 "type": "datetime"
               },
@@ -595,6 +586,9 @@
                 "type": "string"
               }
             }
+          },
+          "time": {
+            "type": "time"
           },
           "poster": {
             "required": [
@@ -643,8 +637,11 @@
               "theater": {
                 "type": "string"
               },
-              "schedule": {
-                "type": "string"
+              "schedules": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               },
               "published_at": {
                 "type": "datetime"
@@ -657,10 +654,6 @@
               }
             }
           },
-          "readytime": {
-            "type": "integer",
-            "default": 15
-          },
           "published_at": {
             "type": "datetime"
           }
@@ -668,24 +661,12 @@
       },
       "NewSchedule": {
         "properties": {
-          "starttime": {
-            "type": "time"
-          },
-          "endtime": {
-            "type": "time"
-          },
           "booking": {
-            "type": "string"
-          },
-          "timecode": {
             "type": "string"
           },
           "place": {
             "type": "integer",
             "default": 12000
-          },
-          "log": {
-            "type": "string"
           },
           "date": {
             "type": "string"
@@ -693,12 +674,11 @@
           "theater": {
             "type": "string"
           },
+          "time": {
+            "type": "time"
+          },
           "poster": {
             "type": "string"
-          },
-          "readytime": {
-            "type": "integer",
-            "default": 15
           },
           "published_at": {
             "type": "datetime"

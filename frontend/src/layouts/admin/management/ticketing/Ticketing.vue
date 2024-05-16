@@ -1,24 +1,73 @@
 <template>
-  <v-col cols="12" class="pa-0 mb-5 mp_reg_box">
-    <v-btn
-  @click="deleteTheater"
-  class="pa-0 mp_del_btn">
-    <span>삭제</span>
-  </v-btn>
-    <v-btn
-  @click="$router.push({name : 'ttRegister'})"
-  class="pa-0 ml-3 mp_reg_btn">
-    <span>등록</span>
-  </v-btn>
-</v-col>
-<v-col class="pa-0 d-flex ms_main_table">
-  <!-- <v-col class="pa-0 mp_mt_vc1">주문일자</v-col> -->
-  <v-col cols="5
 
-  " class="pa-0 mp_mt_vc2">
+<v-col class="pa-0 d-flex ms_main_table">
+  <!-- <v-col cols="1" class="ml-7">키워드</v-col> -->
+  <v-col cols="1" class="pa-0">
+    <v-select
+    label="지역"
+    v-model="select_city_choice"
+    class="pa-0 ml-3 mp_select"
+    density="compact"
+    hide-details="true"
+    placeholder="Category"
+    @update:modelValue="getTheaterList()"
+    underline="none"
+    :items="select_city"
+    variant="plain"
+    >
+    </v-select>
+  </v-col>
+  <v-col cols="2" class="pa-0">
+    <v-select
+    label="지점"
+    prepend-inner-icon="mdi-home-group"
+    v-model="select_title_choice"
+    class="pa-0 ml-3 mp_select"
+    density="compact"
+    hide-details="true"
+    placeholder="Category"
+    @update:modelValue="getTheaterList()"
+    underline="none"
+    :items="all_title_listup[select_city_choice]"
+    variant="plain"
+    >
+    </v-select>
+  </v-col>
+  <v-col cols="1" class="pa-0">
+    <v-select
+    label="상영관"
+    v-model="select_title_choice"
+    class="pa-0 ml-3 mp_select"
+    density="compact"
+    hide-details="true"
+    placeholder="Category"
+    @update:modelValue="getTheaterList()"
+    underline="none"
+    :items="all_title_listup[select_city_choice]"
+    variant="plain"
+    >
+    </v-select>
+  </v-col>
+  <v-col cols="3" class="pa-0">
+    <v-select
+    label="영화 제목"
+    prepend-inner-icon="mdi-movie-roll"
+    v-model="select_title_choice"
+    class="pa-0 ml-3 mp_select"
+    density="compact"
+    hide-details="true"
+    placeholder="Category"
+    @update:modelValue="getTheaterList()"
+    underline="none"
+    :items="all_title_listup[select_city_choice]"
+    variant="plain"
+    >
+    </v-select>
+  </v-col>
+  <v-col cols="3" class="pa-0 t_mt_vc2">
     <div class="d-flex btn-group mp_search">
       <v-col
-        cols="5"
+        cols="12"
         lg="4"
         class="pa-0 ml-5 ms_cal"
         density="compact"
@@ -35,14 +84,10 @@
         >
           <template v-slot:activator="{}">
             <v-text-field
+              class="date_input_value"
               v-model="computedDateFormatted"
-              label=""
-              hint=""
-              persistent-hint
               prepend-icon="mdi-calendar"
-              :size="10"
               hide-details="true"
-              opacity="-0.06"
               @click="openCalendar"
               variant="plain"
               readonly
@@ -56,67 +101,14 @@
           ></v-date-picker>
         </v-menu>
       </v-col>
-      <v-col cols="1" class="pa-0 mr-8 mt-3">~</v-col>
-      <v-col
-        cols="5"
-        lg="4"
-        class="pa-0 ms_cal"
-        density="compact"
-        hide-details="true"
-      >
-        <v-menu
-          v-model="menu2"
-          :close-on-content-click="false"
-          transition="scale-transition"
-          offset-y
-          max-width="290px"
-          min-width="auto"
-          hide-details="true"
-        >
-          <template v-slot:activator="{}">
-            <v-text-field
-              v-model="computedDateFormatted2"
-              label=""
-              hint=""
-              persistent-hint
-              prepend-icon="mdi-calendar"
-              readonly
-              hide-details="true"
-              @click="openCalendar2"
-              variant="plain"
-            ></v-text-field>
-          </template>
-          <v-date-picker
-            v-if="menu2"
-            v-model="end_date"
-            no-title
-            @update:model-value="inputClose2"
-          ></v-date-picker>
-        </v-menu>
-      </v-col>
+
     </div>
   </v-col>
-  <!-- <v-col cols="1" class="ml-7">키워드</v-col> -->
-  <v-col cols="3" class="pa-0">
+  <v-col cols="1" class="pa-0 t_select">
     <v-select
-    label="지역"
-    v-model="select_city_choice"
-    class="pa-0 mp_select"
-    density="compact"
-    hide-details="true"
-    placeholder="Category"
-    @update:modelValue="getTheaterList()"
-    underline="none"
-    :items="select_city"
-    variant="plain"
-    >
-    </v-select>
-  </v-col>
-  <v-col cols="4" class="pa-0">
-    <v-select
-    label="지점"
+    label="시간"
     v-model="select_title_choice"
-    class="pa-0 mp_select"
+    class="pa-0 ml-3"
     density="compact"
     hide-details="true"
     placeholder="Category"
@@ -127,32 +119,59 @@
     >
     </v-select>
   </v-col>
-    <!-- <v-col cols="1" class="pa-0">
+    <v-col cols="1" class="pa-0">
     <v-btn
     @click="deBounceSearch"
-    class="pa-0 ml-1 ms_vbtn"
+    class="pa-0 ms_vbtn"
     >검색</v-btn>
-  </v-col> -->
+  </v-col>
 </v-col>
 
+<v-container class="pa-0 mt-10">
+
+<v-card-title class="pa-0">
+<strong>예약 현황</strong>
+</v-card-title>
+
+
+<v-col class="pa-0 mt-1">
+
+<!-- 좌석 현황 -->
+<v-container class="pa-0">
+<v-col class="pa-0">
+  <v-col class="pa-7 mt-5 msd_board_list">
+    <v-col class="pa-0 mb-12 screen">S C R E E N</v-col>
+    <v-col
+    v-for="(row, vIndex) of sample_array" :key="vIndex" class="pa-0 ma-0">
+      <v-row class="pa-0 ma-0">
+        <v-col
+        v-for="(seat, hIndex) of row" :key="hIndex"
+        :class="[seat, (blankList.includes(seat)) ? 'seat_blank' : null]"
+          class="pa-1 ma-1 seatbox">
+        <span v-if="seat !== 'corridor'"  >
+          {{ seat }}
+        </span>
+        </v-col>
+      </v-row>
+    </v-col>
+  </v-col>
+</v-col>
+</v-container>
+<!-- 좌석 현황 끝 -->
+
+
+
+<v-col class="pa-0">
   <v-table
-  class="mt-10 pa-0 mp_list_table"
+  class="pa-0 mp_list_table"
   density="compact"
-  dense
-  >
+  dense>
     <thead>
       <tr class="ms_list_table_tr">
-        <th>
-          <input
-          @click="togglechecks"
-          type="checkbox"
-          class="ms_in_check_all">
-        </th>
-        <th>지역</th>
-        <th>지점</th>
-        <th>관</th>
-        <th>등록날짜</th>
-        <th>비 고</th>
+        <th>Tracking no.</th>
+        <th>User</th>
+        <th>Booking</th>
+        <th>Reservation date</th>
       </tr>
     </thead>
     <tbody>
@@ -160,18 +179,11 @@
       class="ms_list_table_tb_tr"
       v-for="(theaters, index) of theaterList" :key="index"
       >
-        <td>
-          <input
-          @click="handleCheck(theaters.id)"
-          type="checkbox"
-          class="ms_in_check"
-          >
-        </td>
         <td>{{ theaters.city }}</td>
         <td>{{ theaters.title }}</td>
         <td>{{ theaters.name }}</td>
         <td>{{ theaterFormatDate(theaters.created_at) }}</td>
-        <td class="pa-0 ms_read_td">
+        <!-- <td class="pa-0 ms_read_td">
           <v-btn
           @click="$router.push({name:'ttDetail',params:{id:theaters.id}})"
           width="100%"
@@ -181,12 +193,13 @@
           >
             <span>상세보기</span>
           </v-btn>
-        </td>
+        </td> -->
       </tr>
     </tbody>
   </v-table>
 
-  <div class="pagination">
+
+    <div class="pagination">
     <ol>
       <li
       v-for="(page, pageIdx) of page_count" :key="`page-${pageIdx}`">
@@ -198,6 +211,12 @@
       </li>
     </ol>
   </div>
+
+</v-col>
+
+</v-col>
+
+</v-container>
 </template>
 
 <script>
@@ -224,7 +243,10 @@ export default {
       select_title_choice:'all',
       select_city:[],
       select_title:[],
-      all_title_listup :""
+      all_title_listup :"",
+
+      sample_array:[],
+      total_seat:'',
     };
   },
   computed: {
@@ -240,6 +262,95 @@ export default {
     },
   },
   methods: {
+//상영관 배치도 상세 불러오기
+async gettheaterDetail(){
+  try{
+    let res = await this.$store.dispatch('theaterDetail',{id: this.$route.params.id});
+    // console.log(res)
+    //규모
+    for(let i = 0; i< res.theaters.length; i++){
+      res.theaters[i].ratio = res.theaters[i].ratio.split('x')
+    }
+    this.theater = res.theaters[0]
+    // console.log(this.theater)
+    this.horizontalSeat = Number(this.theater.ratio[0])
+    this.verticalSeat = Number(this.theater.ratio[1])
+    // 복도
+    for(let bd = 0; bd< res.theaters.length; bd++){
+      res.theaters[bd].bokdo = res.theaters[bd].bokdo.split(',')
+    }
+    this.bokdoList = this.theater.bokdo
+    this.bokdoTotal = this.bokdoList.length
+    //빈공간
+    for(let bk = 0; bk< res.theaters.length; bk++){
+      res.theaters[bk].blank = res.theaters[bk].blank.split(',')
+    }
+    this.blankList= this.theater.blank
+
+    this.changeSeatFormat();
+    }catch(err){
+      console.log(err)
+  }
+},
+    changeSeatFormat(){
+
+this.totalSeat();
+
+// 좌석 배치도 리스트
+let new_array =[]
+for(let yaxis = 0; yaxis < Number(this.verticalSeat) ; yaxis++){
+
+let vert = []
+for(let xaxis = 0; xaxis < Number(this.horizontalSeat); xaxis++ ){
+
+  if(this.bokdoList.includes(String(xaxis + 1))){
+    vert.push('corridor')
+    vert.push(this.generatedSeatValue(yaxis, xaxis))
+  }else{
+    vert.push(this.generatedSeatValue(yaxis, xaxis))
+  }
+}
+new_array.push(vert)
+}
+this.sample_array = new_array
+// console.log(this.sample_array)
+},
+//영화 select 리스트 불러오기
+async movieList(){
+  console.log(this.pickDate)
+  await this.$store.dispatch('selectMovie',{date:this.pickDate}).then((res) => {
+    // console.log(res)
+    let new_array =[]
+    for(let i=0;i < res.posters.length; i++){
+      const selectList = {
+        title:res.posters[i].name,
+        value : res.posters[i].id,
+        data : res.posters[i],
+      }
+      //select에 값을 넣을땐 push
+      new_array.push(selectList)
+      // console.log(selectList)
+    }
+    this.movieLists = new_array;
+
+  });
+
+},
+//좌석
+totalSeat(){
+  this.total_seat = Number(this.verticalSeat) * Number(this.horizontalSeat) - this.blankList.length
+  // console.log(this.total_seat)
+},
+//좌석 값()
+generatedSeatValue(vIndex, hIndex) {
+  return String.fromCharCode(65 + vIndex) + (hIndex + 1);
+},
+  getEventColor (event) {
+    return event.color
+  },
+  rnd (a, b) {
+    return Math.floor((b - a + 1) * Math.random()) + a
+  },
     openCalendar(){
       this.menu1 = true;
     },
@@ -374,8 +485,14 @@ setupList(){
   // vue 2는 mouted = vue 3 onMount
   async mounted() {
     this.setupList()
-    await this.getTheaterList()
-
+    await this.getTheaterList();
+    await this.gettheaterDetail();
   }
 };
 </script>
+
+<style scoped>
+.page-wrapper .v-container:first-child {
+    min-height: 340px !important;
+}
+</style>

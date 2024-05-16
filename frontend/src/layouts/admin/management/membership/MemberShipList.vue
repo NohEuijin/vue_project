@@ -39,7 +39,7 @@
               hide-details="true"
               opacity="-0.06"
               @click="openCalendar"
-              variant
+              variant="plain"
               readonly
             ></v-text-field>
           </template>
@@ -78,7 +78,7 @@
               readonly
               hide-details="true"
               @click="openCalendar2"
-              variant
+              variant="plain"
             ></v-text-field>
           </template>
           <v-date-picker
@@ -95,6 +95,7 @@
   <!-- <v-col cols="1" class="ml-7">키워드</v-col> -->
   <v-col cols="2" class="pa-0">
     <v-select
+    label="필터"
     v-model="selete_choice"
     class="pa-0 mp_select"
     density="compact"
@@ -102,19 +103,19 @@
     placeholder="Category"
     underline="none"
     :items="select_list"
-    variant
+    variant="plain"
     >
     </v-select>
   </v-col>
   <v-col cols="4" class="pa-0">
     <v-text-field
+    label="내용 입력"
     class="v_input_box"
     prepend-inner-icon="mdi-magnify"
     hide-details="true"
     density="compact"
     v-model="search_text"
-    placeholder="내용 입력"
-    variant
+    variant="plain"
     >
   </v-text-field>
   </v-col>

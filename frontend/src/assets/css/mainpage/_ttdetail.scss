@@ -1,0 +1,342 @@
+.ms_dt_table{
+  border: 1px solid rgb(226, 226, 226) !important;
+  text-align: start;
+  font-weight: 600;
+  }
+  .ms_dt_table td{
+  border: 1px solid rgb(226, 226, 226) !important;
+  height: auto;
+  }
+  .ms_dt_table input{
+  width: 100%;
+  height: 30px;
+  padding: 10px;
+  border-radius: 4px;
+  font-weight: 500 !important;
+  }
+  .ms_dt_table textarea{
+  width: 100%;
+  height: 60px;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 4px;
+  font-weight: 500 !important;
+  resize: none;
+  }
+  // 등록 버튼
+  .ms_dt_submit_box{
+  width: 100%;
+  text-align: end;
+  }
+  .ms_dt_submit{
+  // position: absolute;
+  border: 1px solid rgb(226, 226, 226) !important;
+  // background-color: rgb(240, 240, 240);
+  }
+  .ms_dt_submit span{
+  font-weight: 600;
+  font-size: 14px;
+  color: rgb(97, 97, 97) !important;
+  }
+  .msd_board_list{
+  border: 1px solid #b9b9b9 !important;
+  // max-width: 100%;
+  // min-width: 100%;
+  height: auto;
+  // border-radius: 4px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  text-align: center;
+  justify-content: center !important;
+  align-items: center !important;
+  display: grid;
+  }
+  // .msd_board_list_left{
+  // height: auto;
+  // border-radius: 4px;
+  // text-align: center;
+  // justify-content: center !important;
+  // align-items: center !important;
+  //  display: flex;
+  // }
+  .msd_board_right{
+    border: 1px solid #e7e7e7 !important;
+    height: auto;
+    // border-radius: 4px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    // text-align: center;
+    // justify-content: center !important;
+    // align-items: center !important;
+    // display: grid;
+  }
+  .screen{
+  width: 100%;
+  height: 10%;
+  // background-color:#e4e4e4 ;
+  text-align: center;
+  justify-content: center;
+  font-size: 30px;
+  }
+  .seatbox{
+  min-width: 1px !important;
+  max-width: 24px !important;
+  width: 24px !important;
+  height: 20px;
+  border: 1px solid black;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  // text-align: center;
+  opacity: 1;
+  // background-color: black;
+  
+  >span{
+  cursor: pointer;
+  font-size: 10px;
+  }
+  &.seat_blank {
+  opacity: 0;
+  }
+  }
+  
+  .corridor{
+  opacity: 0;
+  }
+  .ttd_ratio_box input{
+  margin-top: 2px;
+  width: 45px;
+  font-weight: 600 !important;
+  border: 1px solid #f5f5f5;
+  text-align: center
+  }
+  .ttd_blank_box{
+  min-width: 100px;
+  height: auto;
+  }
+  .ttd_blank_box input{
+  margin-top: 2px;
+  width: 48px;
+  font-weight: 600 !important;
+  border: 1px solid #f5f5f5;
+  text-align: center
+  }
+  .ttd_bokdo_box input{
+  margin-top: 2px;
+  width: 45px;
+  font-weight: 600 !important;
+  border: 1px solid #f5f5f5;
+  text-align: center
+  }
+  .ttd_blank_all{
+    margin-top: 2px;
+    width: 48px;
+    height: 30px;
+    font-weight: 600 !important;
+    border: 1px solid #f5f5f5;
+    text-align: center;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+  }
+  .verticalSeat{
+  // max-width: 100%;
+  // text-align: center !important;
+  // justify-content: center !important;
+  // align-items: center !important;
+  }
+  .ttd_table_width{
+  min-width: 200px;
+  }
+  // .ttd_bokdo_total{
+  //   font-size: 13px;
+  //   font-weight: 500;
+  // }
+  
+  .tt_detail_body>tr> td:nth-child(1){
+    min-width: 30px !important;
+    max-width: 25px !important;
+  }
+  .tt_detail_body >tr> td:nth-child(2){
+    min-width: 100px !important;
+    max-width: 25px !important;
+  
+  }
+  .tt_detail_body >tr> td:nth-child(3){
+    min-width: 30px !important;
+    max-width: 25px !important;
+  
+  }
+  .tt_detail_body>tr > td:nth-child(4){
+    min-width: 200px !important;
+    max-width: 25px !important;
+  }
+  .tt_card_title{
+    font-family: 'NEXON Lv1 Gothic OTF';
+    font-size: 20px !important;
+  }
+  .ttd_time_list{
+    // display: ruby;
+  }
+  .ttd_time_search_list{
+    // display: ruby;
+  }
+  
+  .ttd_time_box{
+    border: 1px solid rgb(217, 217, 217);
+    border-radius: 4px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    min-width: 60px;
+    max-width: 90px !important;
+    // max-height: 40px;
+    // margin-left: 4px;
+    margin-bottom: 4px;
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  .ttd_title_btn{
+    font-family: 'JalnanGothic';
+    font-size:11px !important;
+    min-width:35px !important;
+    // max-width:25px !important;
+    // min-height: 22px !important;
+    max-height: 17px !important;
+    border-radius: 8px !important;
+    margin-left: 10px;
+    color: #505050 !important;
+    // box-shadow: none !important;
+    // border: 1px solid rgb(255, 255, 255) !important;
+  }
+  // .ttd_time_box{
+  //   border: 1px solid rgb(217, 217, 217);
+  //   border-radius: 4px;
+  //   text-align: center;
+  //   min-width: 60px;
+  //   max-width: 60px;
+  
+  // }
+  // 달력 css
+  .ttd_select_box{
+    border-bottom: 1px solid rgb(232, 232, 232);
+  }
+  #fullCalendar {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  // 캘린더 전체 사이즈 조정
+  .fc {
+    width: 110%;
+  }
+  .fc .fc-col-header-cell-cushion {
+  display: inline-block;
+  padding: 2px 4px;
+  }
+  // toolbar container
+  .fc .fc-toolbar.fc-header-toolbar {
+    margin: 0;
+    padding: 0 40px;
+    background-color: #7aa0ff;
+    height: 63px;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 29px;
+    color: white;
+    border-radius: 20px 20px 0px 0px;
+  }
+  .fc .fc-button-primary:disabled{
+    background-color: #3366ff;
+    font-weight: 600;
+  }
+  .fc .fc-button-primary:hover{
+    background-color: #4c79ff !important;
+    font-weight: 600;
+  }
+  // toolbar 버튼
+  .fc .fc-button-primary {
+    background-color: transparent;
+    border: none;
+  
+    span {
+      font-weight: 500;
+      font-size: 28px;
+    }
+  
+    :hover {
+      background-color: transparent;
+    }
+  }
+  
+  // 요일 부분
+  .fc-theme-standard th {
+    height: 32px;
+    padding-top: 3.5px;
+    background: #e5edff;
+    border: 1px solid #dddee0;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #7b7b7b;
+  }
+  
+  // 오늘 날짜 배경색
+  .fc-day-today {
+    // background-color: #fffad2;
+    font-weight: 600;
+    font-size:14px;
+  }
+  
+  // 날짜별 그리드
+  .fc .fc-daygrid-day-frame {
+    padding: 10px;
+  }
+  
+  // 날짜  ex) 2일
+  .fc .fc-daygrid-day-top {
+    flex-direction: row;
+    margin-bottom: 3px;
+  }
+  
+  // 각 이벤트 요소
+  .fc-event {
+    // cursor: pointer;
+    padding: 5px 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  
+  /* 일요일 날짜 빨간색 */
+  .fc-day-sun a {
+  color: red;
+  text-decoration: none;
+  }
+  
+  /* 토요일 날짜 파란색 */
+  .fc-day-sat a {
+  color: blue;
+  text-decoration: none;
+  }
+  //오늘 날짜
+  // .fc-day-today a {
+  //   background-color: #fffad2;
+  //   color: #356eff;
+  //   font-weight: 600;
+  //   font-size:15px;
+  // }
+
+  // .activate_calendar { 
+  //   cursor: pointer;
+  // }
+  
+  .selected-calendar-date{
+    background-color: rgb(255, 205, 140);
+    font-weight: 600;
+    // font-size: 13px;
+    // cursor: pointer;
+  }
+  

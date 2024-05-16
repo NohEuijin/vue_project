@@ -100,6 +100,7 @@
   <!-- <v-col cols="1" class="ml-7">키워드</v-col> -->
   <v-col cols="2" class="pa-0">
     <v-select
+    label="필터"
     v-model="selete_choice"
     class="pa-0 mp_select"
     density="compact"
@@ -113,12 +114,12 @@
   </v-col>
   <v-col cols="4" class="pa-0">
     <v-text-field
+    label="내용 입력"
     class="v_input_box"
     prepend-inner-icon="mdi-magnify"
     hide-details="true"
     density="compact"
     v-model="search_text"
-    placeholder="내용 입력"
     variant="plain"
     >
   </v-text-field>
@@ -202,7 +203,6 @@
 
 <script>
 import dayjs from 'dayjs';
-import { computed } from 'vue';
 export default {
   data() {
     const today = new Date();
@@ -339,7 +339,7 @@ export default {
     } else {
         members.push(potserId);
     }
-    // console.log(members);
+    console.log(members);
 
     this.selectedPosterIds = members;
 },

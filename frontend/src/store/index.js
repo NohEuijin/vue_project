@@ -16,6 +16,11 @@ import {
   posterRegistration,
   modifyPoster,
   deletePoster,
+  updateTheater,
+  createTheater,
+  deleteTheater,
+  createSchedule,
+  deleteScheduls,
 } from '@/apollo/mutation'
 import {
   myData,
@@ -31,6 +36,9 @@ import {
   posterDetail,
   theaterList,
   theaterDetail,
+  selectMovie,
+  searchScheule,
+  scheduleCount,
 } from '@/apollo/query'
 import { moduleA } from '@/store/moduleA'
 import { moduleB } from '@/store/moduleB'
@@ -523,6 +531,134 @@ Authorization: 'Bearer ' + localStorage.getItem(TOKENNAME),
       apollo.clients['defaultClient']
       .query({
         query:theaterDetail,
+        variables:input
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
+
+  updateTheater({commit} , input ){
+    return new Promise((resolve, reject) => {
+      apollo.clients['defaultClient']
+      .mutate({
+        mutation:updateTheater,
+        variables:input
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
+
+  createTheater({commit}, input){
+    return new Promise((resolve,reject) => {
+      apollo.clients['defaultClient']
+      .mutate({
+        mutation:createTheater,
+        variables:input,
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err) => {
+        reject(err)
+      })
+    })
+  },
+
+  deleteTheater({commit}, input){
+    return new Promise((resolve,reject) => {
+      apollo.clients['defaultClient']
+      .mutate({
+        mutation:deleteTheater,
+        variables:input,
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err) => {
+        reject(err)
+      })
+    })
+  },
+
+  selectMovie({commit} , input ){
+    return new Promise((resolve, reject) => {
+      apollo.clients['defaultClient']
+      .query({
+        query:selectMovie,
+        variables:input
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
+
+  createSchedule({commit} , input ){
+    return new Promise((resolve, reject) => {
+      apollo.clients['defaultClient']
+      .mutate({
+        mutation:createSchedule,
+        variables:input
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
+
+  searchScheule({commit} , input ){
+    return new Promise((resolve, reject) => {
+      apollo.clients['defaultClient']
+      .query({
+        query:searchScheule,
+        variables:input
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
+
+  deleteScheduls({commit} , input ){
+    return new Promise((resolve, reject) => {
+      apollo.clients['defaultClient']
+      .mutate({
+        mutation:deleteScheduls,
+        variables:input
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
+
+  scheduleCount({} , input ){
+    return new Promise((resolve, reject) => {
+      apollo.clients['defaultClient']
+      .query({
+        query:scheduleCount,
         variables:input
       })
       .then(({data})=>{

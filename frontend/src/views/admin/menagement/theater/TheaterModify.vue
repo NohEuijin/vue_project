@@ -2,21 +2,21 @@
 import { ref, shallowRef } from 'vue';
 
 import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
-import SdDetail from '@/layouts/admin/management/schedule/SdDetail.vue';
+import TtModify from '@/layouts/admin/management/theater/TtModify.vue';
 
-const page = ref({ title: 'Schedule' });
+const page = ref({ title: 'Modify' });
 const breadcrumbs = shallowRef([
 {
     title: 'Management',
     disabled: false,
   },
   {
-    title: 'Schedule',
+    title: 'Theater',
     disabled: false,
-    href: '/admin/schedule'
+    href: '/admin/theater'
   },
   {
-    title: 'Detail',
+    title: 'Modify',
     disabled: true,
     href: '#'
   }
@@ -28,7 +28,7 @@ const breadcrumbs = shallowRef([
 
   <v-row class="mt-0">
     <v-col cols="12" md="12">
-      <SdDetail />
+      <TtModify />
     </v-col>
   </v-row>
 </template>

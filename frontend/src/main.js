@@ -25,9 +25,7 @@ import VueApexCharts from "vue3-apexcharts";
 /** Vuetify */
 import vuetify from './plugins/vuetify'
 /** Vcalendar : 달력 라이브러리 */
-import VCalendar from 'v-calendar';
-import 'v-calendar/style.css';
-/** dayjs */
+
 import dayjs from 'dayjs'
 
 /**
@@ -86,8 +84,6 @@ app.use(store)
 app.use(PerfectScrollbar)
 app.use(VueApexCharts)
 app.use(vuetify)
-app.use(VCalendar, {})
-
 registerPlugins(app)
 app.config.globalProperties.$dayjs = dayjs
 //연결

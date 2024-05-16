@@ -417,7 +417,8 @@ query theaterList(
 }
 `
 
-export const theaterDetail =  gql`
+//상영관 상세보기
+export const theaterDetail = gql`
 query theaterDetail(
   $id:ID
 ){
@@ -432,6 +433,77 @@ query theaterDetail(
       ratio
       bokdo
       blank
+      readytime
+    schedules{
+      date
+    }
+  }
+}
+`
+
+//영화 정보 검색
+export const selectMovie = gql`
+query selectMovie(
+  $id:ID
+  $date:Date
+){
+  posters(where:{
+    id:$id
+    starttime_lte:$date,
+    endtime_gte:$date
+  }){
+    id
+    name
+    viewage
+    showtime
+    starttime
+    endtime
+  }
+}
+`
+
+//날짜별 스케이줄 조회
+export const searchScheule = gql`
+query searchScheule(
+  $tid:ID,
+  $date:Date,
+){
+  schedules(where:{
+    theater:$tid
+    date:$date,
+  }){
+    id
+    date
+    time
+    booking
+    poster{
+      id
+      name
+      viewage
+      showtime
+    }
+    theater{
+      id
+      city
+      title
+      name
+    }
+  }
+}
+`
+
+export const scheduleCount = gql`
+query scheuleCount(
+  $tid:ID,
+  $date:Date,
+){
+  schedulesConnection(
+    where:{date:$date
+     theater:{id:$tid}
+    }){
+ aggregate{
+  count
+}
   }
 }
 `

@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "05/03/2024 3:28:10 PM"
+    "x-generation-date": "05/16/2024 7:08:44 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -5568,6 +5568,9 @@
                   "type": "string"
                 }
               },
+              "date": {
+                "type": "string"
+              },
               "published_at": {
                 "type": "datetime"
               },
@@ -5579,52 +5582,43 @@
               }
             }
           },
-          "schedule": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "starttime": {
-                "type": "time"
-              },
-              "endtime": {
-                "type": "time"
-              },
-              "booking": {
-                "type": "string"
-              },
-              "timecode": {
-                "type": "string"
-              },
-              "place": {
-                "type": "integer"
-              },
-              "log": {
-                "type": "string"
-              },
-              "date": {
-                "type": "string"
-              },
-              "theater": {
-                "type": "string"
-              },
-              "poster": {
-                "type": "string"
-              },
-              "readytime": {
-                "type": "integer"
-              },
-              "published_at": {
-                "type": "datetime"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
+          "schedules": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "booking": {
+                  "type": "string"
+                },
+                "place": {
+                  "type": "integer"
+                },
+                "date": {
+                  "type": "string"
+                },
+                "theater": {
+                  "type": "string"
+                },
+                "time": {
+                  "type": "time"
+                },
+                "poster": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "datetime"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -5671,8 +5665,11 @@
           "theater": {
             "type": "string"
           },
-          "schedule": {
-            "type": "string"
+          "schedules": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "published_at": {
             "type": "datetime"
@@ -5803,24 +5800,12 @@
           "id": {
             "type": "string"
           },
-          "starttime": {
-            "type": "time"
-          },
-          "endtime": {
-            "type": "time"
-          },
           "booking": {
-            "type": "string"
-          },
-          "timecode": {
             "type": "string"
           },
           "place": {
             "type": "integer",
             "default": 12000
-          },
-          "log": {
-            "type": "string"
           },
           "date": {
             "type": "string"
@@ -5866,6 +5851,9 @@
                   "type": "string"
                 }
               },
+              "date": {
+                "type": "string"
+              },
               "published_at": {
                 "type": "datetime"
               },
@@ -5876,6 +5864,9 @@
                 "type": "string"
               }
             }
+          },
+          "time": {
+            "type": "time"
           },
           "poster": {
             "required": [
@@ -5924,8 +5915,11 @@
               "theater": {
                 "type": "string"
               },
-              "schedule": {
-                "type": "string"
+              "schedules": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               },
               "published_at": {
                 "type": "datetime"
@@ -5938,10 +5932,6 @@
               }
             }
           },
-          "readytime": {
-            "type": "integer",
-            "default": 15
-          },
           "published_at": {
             "type": "datetime"
           }
@@ -5949,24 +5939,12 @@
       },
       "NewSchedule": {
         "properties": {
-          "starttime": {
-            "type": "time"
-          },
-          "endtime": {
-            "type": "time"
-          },
           "booking": {
-            "type": "string"
-          },
-          "timecode": {
             "type": "string"
           },
           "place": {
             "type": "integer",
             "default": 12000
-          },
-          "log": {
-            "type": "string"
           },
           "date": {
             "type": "string"
@@ -5974,12 +5952,11 @@
           "theater": {
             "type": "string"
           },
+          "time": {
+            "type": "time"
+          },
           "poster": {
             "type": "string"
-          },
-          "readytime": {
-            "type": "integer",
-            "default": 15
           },
           "published_at": {
             "type": "datetime"
@@ -6094,8 +6071,11 @@
                 "theater": {
                   "type": "string"
                 },
-                "schedule": {
-                  "type": "string"
+                "schedules": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "published_at": {
                   "type": "datetime"
@@ -6128,23 +6108,11 @@
                 "id": {
                   "type": "string"
                 },
-                "starttime": {
-                  "type": "time"
-                },
-                "endtime": {
-                  "type": "time"
-                },
                 "booking": {
-                  "type": "string"
-                },
-                "timecode": {
                   "type": "string"
                 },
                 "place": {
                   "type": "integer"
-                },
-                "log": {
-                  "type": "string"
                 },
                 "date": {
                   "type": "string"
@@ -6152,11 +6120,11 @@
                 "theater": {
                   "type": "string"
                 },
+                "time": {
+                  "type": "time"
+                },
                 "poster": {
                   "type": "string"
-                },
-                "readytime": {
-                  "type": "integer"
                 },
                 "published_at": {
                   "type": "datetime"
@@ -6169,6 +6137,9 @@
                 }
               }
             }
+          },
+          "date": {
+            "type": "string"
           },
           "published_at": {
             "type": "datetime"
@@ -6210,6 +6181,9 @@
             "items": {
               "type": "string"
             }
+          },
+          "date": {
+            "type": "string"
           },
           "published_at": {
             "type": "datetime"

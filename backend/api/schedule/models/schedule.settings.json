@@ -11,24 +11,12 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "starttime": {
-      "type": "time"
-    },
-    "endtime": {
-      "type": "time"
-    },
     "booking": {
-      "type": "text"
-    },
-    "timecode": {
       "type": "text"
     },
     "place": {
       "type": "integer",
       "default": 12000
-    },
-    "log": {
-      "type": "string"
     },
     "date": {
       "type": "date"
@@ -37,13 +25,12 @@
       "model": "theater",
       "via": "schedules"
     },
+    "time": {
+      "type": "time"
+    },
     "poster": {
       "model": "poster",
-      "via": "schedule"
-    },
-    "readytime": {
-      "default": 15,
-      "type": "integer"
+      "via": "schedules"
     }
   }
 }

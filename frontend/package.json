@@ -12,6 +12,10 @@
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.1",
     "@apollo/client": "^3.7.15",
+    "@fullcalendar/core": "^6.1.11",
+    "@fullcalendar/daygrid": "^6.1.11",
+    "@fullcalendar/interaction": "^6.1.11",
+    "@fullcalendar/vue3": "^6.1.11",
     "@lifeomic/axios-fetch": "^3.0.1",
     "@mdi/font": "7.0.96",
     "@popperjs/core": "^2.11.8",
@@ -28,7 +32,6 @@
     "graphql-tag": "^2.12.6",
     "primeicons": "^7.0.0",
     "roboto-fontface": "*",
-    "v-calendar": "^3.1.2",
     "vue": "^3.2.0",
     "vue-daum-postcode": "^1.2.1",
     "vue-i18n": "9",

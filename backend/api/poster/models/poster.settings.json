@@ -67,12 +67,12 @@
       ]
     },
     "theater": {
-      "via": "posters",
-      "model": "theater"
+      "model": "theater",
+      "via": "posters"
     },
-    "schedule": {
+    "schedules": {
       "via": "poster",
-      "model": "schedule"
+      "collection": "schedule"
     }
   }
 }

@@ -395,7 +395,7 @@ mutation modifyPoster(
   }
 }
 `
-
+//영화 삭제
 export const deletePoster = gql`
 mutation deletePoster(
   $id:ID!
@@ -413,5 +413,144 @@ mutation deletePoster(
 }
 }
 `
+//영화 수정
+export const updateTheater = gql`
+mutation updateTheater(
+  $id:ID!,
+  $name:String,
+  $city:String,
+  $title:String,
+  $ratio:String,
+  $bokdo:String,
+  $blank:String,
+){
+  updateTheater(
+    input:{
+      where:{id:$id}
+      data:{
+        name:$name,
+        city:$city,
+        title:$title,
+        ratio:$ratio,
+        bokdo:$bokdo,
+        blank:$blank,
+    }}){
+    theater{
+      id
+      name
+      city
+      title
+      ratio
+      bokdo
+      blank
+    }
+  }
+}
+`
+//상영관 생성
+export const createTheater = gql`
+mutation createTheater(
+  $name:String,
+  $city:String,
+  $title:String,
+  $ratio:String,
+  $bokdo:String,
+  $blank:String,
+){
+  createTheater(
+    input:{
+      data:{
+        name:$name,
+        city:$city,
+        title:$title,
+        ratio:$ratio,
+        bokdo:$bokdo,
+        blank:$blank,
+    }}){
+    theater{
+      id
+      name
+      city
+      title
+      ratio
+      bokdo
+      blank
+    }
+  }
+}
+`
+//상영관 삭제
+export const deleteTheater = gql`
+mutation deleteTheater(
+  $id:ID!
+){
+  deleteTheater(
+    input:{
+      where:{
+        id:$id
+      }
+    }){
+    theater{
+      id
+    }
+  }
+}
+`
+// 스케이줄 생성
+export const createSchedule = gql `
+mutation createSchedule(
+  $posterId:ID,
+  $theaterId:ID,
+  $time:Time,
+  $date:Date,
+  $booking:String,
+  $place:Int,
+){
+  createSchedule(
+    input:{
+      data:{
+        poster:$posterId,
+ 				theater:$theaterId,
+        time:$time,
+        date:$date,
+        booking:$booking,
+        place:$place,
+      }}){
+    schedule{
+      id
+      date
+      time
+      booking
+      poster{
+        id
+        name
+        viewage
+        showtime
+      }
+      theater{
+        id
+        city
+        title
+        name
+      }
+    }
+  }
+}
+`
 
-
+//스케이줄 삭제
+export const deleteScheduls = gql`
+mutation deleteScheduls(
+  $id:ID!
+){
+  deleteSchedule(
+    input:{
+      where:{
+        id: $id
+      }}){
+    schedule{
+      id
+    }
+  }
+}
+`

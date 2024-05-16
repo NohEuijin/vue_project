@@ -2,16 +2,21 @@
 import { ref, shallowRef } from 'vue';
 
 import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
-import Schedule from '@/layouts/admin/management/schedule/ScheduleList.vue';
+import TtRegiste from '@/layouts/admin/management/theater/TtRegiste.vue';
 
-const page = ref({ title: 'Schedule' });
+const page = ref({ title: 'Register' });
 const breadcrumbs = shallowRef([
-  {
+{
     title: 'Management',
     disabled: false,
   },
   {
-    title: 'Schedule',
+    title: 'Theater',
+    disabled: false,
+    href: '/admin/theater'
+  },
+  {
+    title: 'Register',
     disabled: true,
     href: '#'
   }
@@ -23,7 +28,7 @@ const breadcrumbs = shallowRef([
 
   <v-row class="mt-0">
     <v-col cols="12" md="12">
-      <Schedule />
+      <TtRegiste />
     </v-col>
   </v-row>
 </template>

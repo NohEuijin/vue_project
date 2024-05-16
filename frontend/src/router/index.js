@@ -24,19 +24,24 @@ const routes = [
         component: () => import('@/views/admin/menagement/theater/TheaterFrame.vue'),
       },
       {
+        path: 'admin/theater/register',
+        name: 'ttRegister',
+        component: () => import('@/views/admin/menagement/theater/TheaterRegistration.vue'),
+      },
+      {
         path: 'admin/theater/detail/:id',
         name: 'ttDetail',
         component: () => import('@/views/admin/menagement/theater/TheaterDetail.vue'),
       },
       {
-        path: 'admin/schedule',
-        name: 'schedule',
-        component: () => import('@/views/admin/menagement/schedule/ScheduleFrame.vue'),
+        path: 'admin/theater/modify/:id',
+        name: 'ttModify',
+        component: () => import('@/views/admin/menagement/theater/TheaterModify.vue'),
       },
       {
-        path: 'admin/schedule/detail/:id',
-        name: 'sdDetail',
-        component: () => import('@/views/admin/menagement/schedule/ScheduleDetail.vue'),
+        path: 'admin/ticketing',
+        name: 'ticketing',
+        component: () => import('@/views/admin/menagement/ticketing/TicketingFrame.vue'),
       },
       {
         path: 'admin/mainposter',

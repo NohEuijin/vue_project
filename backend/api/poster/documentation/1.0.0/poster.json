@@ -733,6 +733,9 @@
                   "type": "string"
                 }
               },
+              "date": {
+                "type": "string"
+              },
               "published_at": {
                 "type": "datetime"
               },
@@ -744,52 +747,43 @@
               }
             }
           },
-          "schedule": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "starttime": {
-                "type": "time"
-              },
-              "endtime": {
-                "type": "time"
-              },
-              "booking": {
-                "type": "string"
-              },
-              "timecode": {
-                "type": "string"
-              },
-              "place": {
-                "type": "integer"
-              },
-              "log": {
-                "type": "string"
-              },
-              "date": {
-                "type": "string"
-              },
-              "theater": {
-                "type": "string"
-              },
-              "poster": {
-                "type": "string"
-              },
-              "readytime": {
-                "type": "integer"
-              },
-              "published_at": {
-                "type": "datetime"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
+          "schedules": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "booking": {
+                  "type": "string"
+                },
+                "place": {
+                  "type": "integer"
+                },
+                "date": {
+                  "type": "string"
+                },
+                "theater": {
+                  "type": "string"
+                },
+                "time": {
+                  "type": "time"
+                },
+                "poster": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "datetime"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -836,8 +830,11 @@
           "theater": {
             "type": "string"
           },
-          "schedule": {
-            "type": "string"
+          "schedules": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "published_at": {
             "type": "datetime"

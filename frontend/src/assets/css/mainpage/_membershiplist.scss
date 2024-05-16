@@ -110,3 +110,17 @@ cursor: pointer;
   font-size: 14px;
   color: rgb(97, 97, 97) !important;
 }
+.v-input--density-default .v-field__input {
+  min-height: 30px !important;
+}
+// .t_mt_vc2{
+//   max-width: 230px !important;
+//   min-width: 230px !important;
+// }
+.t_mt_vc2 .v-text-field input{
+  min-width: 100px !important;
+}
+// .t_select{
+//   max-width: 120px !important;
+//   min-width: 120px !important;
+// }
