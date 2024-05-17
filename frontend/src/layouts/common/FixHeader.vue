@@ -57,14 +57,14 @@
       <div class="nav1">
         <ul>
           <li>
-            <a href="#"
-            @mouseover="blockBox"
-            @mouseleave="noneBox"
+            <a
+            @click="$router.push({name:'mainticketing'})"
             >예매</a>
-            <div class="display none" :class="{ 'display': isBoxDisplay }">
+            <div class="display none">
               <ul>
                 <li>
-                  <a href="#">예매하기</a>
+                  <a>
+                  예매하기</a>
                 </li>
                 <li>
                   <a href="#">상영시간표</a>
@@ -152,11 +152,10 @@
   <div class="nav">
     <ul>
       <li>
-        <a href="#"
-        @mouseover="blockBox"
-        @mouseleave="noneBox"
-        >예매</a>
-        <div class="display none" :class="{ 'display': isBoxDisplay }">
+        <a @click="$router.push({name:'mainticketing'})">
+          예매
+        </a>
+        <div class="d-none">
           <ul>
             <li>
               <a href="#">예매하기</a>
@@ -208,7 +207,7 @@ export default {
     await store.dispatch('myData').then((res) =>{
       console.log(res)
     }).catch(() => {
-      console.error("로그인 정보가 없습니다.")
+      // console.error("로그인 정보가 없습니다.")
     })
   }
   userData();

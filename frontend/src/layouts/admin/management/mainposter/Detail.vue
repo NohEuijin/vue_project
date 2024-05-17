@@ -150,7 +150,7 @@ export default {
     async getposter(){
       try{
         let res = await this.$store.dispatch('posterDetail',{id:this.$route.params.id});
-      console.log(res)
+      // console.log(res)
       this.poster=res.posters[0];
       }catch(err){
         console.log(err)

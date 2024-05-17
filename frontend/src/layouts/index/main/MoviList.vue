@@ -1,362 +1,107 @@
 <template>
-           <div class="movi_list">
-            <div class="movi_box"></div>
-            <div class="movi_info">
-              <a href="">
-                <em>03.12 13:30</em> &nbsp;기준
-              </a>
+<div class="movi_list">
+<div class="movi_box"></div>
+<div class="movi_info">
+  <a href="">
+    <em class="mr-1">03 . 12 13 : 30</em>기준
+  </a>
+</div>
+<ul class="tab_wrap">
+  <li class="active">
+    <div class="tab_con">
+      <h3 class="hidden"></h3>
+      <div class="movie_list">
+        <div class="slide_wrap">
+          <div class="owl-carousel owl-loaded owl-drag">
+            <div
+            class="owl-stage-outer"
+
+            >
+<!-- 포스트 리스트 -->
+<div class="owl-stage"
+:style="{ transform: `translate3d(${translateValue}px, 0, 0)`, transition: 'transform 0.25s ease' }">
+<div class="owl-item"
+v-for="(poster, index) of mainPosterList" :key="index">
+  <div class="item"
+  @mouseover="activateBox(index)"
+  @mouseleave="deactivateBox(index)"
+  :class="{ 'active': activeIndex === index }">
+    <!-- 포스트 정보 -->
+    <div class="top_info">
+      <div class="post_info">
+        <img :src="poster?.mainposter ? backUrl + poster.mainposter.url : ''" alt="Image does not exist!">
+        <em class="num_info">{{ index + 1 }}</em>
+      </div>
+      <!-- 포스트 마우스 올렸을 때 이벤트 -->
+      <div class="over_box" >
+        <div class="inner">
+            <a class="btn_inner" href="#">예매하기</a>
+          <a class="btn_inner" href="#">상세정보</a>
+        </div>
+      </div>
+    </div>
+    <!-- 영화 정보 -->
+    <div class="mv_info">
+      <strong class="tit_info">
+        <span class="mr-1 icon_grade">
+      <span
+        v-if="poster.viewage === 'all'">
+        <img
+        src="@/assets/posters/age/all.png" alt="">
+      </span>
+      <span
+        v-if="poster.viewage === 'r12'">
+        <img src="@/assets/posters/age/r12.png" alt="">
+      </span>
+      <span
+        v-if="poster.viewage === 'r15'">
+        <img src="@/assets/posters/age/r15.png" alt="">
+      </span>
+      <span
+        v-if="poster.viewage === 'r19'">
+        <img src="@/assets/posters/age/r19.png" alt="">
+      </span>
+    </span>
+    {{ poster.name }}
+  </strong>
+
+  <div class="sub_info">
+    <em class="rate_info">예매율&nbsp;
+      <em class="mr-2">46.7 %</em>
+      <em class="mr-2 etc_1">Ι</em>
+    </em>
+    <img src="@/assets/posters/etc/ic_star.png" alt="">
+    <em class="star_info">
+      9 . 4
+    </em>
+  </div>
+</div>
+</div>
+</div>
+</div>
+<!-- 포스트 리스트 끝 -->
+
+
+
+
             </div>
-            <ul class="tab_wrap">
-              <li class="active">
-                <div class="tab_con">
-                  <h3 class="hidden"></h3>
-                  <div class="movie_list">
-                    <div class="slide_wrap">
-                      <div class="owl-carousel owl-loaded owl-drag">
-                        <div class="owl-stage-outer">
-                          <div class="owl-stage"
-                           :style="
-                           'transform: translate3d(' + translateValue + 'px, 0px, 0px); transition: all 0.25s ease 0s;'
-                           ">
-                            <!-- 포스트 리스트 -->
-                            <div class="owl-item actie"
-                            style="width: 184px;
-                            margin-right: 15px;">
-                              <div class="item"
-                              @mouseover="activateBox"
-                              @mouseleave="deactivateBox"
-                              :class="{ 'active': isBoxActive }">
-                                <!-- 포스트 정보 -->
-                                <div class="top_info">
-                                  <div class="post_info">
-                                    <img src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202402/20808_101_1.jpg" alt="">
-                                    <em class="num_info">1</em>
-                                  </div>
-                                  <!-- 포스트 마우스 올렸을 때 이벤트 -->
-                                  <div class="over_box" >
-                                    <div class="inner">
-                                        <a class="btn_inner" href="#">예매하기</a>
-                                      <a class="btn_inner" href="#">상세정보</a>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- 영화 정보 -->
-                                <div class="mv_info">
-                                  <strong class="tit_info">
-                                    <span class="icon_grade">
-                                      <img src="https://www.lottecinema.co.kr/NLCHS/Content/images/common/grade_15.png" alt="">
-                                    </span>
-                                    파묘
-                                  </strong>
+            <!-- 포스트 리스트 박스 끝 -->
 
-                                  <div class="sub_info">
-                                    <em class="rate_info">예매율&nbsp;
-                                      <em>46.7%</em>
-                                      <em> &nbsp; | &nbsp; </em>
-                                    </em>
-                                    <img src="https://www.lottecinema.co.kr/NLCHS/Content/images/movie/ic_star.png" alt="">
-                                    <em class="star_info">
-                                      9.4
-                                    </em>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- 포스트 리스트 끝 -->
-                            <!-- 포스트 리스트2 -->
-                            <div class="owl-item actie" >
-                              <div class="item">
-                                <!-- 포스트 정보 -->
-                                <div class="top_info">
-                                  <div class="post_info">
-                                    <img src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202402/20710_101_1.jpg" alt="">
-                                    <em class="num_info">2</em>
-                                  </div>
-                                  <!-- 포스트 마우스 올렸을 때 이벤트 -->
-                                  <div class="over_box">
-                                    <div class="inner" style="margin-top: -33px;">
-                                      <a class="btn_inner" href="#">예매하기</a>
-                                      <a class="btn_inner" href="#">상세정보</a>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- 영화 정보 -->
-                                <div class="mv_info">
-                                  <strong class="tit_info">
-                                    <span class="icon_grade">
-                                      <img src="https://www.lottecinema.co.kr/NLCHS/Content/images/common/grade_12.png" alt="">
-                                    </span>
-                                    듄: 파트2
-                                  </strong>
+            <!-- 이전 다음 네비게이션바 -->
+            <div class="owl-nav">
+              <button type="button" role="presentation" class="owl-prev" @click="moveSlide('prev')">
+              </button>
+              <button type="button" role="presentation" class="owl-next" @click="moveSlide('next')">
+              </button>
+            </div>
 
-                                  <div class="sub_info">
-                                    <em class="rate_info">예매율&nbsp;
-                                      <em>14.1%</em>
-                                      <em> &nbsp; | &nbsp; </em>
-                                    </em>
-                                    <img src="https://www.lottecinema.co.kr/NLCHS/Content/images/movie/ic_star.png" alt="">
-                                    <em class="star_info">
-                                      9.4
-                                    </em>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                              <!-- 포스트 리스트 끝 -->
-                              <!-- 포스트 리스트 -->
-                            <div class="owl-item actie" >
-                              <div class="item">
-                                <!-- 포스트 정보 -->
-                                <div class="top_info">
-                                  <div class="post_info">
-                                    <img src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202402/20666_101_1.jpg" alt="">
-                                    <em class="num_info">3</em>
-                                  </div>
-                                  <!-- 포스트 마우스 올렸을 때 이벤트 -->
-                                  <div class="over_box">
-                                    <div class="inner" style="margin-top: -33px;">
-                                      <a class="btn_inner" href="#">예매하기</a>
-                                      <a class="btn_inner" href="#">상세정보</a>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- 영화 정보 -->
-                                <div class="mv_info">
-                                  <strong class="tit_info">
-                                    <span class="icon_grade">
-                                      <img src="https://www.lottecinema.co.kr/NLCHS/Content/images/common/grade_15.png" alt="">
-                                    </span>
-                                    밥 밀리: 원 러브
-                                  </strong>
-
-                                  <div class="sub_info">
-                                    <em class="rate_info">예매율&nbsp;
-                                      <em>46.7%</em>
-                                      <em> &nbsp; | &nbsp; </em>
-                                    </em>
-                                    <em class="emain_info">
-                                      D-1
-                                    </em>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                              <!-- 포스트 리스트 끝 -->
-                              <!-- 포스트 리스트 -->
-                            <div class="owl-item actie" >
-                              <div class="item">
-                                <!-- 포스트 정보 -->
-                                <div class="top_info">
-                                  <div class="post_info">
-                                    <img src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202403/20827_101_1.jpg" alt="">
-                                    <em class="num_info">4</em>
-                                  </div>
-                                  <!-- 포스트 마우스 올렸을 때 이벤트 -->
-                                  <div class="over_box">
-                                    <div class="inner" style="margin-top: -33px;">
-                                      <a class="btn_inner" href="#">예매하기</a>
-                                      <a class="btn_inner" href="#">상세정보</a>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- 영화 정보 -->
-                                <div class="mv_info">
-                                  <strong class="tit_info">
-                                    <span class="icon_grade">
-                                      <img src="https://www.lottecinema.co.kr/NLCHS/Content/images/common/grade_18.png" alt="">
-                                    </span>
-                                    메이 디셈버
-                                  </strong>
-
-                                  <div class="sub_info">
-                                    <em class="rate_info">예매율&nbsp;
-                                      <em>5.4%</em>
-                                      <em> &nbsp; | &nbsp; </em>
-                                    </em>
-                                    <em class="emain_info">
-                                      D-1
-                                    </em>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                              <!-- 포스트 리스트 끝 -->
-                              <!-- 포스트 리스트 -->
-                            <div class="owl-item actie" >
-                              <div class="item">
-                                <!-- 포스트 정보 -->
-                                <div class="top_info">
-                                  <div class="post_info">
-                                    <img src="https://cf2.lottecinema.co.kr/lotte_image/2022/Hyundaicard/Hyundaicard_184262.jpg" alt="">
-                                    <em class="num_info">AD</em>
-                                  </div>
-                                  <!-- 포스트 마우스 올렸을 때 이벤트 -->
-                                  <div class="over_box">
-                                    <div class="inner" style="margin-top: -33px;">
-                                      <a class="btn_inner" href="#">상세정보</a>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- 영화 정보 -->
-                                <div class="mv_info">
-
-                                  <div class="sub_info">
-
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                              <!-- 포스트 리스트 끝 -->
-                                                            <!-- 포스트 리스트 -->
-                            <div class="owl-item actie" >
-                              <div class="item">
-                                <!-- 포스트 정보 -->
-                                <div class="top_info">
-                                  <div class="post_info">
-                                    <img src="https://cf2.lottecinema.co.kr/lotte_image/2022/Hyundaicard/Hyundaicard_184262.jpg" alt="">
-                                    <em class="num_info">AD</em>
-                                  </div>
-                                  <!-- 포스트 마우스 올렸을 때 이벤트 -->
-                                  <div class="over_box">
-                                    <div class="inner" style="margin-top: -33px;">
-                                      <a class="btn_inner" href="#">상세정보</a>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- 영화 정보 -->
-                                <div class="mv_info">
-
-                                  <div class="sub_info">
-
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                              <!-- 포스트 리스트 끝 -->
-                                                                                          <!-- 포스트 리스트 -->
-                            <div class="owl-item actie" >
-                              <div class="item">
-                                <!-- 포스트 정보 -->
-                                <div class="top_info">
-                                  <div class="post_info">
-                                    <img src="https://cf2.lottecinema.co.kr/lotte_image/2022/Hyundaicard/Hyundaicard_184262.jpg" alt="">
-                                    <em class="num_info">AD</em>
-                                  </div>
-                                  <!-- 포스트 마우스 올렸을 때 이벤트 -->
-                                  <div class="over_box">
-                                    <div class="inner" style="margin-top: -33px;">
-                                      <a class="btn_inner" href="#">상세정보</a>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- 영화 정보 -->
-                                <div class="mv_info">
-
-                                  <div class="sub_info">
-
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                              <!-- 포스트 리스트 끝 -->
-                                                                                          <!-- 포스트 리스트 -->
-                            <div class="owl-item actie" >
-                              <div class="item">
-                                <!-- 포스트 정보 -->
-                                <div class="top_info">
-                                  <div class="post_info">
-                                    <img src="https://cf2.lottecinema.co.kr/lotte_image/2022/Hyundaicard/Hyundaicard_184262.jpg" alt="">
-                                    <em class="num_info">AD</em>
-                                  </div>
-                                  <!-- 포스트 마우스 올렸을 때 이벤트 -->
-                                  <div class="over_box">
-                                    <div class="inner" style="margin-top: -33px;">
-                                      <a class="btn_inner" href="#">상세정보</a>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- 영화 정보 -->
-                                <div class="mv_info">
-
-                                  <div class="sub_info">
-
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                              <!-- 포스트 리스트 끝 -->
-                                                                                          <!-- 포스트 리스트 -->
-                            <div class="owl-item actie" >
-                              <div class="item">
-                                <!-- 포스트 정보 -->
-                                <div class="top_info">
-                                  <div class="post_info">
-                                    <img src="https://cf2.lottecinema.co.kr/lotte_image/2022/Hyundaicard/Hyundaicard_184262.jpg" alt="">
-                                    <em class="num_info">AD</em>
-                                  </div>
-                                  <!-- 포스트 마우스 올렸을 때 이벤트 -->
-                                  <div class="over_box">
-                                    <div class="inner" style="margin-top: -33px;">
-                                      <a class="btn_inner" href="#">상세정보</a>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- 영화 정보 -->
-                                <div class="mv_info">
-
-                                  <div class="sub_info">
-
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                              <!-- 포스트 리스트 끝 -->
-                                                                                          <!-- 포스트 리스트 -->
-                            <div class="owl-item actie" >
-                              <div class="item">
-                                <!-- 포스트 정보 -->
-                                <div class="top_info">
-                                  <div class="post_info">
-                                    <img src="https://cf2.lottecinema.co.kr/lotte_image/2022/Hyundaicard/Hyundaicard_184262.jpg" alt="">
-                                    <em class="num_info">AD</em>
-                                  </div>
-                                  <!-- 포스트 마우스 올렸을 때 이벤트 -->
-                                  <div class="over_box">
-                                    <div class="inner" style="margin-top: -33px;">
-                                      <a class="btn_inner" href="#">상세정보</a>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- 영화 정보 -->
-                                <div class="mv_info">
-
-                                  <div class="sub_info">
-
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                              <!-- 포스트 리스트 끝 -->
-
-
-                          </div>
-                        </div>
-                        <!-- 포스트 리스트 박스 끝 -->
-                        <!-- 이전 다음 네비게이션바 -->
-                        <div class="owl-nav">
-                          <button type="button" role="presentation" class="owl-prev" @click="moveSlide('prev')">
-                          </button>
-                          <button type="button" role="presentation" class="owl-next" @click="moveSlide('next')">
-                          </button>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </ul>
           </div>
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>
+</div>
 </template>
 
 <!--
@@ -368,36 +113,72 @@
   export default {
   data(){
     return {
-      isBoxActive : false,
+      backUrl: import.meta.env.VUE_APP_BACKEND_URL,
+      activeIndex: null,
       translateValue: 0,
+      mainPosterList:[],
     };
   },
   methods: {
-    activateBox(){
-      this.isBoxActive = true;
+    activateBox(index){
+      this.activeIndex = index;
     },
-    deactivateBox(){
-      this.isBoxActive = false;
+    deactivateBox(index){
+      if (this.activeIndex === index) {
+        this.activeIndex = null;
+      }
     },
     moveSlide(direction) {
-        const slideWidth = 199; //이동될 넓이 길이
-
+      const slideWidth = 199; //이동될 넓이 길이
+      console.log('hi')
         if (direction === 'prev') {
           this.translateValue += slideWidth;
-          if (this.translateValue > 0) this.translateValue = 0;
+          if (this.translateValue > 0){
+            this.translateValue = 0;
+            console.log('hi2')
+            console.log(this.translateValue)
+            console.log(slideWidth)
+          }
+
         } else {
           this.translateValue -= slideWidth;
           const minValue = -((this.numSlides - 3) * slideWidth);
+          console.log('hi3')
+
+          console.log(this.numSlides)
+          console.log(minValue)
+          console.log(slideWidth)
+
+
           // 이전 또는 다음 클릭시, 슬라이드가 몇 개씩 이동하는지를 조정
-          if (this.translateValue < minValue) this.translateValue = minValue;
+          if (this.translateValue < minValue){
+            this.translateValue = minValue;
+            console.log('hi4')
+             console.log(this.translateValue)
+          }
         }
+      },
+      async getPosterList(){
+        await this.$store.dispatch('mainPosterList')
+        .then((res) => {
+          // console.log(res)
+          this.mainPosterList = res.posters
+          // console.log(this.mainPosterList)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
       }
       },
     computed: {
       numSlides() {
-        return document.querySelectorAll('.owl-item').length;
+        // return document.querySelectorAll('.owl-item').length;
+        return this.mainPosterList.length;
         //클래스의 길이 만큼 이동
       }
+  },
+  async mounted(){
+    await this.getPosterList();
   }
 }
 </script>
@@ -462,7 +243,7 @@
   color: #FFF;
 }
 .movi_info em{
-  font-family: 'Roboto';
+  font-family: 'ChosunSg';
   font-size: 12px;
   padding-left: 16px;
   background: url(https://www.lottecinema.co.kr/NLCHS/Content/images/icon/time2.png) no-repeat 0 1px;
@@ -502,7 +283,10 @@
 .owl-stage{
   width: 4378px;
   transform: translate3d(0px, 0px, 0px);
+  /* transform: translate3d(-199px, 0px, 0px); */
   transition: all 0.25s ease 0s;
+
+
 }
 .owl-carousel .owl-stage-outer {
   position: relative;
@@ -512,6 +296,8 @@
   float: left;
   width: 184px;
   margin-right: 15px;
+
+  /* flex: 0 0 auto; */
 }
 .item{
   color: #FFF;
@@ -573,6 +359,7 @@
   margin-top: 20px
 }
 .tit_info{
+  font-family: 'ChosunSg';
   display: block;
   overflow: hidden;
   white-space: nowrap;
@@ -600,14 +387,13 @@
 
   font-weight: bold;
   position: relative;
-  font-family: 'Roboto', "Noto Sans KR";
+  font-family: 'ChosunSg';
 }
 .sub_info img{
   width:11px;
   height:11px;
 }
 .star_info{
-
   font-weight: bold;
   color: #fff;
 }
@@ -621,10 +407,11 @@
   height: 19px;
   margin-top: -10px;
 }
+
 .owl-prev{
+  background: url(@/assets/posters/arrow/prev.png) no-repeat 50% 50%;
   top: 38%;
   left: -30px;
-  background: url(https://www.lottecinema.co.kr/NLCHS/Content/images/icon/arr_lf_19_wht.png) no-repeat 50% 50%;
   width: 19px;
   height: 35px;
   opacity: .5;
@@ -635,7 +422,7 @@
 .owl-nav .owl-next{
   top: 38%;
   right: -30px;
-  background: url(https://www.lottecinema.co.kr/NLCHS/Content/images/icon/arr_rg_19_wht.png) no-repeat 50% 50%;
+  background: url(@/assets/posters/arrow/next.png) no-repeat 50% 50%;
   width: 19px;
   height: 35px;
   opacity: .5;

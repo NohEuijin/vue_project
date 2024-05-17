@@ -507,3 +507,41 @@ query scheuleCount(
   }
 }
 `
+//메인 영화 리스트
+export const mainPosterList = gql `
+query mainPosterList(
+  $start:Int,
+  $limit:Int,
+  $startDate:DateTime,
+  $endDate:DateTime,
+){
+  postersConnection(
+    where:{
+      created_at_gte:$startDate
+      created_at_lte:$endDate
+    }){
+    aggregate{
+      count
+    }
+  }
+  posters(
+    where:{
+      created_at_gte:$startDate
+      created_at_lte:$endDate
+    },
+    start:$start,
+    limit:$limit
+  ){
+      id
+      name
+      starttime
+      endtime
+    	viewage
+    	mainposter{
+        id
+        url
+      }
+
+  }
+}
+`

@@ -39,6 +39,7 @@ import {
   selectMovie,
   searchScheule,
   scheduleCount,
+  mainPosterList,
 } from '@/apollo/query'
 import { moduleA } from '@/store/moduleA'
 import { moduleB } from '@/store/moduleB'
@@ -659,6 +660,22 @@ Authorization: 'Bearer ' + localStorage.getItem(TOKENNAME),
       apollo.clients['defaultClient']
       .query({
         query:scheduleCount,
+        variables:input
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
+
+  mainPosterList({} , input ){
+    return new Promise((resolve, reject) => {
+      apollo.clients['defaultClient']
+      .query({
+        query:mainPosterList,
         variables:input
       })
       .then(({data})=>{

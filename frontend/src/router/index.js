@@ -147,6 +147,11 @@ const routes = [
         name: 'modify',
         component: () => import('@/views/contents/modify.vue'),
       },
+      {
+        path: '/mainticketing',
+        name: 'mainticketing',
+        component: () => import('@/views/ticketing/mainTicketing.vue'),
+      },
     ]
   },
 
