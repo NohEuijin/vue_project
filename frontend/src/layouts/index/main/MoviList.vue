@@ -130,32 +130,21 @@ v-for="(poster, index) of mainPosterList" :key="index">
     },
     moveSlide(direction) {
       const slideWidth = 199; //이동될 넓이 길이
-      console.log('hi')
         if (direction === 'prev') {
           this.translateValue += slideWidth;
           if (this.translateValue > 0){
             this.translateValue = 0;
-            console.log('hi2')
-            console.log(this.translateValue)
-            console.log(slideWidth)
           }
 
         } else {
           this.translateValue -= slideWidth;
           const minValue = -((this.numSlides - 3) * slideWidth);
-          console.log('hi3')
-
-          console.log(this.numSlides)
-          console.log(minValue)
-          console.log(slideWidth)
-
-
           // 이전 또는 다음 클릭시, 슬라이드가 몇 개씩 이동하는지를 조정
           if (this.translateValue < minValue){
             this.translateValue = minValue;
-            console.log('hi4')
-             console.log(this.translateValue)
           }
+          console.log(this.translateValue)
+          console.log(minValue)
         }
       },
       async getPosterList(){
@@ -281,12 +270,9 @@ v-for="(poster, index) of mainPosterList" :key="index">
   z-index: 1;
 }
 .owl-stage{
-  width: 4378px;
+  /* width: 4378px;
   transform: translate3d(0px, 0px, 0px);
-  /* transform: translate3d(-199px, 0px, 0px); */
-  transition: all 0.25s ease 0s;
-
-
+  transition: all 0.25s ease 0s; */
 }
 .owl-carousel .owl-stage-outer {
   position: relative;

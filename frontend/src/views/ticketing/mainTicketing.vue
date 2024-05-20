@@ -26,31 +26,6 @@
                           <em>(0)</em>
                         </a>
                       </li>
-
-                      <li class="depth1">
-                        <a href="#">
-                          서울
-                          <em>(0)</em>
-                        </a>
-                      </li>
-                      <li class="depth1">
-                        <a href="#">
-                          서울
-                          <em>(0)</em>
-                        </a>
-                      </li>
-                      <li class="depth1">
-                        <a href="#">
-                          서울
-                          <em>(0)</em>
-                        </a>
-                      </li>
-                      <li class="depth1">
-                        <a href="#">
-                          서울
-                          <em>(0)</em>
-                        </a>
-                      </li>
                       <!-- 지역 리스트 끝  -->
                     </ul>
                   </v-col>
@@ -96,26 +71,49 @@
 
               <div class=" article article_time area__movingbar litype6_time">
                 <div class="group_top">
-                  <h4 class="tit">2024-05-17(오늘)</h4>
+                  <h4 class="tit"> {{pickDay}}(오늘)</h4>
                 </div>
                 <div class="mt_inner">
                   <div class="date_select_wrap bdr dateReserveWrap">
                     <div class="slide_wrap slide_reserve_date_wide">
                       <ul class="mt_owl-carousel owl-loaded owl-drag">
                         <div class="owl-stage-outer">
-                        <div class="mt_owl-stage">
-                          <div class="mt_owl-item">
+                        <div class="mt_owl-stage"
+                        :style="{ transform: `translate3d(${translateValue}px, 0, 0)`, transition: 'transform 0.25s ease' }">
+                          <div
+                          class="mt_owl-item"
+                          v-for="(date, index) in convertDates" :key="index"
+                          >
                             <li class="item">
-                              <strong class="month">5월</strong>
+                              <strong class="month"
+                              v-if="shouldDisplayMonth(date)"
+                              >
+                                {{monthFormat(date)}} 월
+                              </strong>
                               <a href="#" class="date">
-                                <label for="radioDate0">
-                                  <input type="radio">
-                                  <strong>17</strong>
-                                  <em>오늘</em>
+                                <label :for="'radioDate' + index">
+                                  <input
+                                  type="radio"
+                                  :id="'radioDate' + index"
+                                  name="radioDate"
+                                  data-displayyn="Y"
+                                  data-playdate="date"
+                                  data-isplaydate="Y"
+                                  data-playweek="오늘"
+                                  :v-model="pickDay"
+                                  @click="pickDayMovie(date)"
+                                  :checked="index === 0">
+                                  <strong :class="dayClass(date)">
+                                  {{ dayFormat(date) }}
+                                  </strong>
+                                  <em :class="dayClass(date)">{{dayOfWeekFormat(date)}}
+                                  </em>
                                 </label>
                               </a>
                             </li>
+
                           </div>
+
                         </div>
                       </div>
 
@@ -157,54 +155,111 @@
 </template>
 
 <script>
+import dayjs from 'dayjs';
+// 한글 로케일 파일 로드(요일 한글화 위함)
+import 'dayjs/locale/ko';
 export default {
   data(){
     return{
-
+      today : dayjs(),
+      convertDate:'',
+      convertDates:[],
+      translateValue:0,
+      //오늘 날짜 기본 값
+      pickDay:dayjs().format('YYYY-MM-DD'),
     };
   },
   methods:{
+    pickDayMovie(date){
+      // console.log(date)
+      this.pickDay=date
+      console.log(this.pickDay)
+    },
+    //오늘 ~ 1달간 날짜
+    viewDay(){
+      let monthsDay = 30;
+      const today = dayjs().format('YYYY-MM-DD');
+
+      for(let i=0;i<monthsDay;i++){
+        this.convertDate = dayjs(today).add(i,'day').format('YYYY-MM-DD')
+        this.convertDates.push(this.convertDate);
+      }
+      console.log(this.convertDates)
+
+    },
+    //날짜 폼
+    todayFormat(){
+      return this.today.format("YYYY-MM-DD");
+    },
+    dayFormat(date){
+      return dayjs(date).format("DD");
+    },
+    //요일 한글 폼(오늘 날짜 = 받아온 오늘 날짜 = 오늘)
+    dayOfWeekFormat(date) {
+      if(dayjs().format('YYYY-MM-DD') === date){
+        return '오늘'
+      }
+      return dayjs(date).locale('ko').format("ddd");
+    },
+    //주말 칼라
+    dayClass(date) {
+      const dayOfWeek = this.dayOfWeekFormat(date);
+      if (dayOfWeek === '토') {
+        return 'blue'; // 토요일은 파란색 클래스 적용
+      } else if (dayOfWeek === '일') {
+        return 'red'; // 일요일은 빨간색 클래스 적용
+      } else {
+        return ''; // 나머지 요일은 클래스 없음
+      }
+    },
+    monthFormat(date){
+      //형식화된 월 문자열을 숫자로 변환.
+      //이 과정에서 앞의 0이 제거 (5, 6 등).
+      return String(Number(dayjs(date).format("MM")));
+    },
+    //오늘날짜, 매월 1일 체크
+    shouldDisplayMonth(date) {
+    const isFirstDayOfMonth = dayjs(date).date() === 1;
+    const isToday = dayjs(date).isSame(this.today, 'day');
+    return isFirstDayOfMonth || isToday;
+  },
+  //좌우 이동
     moveSlide(direction) {
-      const slideWidth = 199; //이동될 넓이 길이
-      console.log('hi')
+      const slideWidth = 855; //이동될 넓이 길이
         if (direction === 'prev') {
           this.translateValue += slideWidth;
           if (this.translateValue > 0){
             this.translateValue = 0;
-            console.log('hi2')
-            console.log(this.translateValue)
-            console.log(slideWidth)
           }
-
         } else {
           this.translateValue -= slideWidth;
-          const minValue = -((this.numSlides - 3) * slideWidth);
-          console.log('hi3')
-
-          console.log(this.numSlides)
-          console.log(minValue)
-          console.log(slideWidth)
-
+          const minValue = -(slideWidth);
           // 이전 또는 다음 클릭시, 슬라이드가 몇 개씩 이동하는지를 조정
           if (this.translateValue < minValue){
             this.translateValue = minValue;
-            console.log('hi4')
-             console.log(this.translateValue)
           }
         }
       },
   },
   computed: {
       numSlides() {
-        // return document.querySelectorAll('.owl-item').length;
-        // return this.mainPosterList.length;
+        return this.convertDates.length;
         //클래스의 길이 만큼 이동
       }
   },
+  mounted(){
+    this.viewDay();
+  }
 }
 </script>
 
 <style>
+.blue {
+  color: blue;
+}
+.red {
+  color: red;
+}
 .mt_contents_full{
   min-width: 100% !important;
   max-width: 100% !important;
@@ -319,6 +374,7 @@ export default {
 
 .depth1 a{
   /* margin-top:5px; */
+  font-family: 'NEXON Lv1 Gothic OTF';
 }
 .depth1{
   width: 175px;
@@ -330,6 +386,7 @@ export default {
   /* text-align: center; */
 }
 .depth2{
+  font-family: 'NEXON Lv1 Gothic OTF';
   width: 175px;
   height: 35px;
   justify-content: center;
@@ -365,28 +422,38 @@ export default {
     margin-bottom: 0;
     padding-bottom: 20px;
     border-bottom: 1px solid #EEE;
-}
-.date_select_wrap {
+
+    /* position: relative; */
+    /* float: left; */
     /* overflow: hidden; */
-    height: 75px;
+    /* height: 75px; */
     margin: 22px 20px 10px;
 }
+
 .slide_wrap {
     position: relative;
 }
 .mt_owl-stage{
-  transform: translate3d(0px, 0px, 0px);
-  transition: all 0s ease 0s;
-  /* width: 1623px; */
+  /* transform: translate3d(0px, 0px, 0px);
+  transition: all 0s ease 0s; */
+  width: 1750px;
 }
 .owl-stage-outer {
-  position: relative;
+  /* position: relative; */
   overflow: hidden;
-  /* -webkit-transform: translate3d(0px, 0px, 0px); */
 }
-.owl-stage-outer .owl-stage {
+.owl-stage-outer .mt_owl-stage {
+  /* position: relative; */
+  /* touch-action: manipulation; */
+}
+.owl-stage-outer .mt_owl-item{
+  float: left;
   position: relative;
   touch-action: manipulation;
+  /* width: 184px;
+  margin-right: 15px; */
+
+  /* flex: 0 0 auto; */
 }
 .mt_owl-item{
   width: 58px;
@@ -400,11 +467,13 @@ export default {
 }
 .item .month {
   position: absolute;
-  top: 0;
+  top: -5px;
   left: 0;
   width: 100%;
   text-align: center;
   font-size: 10px;
+
+  /* font-family: 'ChosunSg'; */
 }
 .mt_owl-item .a {
   display: block;
@@ -414,6 +483,8 @@ export default {
 .mt_owl-item label {
     display: block;
     cursor: pointer;
+
+    font-family: 'ChosunSg';
 }
 .mt_owl-item input[type="radio"] {
   overflow: hidden;
@@ -467,7 +538,7 @@ export default {
 
 .mt_owl-carousel .owl-prev{
   background: url(@/assets/posters/arrow/ticket_prev.png) no-repeat 50% 50%;
-  top: 38%;
+  top: 60%;
   left: -15px;
   width: 19px;
   height: 35px;
@@ -483,7 +554,7 @@ export default {
 }
 
 .mt_owl-carousel .owl-next{
-  top: 38%;
+  top: 60%;
   right: -15px;
   background: url(@/assets/posters/arrow/ticket_next.png) no-repeat 50% 50%;
   width: 19px;
