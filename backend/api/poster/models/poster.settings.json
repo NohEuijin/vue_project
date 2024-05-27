@@ -67,8 +67,8 @@
       ]
     },
     "theater": {
-      "model": "theater",
-      "via": "posters"
+      "via": "posters",
+      "model": "theater"
     },
     "schedules": {
       "via": "poster",

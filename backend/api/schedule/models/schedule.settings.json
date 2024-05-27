@@ -16,7 +16,7 @@
     },
     "place": {
       "type": "integer",
-      "default": 12000
+      "default": 18000
     },
     "date": {
       "type": "date"
@@ -31,6 +31,10 @@
     "poster": {
       "model": "poster",
       "via": "schedules"
+    },
+    "ticketing": {
+      "model": "ticketing",
+      "via": "schedule"
     }
   }
 }

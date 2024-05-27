@@ -203,6 +203,7 @@ async registeTheater(){
     ratio : ratio,
     bokdo : bokdoString,
     blank : blankString,
+    total : String(this.total_seat),
   }
   console.log(form)
   if(!this.name || this.name.trim() === '' ){

@@ -527,7 +527,7 @@
           },
           "place": {
             "type": "integer",
-            "default": 12000
+            "default": 18000
           },
           "date": {
             "type": "string"
@@ -574,6 +574,9 @@
                 }
               },
               "date": {
+                "type": "string"
+              },
+              "total": {
                 "type": "string"
               },
               "published_at": {
@@ -654,6 +657,37 @@
               }
             }
           },
+          "ticketing": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "seat": {
+                "type": "string"
+              },
+              "personnel": {
+                "type": "integer"
+              },
+              "schedule": {
+                "type": "string"
+              },
+              "users_permissions_user": {
+                "type": "string"
+              },
+              "published_at": {
+                "type": "datetime"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
           "published_at": {
             "type": "datetime"
           }
@@ -666,7 +700,7 @@
           },
           "place": {
             "type": "integer",
-            "default": 12000
+            "default": 18000
           },
           "date": {
             "type": "string"
@@ -678,6 +712,9 @@
             "type": "time"
           },
           "poster": {
+            "type": "string"
+          },
+          "ticketing": {
             "type": "string"
           },
           "published_at": {

@@ -592,6 +592,9 @@
                   "type": "string"
                 }
               },
+              "ticketing": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },

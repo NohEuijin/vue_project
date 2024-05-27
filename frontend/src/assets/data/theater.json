@@ -11,6 +11,17 @@
     {"title" : "제주", "value":"제주"}
   ],
 
+  "location2":[
+    {"title" : "서울", "value":"서울"},
+    {"title" : "경기/인천", "value":"경기/인천"},
+    {"title" : "충청/대전", "value":"충청/대전"},
+    {"title" : "전라/광주", "value":"전라/광주"},
+    {"title" : "경북/대구", "value":"경북/대구"},
+    {"title" : "경남/부산/울산", "value":"경남/부산/울산"},
+    {"title" : "강원", "value":"강원"},
+    {"title" : "제주", "value":"제주"}
+  ],
+
   "theater":{
     "서울":[
     {"title":"가산디지털", "value":"가산디지털"},

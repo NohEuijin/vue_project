@@ -494,12 +494,16 @@ query searchScheule(
 
 export const scheduleCount = gql`
 query scheuleCount(
-  $tid:ID,
+  $tcity:String,
+  $ttitle:String,
   $date:Date,
 ){
   schedulesConnection(
     where:{date:$date
-     theater:{id:$tid}
+     theater:{
+      city:$tcity,
+      title:$ttitle
+    }
     }){
  aggregate{
   count
@@ -542,6 +546,111 @@ query mainPosterList(
         url
       }
 
+  }
+}
+`
+
+export const ticketingSchedules = gql`
+query ticketingSchedules(
+  $theatercity : String,
+  $theatertitle : String,
+  $date:Date,
+  $sortCondition:String,
+){
+  schedules(
+	sort:$sortCondition,
+    where:{
+      theater:{
+        city:$theatercity,
+        title:$theatertitle,
+      },
+      date:$date
+  }){
+      id
+      date
+      time
+      place
+      booking
+    	theater{
+        id
+        city
+        title
+        name
+        readytime
+        ratio
+        bokdo
+        blank
+        total
+      }
+      poster{
+        id
+        name
+        viewage
+        showtime
+    		}
+  }
+}
+`
+
+export const posterNowShowtime = gql`
+query posterNowShowtime(
+  $starttime:Date,
+  $endtime:Date
+){
+  posters(
+    where:{
+    starttime:$starttime,
+    endtime:$endtime
+    }){
+    id
+    name
+    starttime
+    endtime
+    showtime
+    viewage
+  }
+}
+`
+
+//회원 영화 예매 진행 보기
+export const getTicketing = gql`
+query getTicketing(
+  $uid:ID,
+){
+  ticketings(where:{
+      users_permissions_user:$uid
+  }){
+    id
+    seat
+    personnel
+    users_permissions_user{
+      id
+      name
+    }
+    schedule{
+      id
+      date
+      time
+      place
+      booking
+      	theater{
+        id
+        city
+        title
+        name
+        readytime
+        ratio
+        bokdo
+        blank
+        total
+      }
+      poster{
+      id
+      name
+      viewage
+      showtime
+      }
+    }
   }
 }
 `

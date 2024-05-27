@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ticketings",
+  "info": {
+    "name": "ticketing",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "seat": {
+      "type": "string"
+    },
+    "personnel": {
+      "type": "integer"
+    },
+    "schedule": {
+      "via": "ticketing",
+      "model": "schedule"
+    },
+    "users_permissions_user": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "ticketing"
+    }
+  }
+}

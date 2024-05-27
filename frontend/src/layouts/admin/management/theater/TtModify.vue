@@ -228,6 +228,7 @@ async registeTheater(){
     ratio : ratio,
     bokdo : bokdoString,
     blank : blankString,
+    total : String(this.total_seat)
   }
   console.log(form)
   if(!this.name || this.name.trim() === '' ){
@@ -262,7 +263,7 @@ async registeTheater(){
 async gettheaterDetail(){
   try{
     let res = await this.$store.dispatch('theaterDetail',{id: this.$route.params.id});
-    console.log(res)
+    // console.log(res)
     //규모
     for(let i = 0; i< res.theaters.length; i++){
       res.theaters[i].ratio = res.theaters[i].ratio.split('x')
@@ -319,6 +320,7 @@ async updateTheater(){
     ratio : ratio,
     bokdo : bokdoString,
     blank : blankString,
+    total : String(this.total_seat),
   }
   if(!this.theater.name || this.theater.name.trim() === '' ){
         alert("관을 입력 해주세요!!")
@@ -355,6 +357,7 @@ async middleUpdate(){
     ratio : ratio,
     bokdo : bokdoString,
     blank : blankString,
+    total : String(this.total_seat),
   }
     await this.$store.dispatch('updateTheater',form)
     .then((res)=>{
@@ -508,8 +511,8 @@ if (!/^(?:[A-Z]|[A-Z][1-9][0-9]?)$/.test(value)) {
 }
 }
 },
+//복도 리스트 값 체크
 bokdoListCheck(){
-  //복도 리스트 값 체크
   const numberCheck = /^[0-9]*$/;
   for (let i = 0; i < this.bokdoList.length; i++) {
   if ( !numberCheck.test(this.bokdoList[i])) {
@@ -621,13 +624,14 @@ border-top-right-radius: 4px;
 opacity: 1;
 // background-color: black;
 
->span{
-cursor: pointer;
-font-size: 10px;
-}
-&.seat_blank {
-opacity: 0;
-}
+  > span{
+  cursor: pointer;
+  font-size: 10px;
+  }
+
+  &.seat_blank {
+  opacity: 0;
+  }
 }
 
 .corridor{

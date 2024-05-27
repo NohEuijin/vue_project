@@ -208,8 +208,10 @@ export default {
     const today = new Date();
     return {
       today:today,
-      start_date:new Date(today.getFullYear(), today.getMonth(), 1),
-      end_date:new Date(today.getFullYear(), today.getMonth() + 1, 0),
+      // 현재일 기준 6개월 전
+      start_date:new Date(today.getFullYear(), today.getMonth() - 6, today.getDate()),
+      // 현재일 기준 6개월 후
+      end_date:new Date(today.getFullYear(), today.getMonth() + 6, today.getDate()),
       menu1:false,
       menu2:false,
       posterList:[],

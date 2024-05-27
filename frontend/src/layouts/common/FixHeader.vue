@@ -205,7 +205,7 @@ export default {
   // 로그인 정보 불러오기
   const userData = async () => {
     await store.dispatch('myData').then((res) =>{
-      console.log(res)
+      // console.log(res)
     }).catch(() => {
       // console.error("로그인 정보가 없습니다.")
     })
@@ -260,7 +260,7 @@ export default {
   // watch : route.name을 기준으로 계속 체크 해줌
   watch(() => route.name, () => {
     routerName.value = route.name
-    console.log(routerName.value)
+    // console.log(routerName.value)
     loginState();
     joinStateCheck();
   })

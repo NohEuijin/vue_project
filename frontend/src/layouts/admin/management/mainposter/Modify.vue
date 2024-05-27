@@ -338,12 +338,20 @@ console.log(this.poster.mainposter)
         mainposter : this.poster.mainposter.id,
         stillcut : still_id,
       }
-      console.log(form);
-      await this.$store.dispatch('modifyPoster',form).then((res)=>
-      console.log(res)
+      // console.log(form);
+
+      const modifyConfirm = confirm("수정하시겠니까?")
+      if(modifyConfirm){
+        await this.$store.dispatch('modifyPoster',form).then((res)=>
+      // console.log(res)
+      this.$router.push({name:'mpdetail',params:{id:this.poster.id}})
+
+
     ).catch((err) =>{
       console.log(err)
     })
+      }
+
     },
     openCalendar(){
       this.menu1 = true;

@@ -423,6 +423,7 @@ mutation updateTheater(
   $ratio:String,
   $bokdo:String,
   $blank:String,
+  $total:String,
 ){
   updateTheater(
     input:{
@@ -434,6 +435,7 @@ mutation updateTheater(
         ratio:$ratio,
         bokdo:$bokdo,
         blank:$blank,
+        total:$total,
     }}){
     theater{
       id
@@ -443,6 +445,7 @@ mutation updateTheater(
       ratio
       bokdo
       blank
+      total
     }
   }
 }
@@ -456,6 +459,7 @@ mutation createTheater(
   $ratio:String,
   $bokdo:String,
   $blank:String,
+  $total:String,
 ){
   createTheater(
     input:{
@@ -466,6 +470,7 @@ mutation createTheater(
         ratio:$ratio,
         bokdo:$bokdo,
         blank:$blank,
+        total:$total,
     }}){
     theater{
       id
@@ -475,6 +480,7 @@ mutation createTheater(
       ratio
       bokdo
       blank
+      total
     }
   }
 }
@@ -550,6 +556,58 @@ mutation deleteScheduls(
       }}){
     schedule{
       id
+    }
+  }
+}
+`
+
+//티켓 예매 진행
+export const createTicketing = gql`
+mutation createTicketing(
+  $seat:String,
+  $personnel:Int,
+  $scheduleId:ID,
+  $userId:ID
+){
+  createTicketing(
+    input:{
+      data:{
+      seat:$seat,
+      personnel:$personnel
+      schedule:$scheduleId
+      users_permissions_user:$userId
+      }}){
+    ticketing{
+      seat
+      personnel
+      users_permissions_user{
+        id
+        name
+      }
+    schedule{
+      id
+      date
+      time
+      place
+      booking
+      	theater{
+        id
+        city
+        title
+        name
+        readytime
+        ratio
+        bokdo
+        blank
+        total
+      }
+      poster{
+      id
+      name
+      viewage
+      showtime
+      }
+      }
     }
   }
 }

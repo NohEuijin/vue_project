@@ -533,7 +533,7 @@
           },
           "readytime": {
             "type": "integer",
-            "default": 15
+            "default": 20
           },
           "posters": {
             "type": "array",
@@ -639,6 +639,9 @@
                 "poster": {
                   "type": "string"
                 },
+                "ticketing": {
+                  "type": "string"
+                },
                 "published_at": {
                   "type": "datetime"
                 },
@@ -652,6 +655,9 @@
             }
           },
           "date": {
+            "type": "string"
+          },
+          "total": {
             "type": "string"
           },
           "published_at": {
@@ -672,7 +678,7 @@
           },
           "readytime": {
             "type": "integer",
-            "default": 15
+            "default": 20
           },
           "posters": {
             "type": "array",
@@ -696,6 +702,9 @@
             }
           },
           "date": {
+            "type": "string"
+          },
+          "total": {
             "type": "string"
           },
           "published_at": {

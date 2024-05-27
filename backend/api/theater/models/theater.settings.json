@@ -22,11 +22,11 @@
     },
     "readytime": {
       "type": "integer",
-      "default": 15
+      "default": 20
     },
     "posters": {
-      "via": "theater",
-      "collection": "poster"
+      "collection": "poster",
+      "via": "theater"
     },
     "ratio": {
       "type": "string"
@@ -43,6 +43,9 @@
     },
     "date": {
       "type": "date"
+    },
+    "total": {
+      "type": "string"
     }
   }
 }

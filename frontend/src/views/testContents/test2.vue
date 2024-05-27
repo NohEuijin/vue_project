@@ -1,35 +1,40 @@
 <template>
 
+  <div class="ma-12 main-text-div">
+     <input v-model="myInput" />
+     <button @click="$emit('resolve', myInput)">Submit</button>
+  </div>
 </template>
 
 <script>
-// 09:00을 millisecond로 변환
-const startTime = '09:00';
-const [startHours, startMinutes] = startTime.split(':');
-const startTimeMs = (parseInt(startHours) * 60 * 60 * 1000) + (parseInt(startMinutes) * 60 * 1000);
+export default {
 
-// 00:15를 millisecond로 변환
-const intervalTime = '00:15';
-const [intervalHours, intervalMinutes] = intervalTime.split(':');
-const intervalTimeMs = (parseInt(intervalHours) * 60 * 60 * 1000) + (parseInt(intervalMinutes) * 60 * 1000);
-
-// 두 값을 더함
-console.log(startTimeMs)
-console.log(intervalTimeMs)
-const totalMs = startTimeMs + intervalTimeMs;
-console.log(totalMs)
-
-// 새로운 millisecond 값을 HH:mm 형식으로 변환
-const newHours = Math.floor(totalMs / (60 * 60 * 1000));
-const newMinutes = Math.floor((totalMs % (60 * 60 * 1000)) / (60 * 1000));
-
-// HH:mm 형식으로 변환된 값을 표시
-const newTime = `${String(newHours).padStart(2, '0')}:${String(newMinutes).padStart(2, '0')}`;
-
-console.log(newTime); // 결과 출력
+}
 </script>
 
-<style scoped>
+<style>
+.main-text-div{
+  display: grid;
+  border: 1px solid black;
+  border-radius: 4px;
+  width: 200px;
+  height: 200px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.main-text-div input{
+  border: 1px solid black;
+  border-radius: 4px;
 
+  text-indent: 10px;
+  line-height: 10px;
+}
+.main-text-div button{
+  border: 1px solid black;
+  border-radius: 4px;
+
+  width: 50px;
+  height: 20px;
+}
 </style>
-

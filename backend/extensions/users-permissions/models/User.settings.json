@@ -82,6 +82,10 @@
     "replies": {
       "via": "user",
       "collection": "reply"
+    },
+    "ticketing": {
+      "via": "users_permissions_user",
+      "model": "ticketing"
     }
   }
 }

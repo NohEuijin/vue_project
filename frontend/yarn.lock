@@ -2775,13 +2775,6 @@ vue-eslint-parser@^9.3.0, vue-eslint-parser@^9.3.1:
     lodash "^4.17.21"
     semver "^7.3.6"
 
-vue-horizontal-calendar@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/vue-horizontal-calendar/-/vue-horizontal-calendar-1.0.0.tgz#4b4d696e46a5bfe73fc2fbdf3fc509c6c65b5bb3"
-  integrity sha512-2KR63Kkfu9bQbe1K9suErQqkm41XVU59HW489yo/cfpO1209uRVumxvBN9bl9BxD10gTPshaZnj27FxkdLH9lw==
-  dependencies:
-    vue "^2.6.10"
-
 vue-i18n@9:
   version "9.7.1"
   resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-9.7.1.tgz#41393b066f6ff69d9be2ba31a59b043263c77289"

@@ -68,7 +68,7 @@ body {
   line-height: 1.1;
   letter-spacing: -0.03em;
   font-weight: 500;
-  font-family: "Noto Sans KR", "Roboto", "dotum", "sans-serif", "GowunDodum-Regular";
+  font-family: 'Noto Sans KR';
   // overflow: auto;
   // white-space: nowrap;
   // overflow-y: auto;
@@ -139,8 +139,16 @@ em, p, address{
   font-size: 17px;
   margin-bottom: 10px;
 }
-
-
+// button, a::before{
+//   border: 4px solid pink;
+// }
+.hidden {
+  overflow: hidden;
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  clip: rect(1px, 1px, 1px, 1px);
+}
 
 /************* common CSS *************/
 

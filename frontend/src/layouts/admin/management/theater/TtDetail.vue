@@ -169,6 +169,24 @@ v-if="showtimeSlots[0]"
       density="compact"
       >취소</v-btn>
     </v-card-title>
+
+<!-- 전체 check -->
+<v-col class="pb-0 pl-4 ttd_time_list">
+  <v-col class="pa-0 d-flex">
+    <v-col class="ttd_time_box">
+      전체
+    </v-col>
+    <v-checkbox
+      class="pa-0 ml-3"
+      density="compact"
+      hide-details="false"
+      v-model="selectAll"
+      @change="toggleAll"
+      value="전체"
+    />
+  </v-col>
+</v-col>
+
     <v-col
     v-for="(showtime, index) of showtimeSlots" :key="index"
     class="pb-0 pl-4 ttd_time_list">
@@ -304,20 +322,20 @@ dense>
 </v-table>
 <v-col class="pa-7 mt-5 msd_board_list">
 <v-col class="pa-0 mb-12 screen">S C R E E N</v-col>
-<v-col
-v-for="(row, vIndex) of sample_array" :key="vIndex" class="pa-0 ma-0">
-<v-row class="pa-0 ma-0">
   <v-col
-  v-for="(seat, hIndex) of row" :key="hIndex"
-  :class="[seat, (blankList.includes(seat)) ? 'seat_blank' : null]"
-    class="pa-1 ma-1 seatbox"
-  >
-  <span v-if="seat !== 'corridor'"  >
-    {{ seat }}
-  </span>
+  v-for="(row, vIndex) of sample_array" :key="vIndex" class="pa-0 ma-0">
+    <v-row class="pa-0 ma-0">
+      <v-col
+      v-for="(seat, hIndex) of row" :key="hIndex"
+      :class="[seat, (blankList.includes(seat)) ? 'seat_blank' : null]"
+        class="pa-1 ma-1 seatbox"
+      >
+      <span v-if="seat !== 'corridor'"  >
+        {{ seat }}
+      </span>
+      </v-col>
+    </v-row>
   </v-col>
-</v-row>
-</v-col>
 </v-col>
 
 </v-col>
@@ -346,7 +364,6 @@ return {
   blankList:[],
   seatValue:[],
   bokdoTotal:'',
-  blankListValue:'',
   showBokdo: true,
   showBlank: true,
   sample_array:[],
@@ -360,6 +377,7 @@ return {
   showtimecount : '',
   readytime:'',
   start_end_showtime:'',
+  selectAll:false,
 
   startTimeMs:'',
   endTimeMs :'',
@@ -439,22 +457,29 @@ methods: {
 
     const deleteconfirm = confirm("삭제하시면 예매 정보가 삭제됨니다. 정말로 삭제하시겠습니까?")
     if(deleteconfirm){
+      for(let i = 0;i<this.schedulesList.length;i++){
+      // console.log(this.schedulesList[i].id)
+      this.deleteId = this.schedulesList[i].id
 
-    for(let i = 0;i<this.schedulesList.length;i++){
-    // console.log(this.schedulesList[i].id)
-    this.deleteId = this.schedulesList[i].id
-
-    await this.$store.dispatch('deleteScheduls',{id:this.deleteId})
-
-    .then((res) => {
-      // console.log(res)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+      await this.$store.dispatch('deleteScheduls',{id:this.deleteId})
+      .then((res) => {
+        // console.log(res)
+        // this.searchSchedules();
+        // this.generateEvents();
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      }
     }
-  }
-    this.searchSchedules();
+
+    //스케이줄 생성 ->비우고 ->불러오기->날짜불러오기
+this.cancelSlote();
+this.searchSchedules();
+this.generateEvents();
+//체크값 초기화
+this.selectAll=false;
+this.checkboxValues = [];
   },
   //09:00:00.000 => 09:00로 변환
   convertToShortTime(longTime) {
@@ -526,7 +551,13 @@ for (let j = this.startTimeMs; j < this.endTimeMs; j += this.totalShowtime) {
   });
 }
 },
-
+toggleAll() {
+      if (this.selectAll) {
+        this.checkboxValues = this.showtimeSlots.map(slot => slot.startTime);
+      } else {
+        this.checkboxValues = [];
+      }
+    },
 //날짜 클릭시
 handleDateClick(arg) {
   this.pickDate = arg.dateStr
@@ -620,16 +651,20 @@ async searchSchedules(){
   await this.$store.dispatch('createSchedule',form)
   .then((res) => {
     // console.log(res)
+
+
   })
   .catch((err) => {
     console.log(err)
   })
+
 }
 //스케이줄 생성 ->비우고 ->불러오기->날짜불러오기
 this.cancelSlote();
 this.searchSchedules();
 this.generateEvents();
 //체크값 초기화
+this.selectAll=false;
 this.checkboxValues = [];
 },
 //상세페이지 불러오기
@@ -642,7 +677,7 @@ async gettheaterDetail(){
       res.theaters[i].ratio = res.theaters[i].ratio.split('x')
     }
     this.theater = res.theaters[0]
-    // console.log(this.theater)
+    console.log(this.theater)
     this.horizontalSeat = Number(this.theater.ratio[0])
     this.verticalSeat = Number(this.theater.ratio[1])
     // 복도
@@ -687,8 +722,14 @@ async movieList(){
 async deleteTheater() {
   const deleteconfirm = confirm("삭제 하시겠습니까?")
     if(deleteconfirm){
-      await this.$store.dispatch('deleteTheater', { id: this.theater.id });
-    this.$router.push({name:'theater'})
+      await this.$store.dispatch('deleteTheater', { id: this.theater.id })
+      .then((res) => {
+        // console.log(res)
+        this.$router.push({name:'theater'})
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     }
 },
 //좌석

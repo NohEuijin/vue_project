@@ -21,6 +21,7 @@ import {
   deleteTheater,
   createSchedule,
   deleteScheduls,
+  createTicketing,
 } from '@/apollo/mutation'
 import {
   myData,
@@ -40,6 +41,9 @@ import {
   searchScheule,
   scheduleCount,
   mainPosterList,
+  ticketingSchedules,
+  posterNowShowtime,
+  getTicketing
 } from '@/apollo/query'
 import { moduleA } from '@/store/moduleA'
 import { moduleB } from '@/store/moduleB'
@@ -676,6 +680,70 @@ Authorization: 'Bearer ' + localStorage.getItem(TOKENNAME),
       apollo.clients['defaultClient']
       .query({
         query:mainPosterList,
+        variables:input
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
+
+  ticketingSchedules({} , input ){
+    return new Promise((resolve, reject) => {
+      apollo.clients['defaultClient']
+      .query({
+        query:ticketingSchedules,
+        variables:input
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
+
+  posterNowShowtime({} , input ){
+    return new Promise((resolve, reject) => {
+      apollo.clients['defaultClient']
+      .query({
+        query:posterNowShowtime,
+        variables:input
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
+
+  createTicketing({}, input){
+    return new Promise((resolve,reject) => {
+      apollo.clients['defaultClient']
+      .mutate({
+        mutation:createTicketing,
+        variables: input
+      })
+      .then(({data}) => {
+        resolve(data)
+      })
+      .catch((err) => {
+        reject(err)
+      })
+    })
+  },
+
+  getTicketing({} , input ){
+    return new Promise((resolve, reject) => {
+      apollo.clients['defaultClient']
+      .query({
+        query:getTicketing,
         variables:input
       })
       .then(({data})=>{

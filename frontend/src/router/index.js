@@ -152,6 +152,16 @@ const routes = [
         name: 'mainticketing',
         component: () => import('@/views/ticketing/mainTicketing.vue'),
       },
+      {
+        path: '/personSeat/:id',
+        name: 'personSeat',
+        component: () => import('@/views/ticketing/personSeat.vue'),
+      },
+      {
+        path: '/order',
+        name: 'order',
+        component: () => import('@/views/ticketing/order.vue'),
+      },
     ]
   },
 
@@ -163,8 +173,13 @@ const routes = [
     children:[
       {
         path: 'test01',
-        name: 'test01131421',
+        name: 'test01',
         component: () => import('@/views/testContents/test1.vue'),
+      },
+      {
+        path: 'test02',
+        name: 'test02',
+        component: () => import('@/views/testContents/test2.vue'),
       },
       {
         path: 'test02',

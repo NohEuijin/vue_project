@@ -211,10 +211,6 @@ img{
   background-size: auto;
   background-image: url(https://www.lottecinema.co.kr/NLCHS/Content/images/icon/arr_rg_31_wht.png);
 }
-.owl-nav span{
-  font-size: 0;
-  text-indent: -9999em;
-}
 .owl-nav, .owl-prev{
   background-color: transparent;
   color: inherit;
@@ -224,105 +220,9 @@ img{
   opacity: .6;
   position: absolute;
 }
-span{
+.owl-nav span, .owl-prev span{
   font-size: 0;
   text-indent: -9999em;
 }
-/* 슬라이드 버튼 */
-.owl_dots{
-  position: absolute;
-    right: 50%;
-    left: auto;
-    top: auto;
-    bottom: 95px;
-    margin: 0 -455px 0 0;
 
-    zoom: 1;
-    display: inline-block;
-    background-color: transparent;
-    color: inherit;
-    border: none;
-    padding: 0 !important;
-    /* font: inherit; */
-}
-.owl_dots span{
-  width: 6px;
-  height: 6px;
-  margin: 0 3px;
-  background-color: #000;
-}
-/* 슬라이드 재생버튼 */
-.bx_ctrl{
-  position: absolute;
-  left: auto !important;
-  right: 50%;
-  left: auto;
-  top: auto;
-  bottom: 95px;
-  margin: 0 -480px 0 0;
-  text-align: right;
-  position: absolute;
-}
-.play_active{
-  border-width: 4px 0 4px 7px;
-
-  width: 0;
-  height: 0;
-  padding: 0;
-  border-style: solid;
-  border-color: transparent transparent transparent #fff;
-  text-indent: -9999em;
-  background: transparent;
-  opacity: 1;
-}
-.stop{
-  width: 6px;
-  height: 6px;
-  border-radius: 1px;
-
-  margin-left: 4px;
-  padding: 0;
-  border-radius: 2px;
-  text-indent: -9999em;
-  background: #FFF;
-
-  opacity: .5;
-}
-
-.nav .before{
-    opacity: 1;
-    position: absolute;
-    top: 48%;
-    height: 9px;
-    margin-top: -5px;
-    border-left: 1px solid #707070;
-}
-.owl_nav{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  right: auto;
-  text-align: center;
-  text-align: center;
-
-  width: 1818px;
-  margin-left: -909px;
-  height: 0;
-}
-.owl_nav .owl_prev{
-  left: 30px;
-  width: 31px;
-  height: 60px;
-  margin-top: -15px;
-  background-size: auto;
-  background-image: url(https://www.lottecinema.co.kr/NLCHS/Content/images/icon/arr_lf_31_wht.png);
-}
-.owl_nav .owl_prev{
-  right: 30px;
-  width: 31px;
-  height: 60px;
-  margin-top: -15px;
-  background-size: auto;
-  background-image: url(https://www.lottecinema.co.kr/NLCHS/Content/images/icon/arr_rg_31_wht.png);
-}
 </style>

@@ -6,13 +6,13 @@
     <em class="mr-1">03 . 12 13 : 30</em>기준
   </a>
 </div>
-<ul class="tab_wrap">
+<ul class="ml-tab_wrap">
   <li class="active">
     <div class="tab_con">
       <h3 class="hidden"></h3>
       <div class="movie_list">
         <div class="slide_wrap">
-          <div class="owl-carousel owl-loaded owl-drag">
+          <div class="ml-owl-carousel owl-loaded owl-drag">
             <div
             class="owl-stage-outer"
 
@@ -72,7 +72,7 @@ v-for="(poster, index) of mainPosterList" :key="index">
     </em>
     <img src="@/assets/posters/etc/ic_star.png" alt="">
     <em class="star_info">
-      9 . 4
+      9.4
     </em>
   </div>
 </div>
@@ -81,17 +81,14 @@ v-for="(poster, index) of mainPosterList" :key="index">
 </div>
 <!-- 포스트 리스트 끝 -->
 
-
-
-
             </div>
             <!-- 포스트 리스트 박스 끝 -->
 
             <!-- 이전 다음 네비게이션바 -->
-            <div class="owl-nav">
-              <button type="button" role="presentation" class="owl-prev" @click="moveSlide('prev')">
+            <div class="ml-owl-nav">
+              <button type="button" role="presentation" class="ml-owl-prev" @click="moveSlide('prev')">
               </button>
-              <button type="button" role="presentation" class="owl-next" @click="moveSlide('next')">
+              <button type="button" role="presentation" class="ml-owl-next" @click="moveSlide('next')">
               </button>
             </div>
 
@@ -143,8 +140,8 @@ v-for="(poster, index) of mainPosterList" :key="index">
           if (this.translateValue < minValue){
             this.translateValue = minValue;
           }
-          console.log(this.translateValue)
-          console.log(minValue)
+          // console.log(this.translateValue)
+          // console.log(minValue)
         }
       },
       async getPosterList(){
@@ -237,7 +234,7 @@ v-for="(poster, index) of mainPosterList" :key="index">
   padding-left: 16px;
   background: url(https://www.lottecinema.co.kr/NLCHS/Content/images/icon/time2.png) no-repeat 0 1px;
 }
-.tab_wrap{
+.ml-tab_wrap{
   padding-top: 50px;
   position: relative;
 }
@@ -260,7 +257,7 @@ v-for="(poster, index) of mainPosterList" :key="index">
 .owl-loaded {
   display: block;
 }
-.owl-carousel {
+.ml-owl-carousel {
   position: relative;
   display: block;
   width: auto;
@@ -274,7 +271,7 @@ v-for="(poster, index) of mainPosterList" :key="index">
   transform: translate3d(0px, 0px, 0px);
   transition: all 0.25s ease 0s; */
 }
-.owl-carousel .owl-stage-outer {
+.ml-owl-carousel .owl-stage-outer {
   position: relative;
   overflow: hidden;
 }
@@ -388,13 +385,13 @@ v-for="(poster, index) of mainPosterList" :key="index">
   color: #ED4C6B;
 }
  /* 포스트 네비 바 */
-.owl-nav{
+.ml-owl-nav{
   position: static;
   height: 19px;
   margin-top: -10px;
 }
 
-.owl-prev{
+.ml-owl-prev{
   background: url(@/assets/posters/arrow/prev.png) no-repeat 50% 50%;
   top: 38%;
   left: -30px;
@@ -405,7 +402,7 @@ v-for="(poster, index) of mainPosterList" :key="index">
   position: absolute;
   margin-top: -20px;
 }
-.owl-nav .owl-next{
+.ml-owl-nav .ml-owl-next{
   top: 38%;
   right: -30px;
   background: url(@/assets/posters/arrow/next.png) no-repeat 50% 50%;
@@ -416,7 +413,7 @@ v-for="(poster, index) of mainPosterList" :key="index">
   position: absolute;
   margin-top: -20px;
 }
-.owl-prev:hover, .owl-next:hover {
+.ml-owl-prev:hover, .ml-owl-next:hover {
   opacity: 1;
 }
 </style>
