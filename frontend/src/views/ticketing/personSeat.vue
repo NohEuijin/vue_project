@@ -171,9 +171,9 @@
               data-count="0">
                 <strong class="tit">청소년</strong>
                 <span class="bx_num">
-                  <button class="btn_mins">감소</button>
-                  <div class="txt_num">0</div>
-                  <button class="btn_plus">증가</button>
+                  <button class="btn_mins" @click="decrement2">감소</button>
+                  <div class="txt_num">{{ counter2 }}</div>
+                  <button class="btn_plus" @click="increment2">증가</button>
                 </span>
               </li>
               </ul>
@@ -202,12 +202,12 @@
     <v-col
     v-for="(seat, hIndex) of row" :key="hIndex"
     :class="[
-          (hIndex === 0 ? 'first-seat' : ''),
-          seat,
-          (blankList.includes(seat)) ? 'seat_blank' : null,
-          (selectedSeat === seat) ? 'selected-seat' : '',
-          (selectedSeat && selectedSeat !== seat && hIndex !== 0 && seat !== 'ps_corridor') ? 'seat_area' : ''
-        ]"
+      (hIndex === 0 ? 'first-seat' : ''),
+      seat,
+      (blankList.includes(seat)) ? 'seat_blank' : null,
+      (selectedSeats.includes(seat)) ? 'selected-seat' : '',
+      (counter > 0 && selectedSeats.length >= counter && !selectedSeats.includes(seat) && hIndex !== 0 && seat !== 'ps_corridor') ? 'seat_area' : ''
+    ]"
     class="pa-1 ma-1 ps_seatbox"
     >
       <span v-if="seat !== 'ps_corridor'"  @click="getSelectedSeatValue(seat)">{{ seat }}</span>
@@ -249,14 +249,14 @@
               <dl class="total_price">
                 <dt>총합계</dt>
                 <dd>
-                  <strong>0</strong>
+                  <strong>{{calculatedPrice}}</strong>
                   원
                 </dd>
               </dl>
             </div>
             <div class="group_rgt">
               <a
-              @click="$router.push({name:'order'})"
+              @click="updateTicketing()"
               class="btn_col1" id="link_rpay">결제하기</a>
             </div>
           </div>
@@ -304,9 +304,14 @@ export default {
       endtime:'',
 
       sample_array:[],
-      selectedSeat:'',
+      selectedSeats:[],
 
       counter:0,
+      counter2:0,
+
+      place:'',
+      ticket_id:'',
+      total_place:'',
     };
   },
   methods:{
@@ -314,17 +319,54 @@ export default {
     increment() {
       if (this.counter < 8) {
         this.counter++;
+        this.selectedSeats = []
       }
     },
     // 최소값 0까지 감소
     decrement() {
       if (this.counter > 0) {
         this.counter--;
+        this.selectedSeats = []
       }
+    },
+    increment2() {
+      if (this.counter2 < 8) {
+        this.counter2++;
+      }
+    },
+    decrement2() {
+      if (this.counter2 > 0) {
+        this.counter2--;
+      }
+    },
+    async updateTicketing(){
+      let seat_array=[];
+      for(let i = 0; i < this.selectedSeats.length;i++){
+        seat_array.push(this.selectedSeats[i])
+      }
+      console.log(seat_array)
+      let form = {
+        id:this.ticket_id,
+        personnel:Number(this.counter),
+        seat:JSON(seat_array),
+        total:this.calculatedPrice
+      }
+      console.log(form)
+
+      await this.$store.dispatch('updateTicketing',form)
+      .then((res) => {
+        console.log(res)
+        if(res){
+          this.$router.push({name:'order',params:{id:this.ticket_id}})
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     },
     // 유저 정보
     async userData(){
-    await store.dispatch('myData').then((res) =>{
+    await this.$store.dispatch('myData').then((res) =>{
       console.log(res)
     }).catch(() => {
       // console.error("로그인 정보가 없습니다.")
@@ -344,7 +386,9 @@ export default {
         this.theater_title = this.ticketData.schedule.theater.title,
         this.theater_name = this.ticketData.schedule.theater.name
         this.choice_date = this.ticketData.schedule.date,
-        this.choice_time = this.ticketData.schedule.time
+        this.choice_time = this.ticketData.schedule.time,
+        this.place = this.ticketData.schedule.place,
+        this.ticket_id = this.ticketData.id,
 
         //규모
         this.ratios = this.ticketData.schedule.theater.ratio.split('x')
@@ -397,14 +441,16 @@ export default {
   return `${formattedHours}:${formattedMinutes}`;
   },
   getSelectedSeatValue(seat) {
-    if (this.selectedSeat === seat) {
-      // 동일 좌석 클릭 시 선택 해제
-        this.selectedSeat = null;
+      if (this.selectedSeats.includes(seat)) {
+        // 동일 좌석 클릭 시 선택 해제
+        this.selectedSeats = this.selectedSeats.filter(s => s !== seat);
       } else {
-        // 새로운 좌석 클릭 시 선택
-        this.selectedSeat = seat;
+        // 새로운 좌석 클릭 시 선택, 선택된 좌석 수 제한
+        if (this.selectedSeats.length < this.counter) {
+          this.selectedSeats.push(seat);
+        }
       }
-  },
+    },
   //좌석
   totalSeat(){
     this.total_seat = Number(this.verticalSeat) * Number(this.horizontalSeat) - this.blankList.length
@@ -443,6 +489,10 @@ export default {
       const shortTime = `${hours}:${minutes}`;
       return shortTime;
     },
+    // 숫자를 1,000 단위로 콤마를 붙여서 문자열로 변환
+    formatNumberWithCommas(number) {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
   },
 
     //날짜 폼
@@ -451,7 +501,11 @@ export default {
     },
 
   computed: {
-
+    // 선택된 좌석 수에 따른 가격 계산 (1좌석당 1000원 예시)
+    calculatedPrice() {
+      this.total_place = this.selectedSeats.length * this.place;
+      return this.formatNumberWithCommas(this.total_place);
+    }
   },
   async mounted(){
     await this.getTicketing()
@@ -519,6 +573,7 @@ export default {
 }
 .wrap_reserve .section_step_tit ul li.active > a {
   color: #FFF ;
+
 }
 .wrap_reserve .section_step_tit ul li.active{
   border-color: #FF243E;
@@ -529,18 +584,19 @@ export default {
   // display: block;
   // height: 100%;
   color: #666;
+  // pointer-events: none; /* 클릭 불가 */
 }
 .wrap_reserve .section_step_tit ul li > a .bx_con{
 display: none;
-  position: absolute;
-  z-index: 1;
-  left: 77px;
-  top: -1px;
-  bottom: 0;
-  width: 172px;
-  padding-left: 20px;
-  border-top: 1px solid #666;
-  background-color: #333;
+position: absolute;
+z-index: 1;
+left: 77px;
+top: -1px;
+bottom: 0;
+width: 172px;
+padding-left: 20px;
+border-top: 1px solid #666;
+background-color: #333;
 }
 .wrap_reserve .ps_section_step_con.active {
   display: block;
@@ -739,7 +795,7 @@ padding-top: 0 !important;
   padding: 0 15px;
 }
 .seat_btm_box {
-  overflow: hidden;
+  // overflow: hidden;
   margin: 35px 0 0 40px;
 }
 .seat_btm_box .seat_type_box {
@@ -869,8 +925,8 @@ background-color: #FF243E;
 .ps_seatbox{
 min-width: 1px !important;
 max-width: 26px !important;
-width: 26px ;
-height: 20px;
+width: 19px ;
+height: 17px;
 border: 1px solid black;
 border-top-left-radius: 8px;
 border-top-right-radius: 8px;
@@ -882,6 +938,11 @@ color: black;
   > span{
   cursor: pointer;
   font-size: 10px;
+  display: flex;
+    /* text-indent: -3px; */
+    /* text-align: center; */
+    justify-content: center;
+    align-items: center;
   }
 
   &.seat_blank {
@@ -909,7 +970,8 @@ opacity: 0;
   cursor: inherit;
   background: #e8e8e8 url(https://www.lottecinema.co.kr/NLCHS/Content/images/common/seat_no_select.png) no-repeat center center;
   background-size: 28px 21px;
-  opacity: 0.5;
+  opacity: 0.5;/* 선택되지 않은 좌석 반투명 처리 */
+  pointer-events: none; /* 클릭 불가 */
 }
 .selected-seat{
   background-color: #FF243E;

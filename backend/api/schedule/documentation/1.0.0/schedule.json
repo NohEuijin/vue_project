@@ -657,34 +657,40 @@
               }
             }
           },
-          "ticketing": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "seat": {
-                "type": "string"
-              },
-              "personnel": {
-                "type": "integer"
-              },
-              "schedule": {
-                "type": "string"
-              },
-              "users_permissions_user": {
-                "type": "string"
-              },
-              "published_at": {
-                "type": "datetime"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
+          "ticketings": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "seat": {
+                  "type": "string"
+                },
+                "personnel": {
+                  "type": "integer"
+                },
+                "users_permissions_user": {
+                  "type": "string"
+                },
+                "schedule": {
+                  "type": "string"
+                },
+                "total": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "datetime"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -714,8 +720,11 @@
           "poster": {
             "type": "string"
           },
-          "ticketing": {
-            "type": "string"
+          "ticketings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "published_at": {
             "type": "datetime"

@@ -654,3 +654,41 @@ query getTicketing(
   }
 }
 `
+
+//결제 전
+export const getOrderInfo = gql`
+query getOrderInfo(
+  $id:ID,
+){
+  ticketings(where:{
+      id:$id
+  }){
+    id
+    seat
+    personnel
+    total
+    users_permissions_user{
+      id
+      name
+    }
+    schedule{
+      id
+      date
+      time
+      booking
+      	theater{
+        id
+        city
+        title
+        name
+      }
+      poster{
+      id
+      name
+      viewage
+      showtime
+      }
+    }
+  }
+}
+`

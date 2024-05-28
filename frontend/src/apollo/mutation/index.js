@@ -612,3 +612,29 @@ mutation createTicketing(
   }
 }
 `
+
+export const updateTicketing = gql`
+mutation updateTicketing(
+  $id:ID!,
+  $personnel:Int,
+  $seat:String,
+  $total:String,
+){
+  updateTicketing(
+    input:{
+    where:{id:$id},
+      data:{
+        personnel:$personnel,
+        seat:$seat,
+        total:$total,
+      }
+  }){
+    ticketing{
+      id
+      personnel
+      seat
+      total
+    }
+  }
+}
+`

@@ -1348,10 +1348,13 @@
               "personnel": {
                 "type": "integer"
               },
+              "users_permissions_user": {
+                "type": "string"
+              },
               "schedule": {
                 "type": "string"
               },
-              "users_permissions_user": {
+              "total": {
                 "type": "string"
               },
               "published_at": {

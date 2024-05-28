@@ -35,7 +35,7 @@ v-for="(poster, index) of mainPosterList" :key="index">
       <!-- 포스트 마우스 올렸을 때 이벤트 -->
       <div class="over_box" >
         <div class="inner">
-            <a class="btn_inner" href="#">예매하기</a>
+            <a class="btn_inner" @click="$router.push({name : 'mainticketing'})">예매하기</a>
           <a class="btn_inner" href="#">상세정보</a>
         </div>
       </div>

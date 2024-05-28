@@ -778,8 +778,11 @@
                 "poster": {
                   "type": "string"
                 },
-                "ticketing": {
-                  "type": "string"
+                "ticketings": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "published_at": {
                   "type": "datetime"

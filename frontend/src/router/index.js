@@ -158,7 +158,7 @@ const routes = [
         component: () => import('@/views/ticketing/personSeat.vue'),
       },
       {
-        path: '/order',
+        path: '/order/:id',
         name: 'order',
         component: () => import('@/views/ticketing/order.vue'),
       },
