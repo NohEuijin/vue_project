@@ -1,6 +1,6 @@
 {
   "paths": {
-    "/replies": {
+    "/payments": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -12,7 +12,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Reply"
+                    "$ref": "#/components/schemas/Payment"
                   }
                 }
               }
@@ -51,7 +51,7 @@
         },
         "summary": "",
         "tags": [
-          "Reply"
+          "Payment"
         ],
         "parameters": [
           {
@@ -201,7 +201,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Reply"
+                  "$ref": "#/components/schemas/Payment"
                 }
               }
             }
@@ -239,7 +239,7 @@
         },
         "summary": "",
         "tags": [
-          "Reply"
+          "Payment"
         ],
         "requestBody": {
           "description": "",
@@ -247,14 +247,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewReply"
+                "$ref": "#/components/schemas/NewPayment"
               }
             }
           }
         }
       }
     },
-    "/replies/count": {
+    "/payments/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -306,12 +306,12 @@
         },
         "summary": "",
         "tags": [
-          "Reply"
+          "Payment"
         ],
         "parameters": []
       }
     },
-    "/replies/{id}": {
+    "/payments/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -321,7 +321,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Reply"
+                  "$ref": "#/components/schemas/Payment"
                 }
               }
             }
@@ -359,7 +359,7 @@
         },
         "summary": "",
         "tags": [
-          "Reply"
+          "Payment"
         ],
         "parameters": [
           {
@@ -383,7 +383,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Reply"
+                  "$ref": "#/components/schemas/Payment"
                 }
               }
             }
@@ -421,7 +421,7 @@
         },
         "summary": "",
         "tags": [
-          "Reply"
+          "Payment"
         ],
         "requestBody": {
           "description": "",
@@ -429,7 +429,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewReply"
+                "$ref": "#/components/schemas/NewPayment"
               }
             }
           }
@@ -495,7 +495,7 @@
         },
         "summary": "",
         "tags": [
-          "Reply"
+          "Payment"
         ],
         "parameters": [
           {
@@ -514,7 +514,7 @@
   },
   "components": {
     "schemas": {
-      "Reply": {
+      "Payment": {
         "required": [
           "id"
         ],
@@ -522,7 +522,7 @@
           "id": {
             "type": "string"
           },
-          "content": {
+          "hashcode": {
             "type": "string"
           },
           "user": {
@@ -609,17 +609,135 @@
               }
             }
           },
+          "ticketing": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "seat": {
+                "type": "string"
+              },
+              "personnel": {
+                "type": "integer"
+              },
+              "user": {
+                "type": "string"
+              },
+              "schedule": {
+                "type": "string"
+              },
+              "total": {
+                "type": "string"
+              },
+              "payment": {
+                "type": "string"
+              },
+              "published_at": {
+                "type": "datetime"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "name": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "string"
+          },
+          "buyer_id": {
+            "type": "string"
+          },
+          "buyer_name": {
+            "type": "string"
+          },
+          "buyer_poster_name": {
+            "type": "string"
+          },
+          "buyer_theater_city": {
+            "type": "string"
+          },
+          "buyer_theater_title": {
+            "type": "string"
+          },
+          "buyer_theater_name": {
+            "type": "string"
+          },
+          "buyer_choice_date": {
+            "type": "string"
+          },
+          "buyer_choice_time": {
+            "type": "time"
+          },
+          "buyer_seat": {
+            "type": "string"
+          },
+          "buyer_poster_viewage": {
+            "type": "string"
+          },
+          "buyer_poster_showtime": {
+            "type": "string"
+          },
           "published_at": {
             "type": "datetime"
           }
         }
       },
-      "NewReply": {
+      "NewPayment": {
         "properties": {
-          "content": {
+          "hashcode": {
             "type": "string"
           },
           "user": {
+            "type": "string"
+          },
+          "ticketing": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "string"
+          },
+          "buyer_id": {
+            "type": "string"
+          },
+          "buyer_name": {
+            "type": "string"
+          },
+          "buyer_poster_name": {
+            "type": "string"
+          },
+          "buyer_theater_city": {
+            "type": "string"
+          },
+          "buyer_theater_title": {
+            "type": "string"
+          },
+          "buyer_theater_name": {
+            "type": "string"
+          },
+          "buyer_choice_date": {
+            "type": "string"
+          },
+          "buyer_choice_time": {
+            "type": "time"
+          },
+          "buyer_seat": {
+            "type": "string"
+          },
+          "buyer_poster_viewage": {
+            "type": "string"
+          },
+          "buyer_poster_showtime": {
             "type": "string"
           },
           "published_at": {
@@ -637,7 +755,7 @@
   },
   "tags": [
     {
-      "name": "Reply"
+      "name": "Payment"
     }
   ]
 }

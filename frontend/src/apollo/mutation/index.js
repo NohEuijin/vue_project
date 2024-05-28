@@ -575,12 +575,12 @@ mutation createTicketing(
       seat:$seat,
       personnel:$personnel
       schedule:$scheduleId
-      users_permissions_user:$userId
+      user:$userId
       }}){
     ticketing{
       seat
       personnel
-      users_permissions_user{
+      user{
         id
         name
       }

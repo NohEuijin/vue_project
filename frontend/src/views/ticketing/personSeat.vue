@@ -348,7 +348,7 @@ export default {
       let form = {
         id:this.ticket_id,
         personnel:Number(this.counter),
-        seat:JSON(seat_array),
+        seat:JSON.stringify(seat_array),
         total:this.calculatedPrice
       }
       console.log(form)
@@ -379,6 +379,7 @@ export default {
         // console.log(res)
         this.ticketData = res.ticketings[0]
         // console.log(this.ticketData)
+        console.log(this.ticketData)
         this.poster_name = this.ticketData.schedule.poster.name,
         this.poster_viewage = this.ticketData.schedule.poster.viewage,
         this.poster_showtime = this.ticketData.schedule.poster.showtime,

@@ -618,12 +618,12 @@ query getTicketing(
   $uid:ID,
 ){
   ticketings(where:{
-      users_permissions_user:$uid
+      user:$uid
   }){
     id
     seat
     personnel
-    users_permissions_user{
+    user{
       id
       name
     }
@@ -667,7 +667,7 @@ query getOrderInfo(
     seat
     personnel
     total
-    users_permissions_user{
+    user{
       id
       name
     }

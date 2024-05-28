@@ -232,19 +232,27 @@
                   <div class="bx_cate">
                     <ul class="list_pay_item cate6">
                       <li>
-                        <button type="button" class="cate1">신용카드</button>
+                        <button type="button" class="cate1">
+                          <img src="@/assets/posters/etc/kakao_pay.png" alt="">
+                          <span>카카오페이</span>
+
+                        </button>
                       </li>
                       <li>
-                        <button type="button" class="cate1">신용카드</button>
+                        <button type="button" class="cate2">
+                          신용카드</button>
                       </li>
                       <li>
-                        <button type="button" class="cate1">신용카드</button>
+                        <button type="button" class="cate3">
+                          엘페이</button>
                       </li>
                       <li>
-                        <button type="button" class="cate1">신용카드</button>
+                        <button type="button" class="cate4">
+                          내통장결제</button>
                       </li>
                       <li>
-                        <button type="button" class="cate1">신용카드</button>
+                        <button type="button" class="cate5">
+                          휴대폰</button>
                       </li>
                     </ul>
                   </div>
@@ -297,7 +305,7 @@
               </dd>
               <span class="after"></span>
             </dl>
-            <a href="" class="btn_col1 btn_confirm">결제하기</a>
+            <a class="btn_col1 btn_confirm" @click="kakaoPayment">결제하기</a>
           </div>
         </div>
       </div>
@@ -324,6 +332,7 @@ export default {
       pickDay:dayjs().format('YYYY-MM-DD'),
       orderInfo:'',
       user_id:this.$store.state.meData.id,
+      user_name:'',
       poster_name:'',
       poster_viewage:'',
       poster_showtime:'',
@@ -340,6 +349,10 @@ export default {
 
       personnel:'',
       seat:'',
+
+      customTime:'',
+      customDate:'',
+      hashcode:'',
     };
   },
   methods:{
@@ -348,6 +361,8 @@ export default {
       .then((res) => {
         // console.log(res)
         this.orderInfo = res.ticketings[0]
+        console.log(this.orderInfo)
+
         this.personnel = this.orderInfo.personnel
         this.total_place = this.orderInfo.total
         this.choice_date = this.orderInfo.schedule.date
@@ -359,6 +374,16 @@ export default {
         this.theater_title = this.orderInfo.schedule.theater.title
         this.theater_name = this.orderInfo.schedule.theater.name
         this.seat = this.removeSymbols(this.orderInfo.seat);
+        this.user_name = this.orderInfo.user.name
+        console.log(this.user_name)
+
+        //해쉬코드를 위한 변경
+        this.customTime = this.mergeTime(this.convertToShortTime(this.choice_time))
+        console.log(this.customTime)
+        this.customDate = this.hashTodayFormat(this.choice_date)
+        console.log(this.customDate)
+        this.hashcode = this.generateHashCode(this.customDate,this.customTime)
+        console.log(this.hashcode)
       })
       .catch((err) => {
         console.log(err)
@@ -383,9 +408,17 @@ export default {
     const shortTime = `${hours}:${minutes}`;
     return shortTime;
   },
+  mergeTime(time) {
+    // :를 제거한 문자열 반환
+    return time.replace(":", "");
+  },
     //날짜 폼
     todayFormat(){
     return this.today.format("YYYY-MM-DD");
+  },
+  //날짜 폼
+  hashTodayFormat(){
+  return this.today.format("MMDD");
   },
     //종료시간
     endtimeMethod(){
@@ -418,6 +451,112 @@ export default {
 
   return `${formattedHours}:${formattedMinutes}`;
   },
+  //해쉬 코드 만들기
+  generateHashCode(date, time){
+    let numbers = [];
+      while (numbers.length < 4) {
+        let randomNum = Math.floor(Math.random() * 9) + 1; // 1부터 9까지의 랜덤 숫자
+        if (!numbers.includes(randomNum)) {
+          numbers.push(randomNum);
+        }
+      }
+       // 콤마 없이 문자열로 저장
+      return time + date + numbers.join('');
+    },
+  // 카카오 페이 API
+  kakaoPayment() {
+    console.log("주문 이름 : " + this.user_name + " 님");
+    console.log("주문 금액 : " + this.total_place + " 원");
+    console.log("영화 제목 : " + this.poster_name);
+    console.log("연령 : " + this.poster_viewage);
+    console.log("상영 시간 : " + this.poster_showtime);
+    console.log("지역 : " + this.theater_city);
+    console.log("지점 : " + this.theater_title);
+    console.log("상영관 : " + this.theater_name);
+    console.log("날짜 : " + this.choice_date);
+    console.log("시간 : " + this.choice_time);
+    console.log("예약석 : " + this.seat);
+
+    // for(let i = 0; i<this.seat.length;i++){
+    //   let hashcodeList = {
+    //     seat_number : this.seat[i],
+    //     seat_code : this.generateHashCode(this.customDate,this.customTime)[i]
+    //   }
+    // }
+
+
+      var IMP = window.IMP; // 생략가능
+      IMP.init('imp24106650');
+      // I'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+      // ''안에 띄어쓰기 없이 가맹점 식별코드를 붙여넣어주세요. 안 그러면 결제창이 안 뜹니다.
+      IMP.request_pay(
+        {
+          pg: 'kakaopay.TC0ONETIME',
+          pay_method: 'card',
+          merchant_uid: 'merchant_' + new Date().getTime(),
+          /*
+           *  merchant_uid의 경우
+           *  https://docs.iamport.kr/implementation/payment
+           *  위의 URL에 따라가시면 넣을 수 있는 방법이 있습니다.
+           */
+          name: "LOTTE "+this.poster_name,
+          amount: this.total_place,
+          bank_name:"kakao pay",
+          card_name:"kakao pay",
+
+          buyer_id: this.user_id,
+          buyer_name: this.user_name,
+
+          buyer_poster_name: this.poster_name,
+          buyer_poster_viewage: this.poster_viewage,
+          buyer_poster_showtime: this.poster_showtime,
+          buyer_theater_city: this.theater_city,
+          buyer_theater_title: this.theater_title,
+          buyer_theater_name: this.theater_name,
+          buyer_choice_date: this.choice_date,
+          buyer_choice_time: this.choice_time,
+          buyer_seat: this.seat,
+        },
+        async function (rsp) {
+          console.log(rsp);
+          var msg = '';
+          if (rsp.success) {
+            msg = '결제가 완료되었습니다.';
+            msg += ' 결제 금액 : ' + rsp.paid_amount;
+
+            let form = {
+              name: this.poster_name,
+              amount: this.total_place,
+              buyer_id: this.user_id,
+              buyer_name: this.user_name,
+              buyer_poster_name: this.poster_name,
+              buyer_poster_viewage: this.poster_viewage,
+              buyer_poster_showtime: this.poster_showtime,
+              buyer_theater_city: this.theater_city,
+              buyer_theater_title: this.theater_title,
+              buyer_theater_name: this.theater_name,
+              buyer_choice_date: this.choice_date,
+              buyer_choice_time: this.choice_time,
+              buyer_seat: this.seat,
+            }
+            console.log(form)
+
+            // await this.$store.dispatch('',form)
+            // .then((res) => {
+            //   console.log(res)
+            // })
+            // .catch((err) => {
+            //   console.log(err)
+            // })
+
+          } else {
+            msg = '결제에 실패하였습니다.';
+            msg += ' 에러 내용 : ' + rsp.error_msg;
+          }
+          alert(msg);
+        }
+      );
+    }
 },
   computed: {
 
@@ -926,20 +1065,53 @@ export default {
     overflow: visible;
     position: relative;
     height: 55px;
-    line-height: 55px;
+    // line-height: 55px;
     font-size: 11px;
 }
 .group_payment .bx_cate .list_pay_item li button {
     overflow: visible;
     position: relative;
     height: 68px;
-    line-height: 95px;
+    // line-height: 95px;
     background-repeat: no-repeat;
     width: 130px;
 }
 .group_payment .bx_cate .list_pay_item li button.cate1 {
-    background-image: url(https://www.lottecinema.co.kr/NLCHS/Content/images/payment/method_ic_card.png);
+    // background-image: url(https://www.lottecinema.co.kr/NLCHS/Content/images/payment/method_ic_card.png);
     background-position: center 17px;
+    display: grid;
+
+    text-align: center;
+    justify-content: center;
+    align-items: end;
+}
+.cate1 span{
+  align-self: center;
+}
+.group_payment .bx_cate .list_pay_item li button.cate2 {
+    background-image: url(@/assets/posters/etc/method_ic_card.png);
+    background-position: center 17px;
+    line-height: 9;
+}
+.group_payment .bx_cate .list_pay_item li button.cate3 {
+    background-image: url(@/assets/posters/etc/method_ic_lpay.png);
+    background-position: center 17px;
+    line-height: 9;
+}
+.group_payment .bx_cate .list_pay_item li button.cate4 {
+    background-image: url(@/assets/posters/etc/method_ic_simple.png);
+    background-position: center 17px;
+    line-height: 9;
+}
+.group_payment .bx_cate .list_pay_item li button.cate5 {
+    background-image: url(@/assets/posters/etc/method_ic_phone.png);
+    background-position: center 17px;
+    line-height: 9;
+}
+
+.cate1 img {
+  width: 55px;
+  height: 25px;
 }
 .list_pay_item li button {
     width: 100%;

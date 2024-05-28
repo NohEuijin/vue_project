@@ -1334,6 +1334,76 @@
               }
             }
           },
+          "payments": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "hashcode": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "string"
+                },
+                "ticketing": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "string"
+                },
+                "buyer_id": {
+                  "type": "string"
+                },
+                "buyer_name": {
+                  "type": "string"
+                },
+                "buyer_poster_name": {
+                  "type": "string"
+                },
+                "buyer_theater_city": {
+                  "type": "string"
+                },
+                "buyer_theater_title": {
+                  "type": "string"
+                },
+                "buyer_theater_name": {
+                  "type": "string"
+                },
+                "buyer_choice_date": {
+                  "type": "string"
+                },
+                "buyer_choice_time": {
+                  "type": "time"
+                },
+                "buyer_seat": {
+                  "type": "string"
+                },
+                "buyer_poster_viewage": {
+                  "type": "string"
+                },
+                "buyer_poster_showtime": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "datetime"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "ticketing": {
             "required": [
               "id"
@@ -1348,13 +1418,16 @@
               "personnel": {
                 "type": "integer"
               },
-              "users_permissions_user": {
+              "user": {
                 "type": "string"
               },
               "schedule": {
                 "type": "string"
               },
               "total": {
+                "type": "string"
+              },
+              "payment": {
                 "type": "string"
               },
               "published_at": {
@@ -1433,6 +1506,12 @@
             }
           },
           "replies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "payments": {
             "type": "array",
             "items": {
               "type": "string"

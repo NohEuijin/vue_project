@@ -673,13 +673,16 @@
                 "personnel": {
                   "type": "integer"
                 },
-                "users_permissions_user": {
+                "user": {
                   "type": "string"
                 },
                 "schedule": {
                   "type": "string"
                 },
                 "total": {
+                  "type": "string"
+                },
+                "payment": {
                   "type": "string"
                 },
                 "published_at": {
