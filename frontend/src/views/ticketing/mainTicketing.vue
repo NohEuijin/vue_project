@@ -322,9 +322,6 @@ v-for="(row, vIndex) of sample_array" :key="vIndex" class="pa-0 ma-0">
 
       <!-- 영화 리스트 끝 -->
 
-
-
-
     </v-card-text>
     <div
     class="bx_notice"
@@ -335,8 +332,6 @@ v-for="(row, vIndex) of sample_array" :key="vIndex" class="pa-0 ma-0">
   </v-card>
 
     </div>
-
-
                 </div>
               </div>
 
@@ -344,10 +339,6 @@ v-for="(row, vIndex) of sample_array" :key="vIndex" class="pa-0 ma-0">
             </div>
           </div>
         </li>
-
-
-
-
 
         <li class="">
           <button type="button" class="mt_tab_tit2">

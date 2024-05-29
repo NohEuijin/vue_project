@@ -6,7 +6,7 @@
       <div class="section_step_tit">
     <ul>
       <li class="step01 prev">
-        <a href="">
+        <a href="#">
           <string class="tit">
             <span>
               01
@@ -28,8 +28,8 @@
           </div>
         </a>
       </li>
-      <li class="step02 active">
-        <a href="">
+      <li class="step02 prev">
+        <a href="#">
           <string class="tit">
             <span>
               02
@@ -47,8 +47,8 @@
           </div>
         </a>
       </li>
-      <li class="step03">
-        <a href="">
+      <li class="step03 active">
+        <a href="#">
           <string class="tit">
             <span>
               03
@@ -69,7 +69,7 @@
         </a>
       </li>
       <li class="step04">
-        <a href="">
+        <a href="#">
           <string class="tit">
             <span>
               04
@@ -107,25 +107,46 @@
               <img src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202405/21106_101_1.jpg" alt="">
             </span>
             <strong class="tit">
-              <span>
-                <img src="@/assets/posters/age/all.png" alt="">
-              </span>
-                  퓨리오사: 매드맥스 사가
+    <span
+      v-if="poster_viewage === 'all'">
+      <img
+      src="@/assets/posters/age/all.png" alt="">
+    </span>
+    <span
+      v-if="poster_viewage === 'r12'">
+      <img src="@/assets/posters/age/r12.png" alt="">
+    </span>
+    <span
+      v-if="poster_viewage === 'r15'">
+      <img src="@/assets/posters/age/r15.png" alt="">
+    </span>
+    <span
+      v-if="poster_viewage === 'r19'">
+      <img src="@/assets/posters/age/r19.png" alt="">
+    </span>
+                  {{poster_name}}
             </strong>
             <dl class="od_dlist_infor">
                 <dt>일시</dt>
-                <dd></dd>
+                <dd>{{choice_date}}
+                  <em>({{dayFormat(choice_date)}})
+
+                  {{convertToShortTime(choice_time)}}
+                    ~
+                    {{endtime}}
+                  </em>
+                </dd>
                 <dt>영화관</dt>
-                <dd>건대입구</dd>
+                <dd>{{theater_city}} {{theater_title}} {{theater_name}}</dd>
                 <dt>인원</dt>
-                <dd>성인1</dd>
+                <dd>성인{{personnel}}</dd>
                 <span class="after"></span>
             </dl>
           </v-col>
           <v-col class="seat_infor">
             <div class="od_dlist_infor">
               <dt>좌석</dt>
-              <dd>??</dd>
+              <dd>{{seat}}</dd>
               <span class="after"></span>
             </div>
           </v-col>
@@ -211,19 +232,30 @@
                   <div class="bx_cate">
                     <ul class="list_pay_item cate6">
                       <li>
-                        <button type="button" class="cate1">신용카드</button>
+                        <button type="button" class="cate1">
+                          <img src="@/assets/posters/etc/kakao_pay.png" alt="">
+                          <span>카카오페이</span>
+                        </button>
                       </li>
                       <li>
-                        <button type="button" class="cate1">신용카드</button>
+                        <button type="button" class="cate2"
+                        >
+                          신용카드</button>
                       </li>
                       <li>
-                        <button type="button" class="cate1">신용카드</button>
+                        <button type="button" class="cate3"
+                        >
+                          엘페이</button>
                       </li>
                       <li>
-                        <button type="button" class="cate1">신용카드</button>
+                        <button type="button" class="cate4"
+                        >
+                          내통장결제</button>
                       </li>
                       <li>
-                        <button type="button" class="cate1">신용카드</button>
+                        <button type="button" class="cate5"
+                        >
+                          휴대폰</button>
                       </li>
                     </ul>
                   </div>
@@ -258,7 +290,7 @@
             <dl>
               <dt>상품금액</dt>
               <dd>
-                <strong>18,000</strong>원
+                <strong>{{total_place}}</strong>원
               </dd>
               <span class="after"></span>
             </dl>
@@ -272,91 +304,139 @@
             <dl>
               <dt>결제금액</dt>
               <dd>
-                총<strong>18,000</strong>원
+                총<strong>{{total_place}}</strong>원
               </dd>
               <span class="after"></span>
             </dl>
-            <a href="" class="btn_col1 btn_confirm">결제하기</a>
+            <a class="btn_col1 btn_confirm" @click="kakaoPayment">결제하기</a>
           </div>
         </div>
       </div>
 
-
-
-
       <div class="layer_wrap"></div>
-
 
   </div>
 
 
     </div>
 
-
-
-
-
   </div>
 </template>
 
 <script>
 import dayjs from 'dayjs';
-import listup from '@/assets/data/theater.json';
 // 한글 로케일 파일 로드(요일 한글화 위함)
 import 'dayjs/locale/ko';
 export default {
   data(){
     return{
       today : dayjs(),
-      convertDate:'',
-      convertDates:[],
-      translateValue:0,
       //오늘 날짜 기본 값
       pickDay:dayjs().format('YYYY-MM-DD'),
-      activeIndex:0,
-      tabs:['전체',' 추후 예정1','추후 예정2'],
-      tabs_select:'',
-      scrollInvoked: 0,
-      city_list : listup.location2,
-      theater : listup.theater,
-      city_choice:'',
-      title_choice:'',
-      selected_city:'서울',
-      selected_title:'가산디지털',
-      theater_counts: [],
-      ticketSchedules:[],
-      posterList:[],
-      filteredPosterList:[],
-      matchedSchedules: [],
-      isDateBlank: [],
+      orderInfo:'',
+      user_id:this.$store.state.meData.id,
+      user_name:'',
+      poster_name:'',
+      poster_viewage:'',
+      poster_showtime:'',
 
-      lodingTime:300,
-      lodingTimer:null,
+      theater_city:'',
+      theater_title:'',
+      theater_name:'',
 
-      dialog: '',
+      choice_date:'',
+      choice_time:'',
+      endtime:'',
 
-      sample_array:[],
+      total_place:'',
 
-      pickTheater:'',
-      horizontalSeat:'',
-      verticalSeat:'',
-      blankList:[],
+      personnel:'',
+      seat:'',
 
+      customTime:'',
+      customDate:'',
+      hashcode:'',
+
+      activeButton:'',
+      ticketing_id:'',
     };
   },
   methods:{
-    endtimeMethod(t,st){
-      /*
-      시작시간(MM:mm),상영시간(분(number)) => ms 변환
-      endtime = 종료 시간 반환
-      */
-      this.starttimeMs = this.convertToTimeMilliseconds(t)
-      this.showtimeMs = this.convertMinutesToMilliseconds(st)
-      this.endtimeMs = this.starttimeMs+this.showtimeMs
-      this.endtime = this.convertMillisecondsToHHMM(this.endtimeMs)
-      // console.log(this.endtime)
-      return this.endtime
+    clickEvent(){
+      console.log('hi')
     },
+    async getOrderInfo(){
+      await this.$store.dispatch('getOrderInfo',{id:this.$route.params.id})
+      .then((res) => {
+        // console.log(res)
+        this.orderInfo = res.ticketings[0]
+        console.log(this.orderInfo)
+
+        this.ticketing_id = this.orderInfo.id
+        this.personnel = this.orderInfo.personnel
+        this.total_place = this.orderInfo.total
+        this.choice_date = this.orderInfo.schedule.date
+        this.choice_time = this.orderInfo.schedule.time
+        this.poster_name = this.orderInfo.schedule.poster.name
+        this.poster_viewage = this.orderInfo.schedule.poster.viewage
+        this.poster_showtime = this.orderInfo.schedule.poster.showtime
+        this.theater_city = this.orderInfo.schedule.theater.city
+        this.theater_title = this.orderInfo.schedule.theater.title
+        this.theater_name = this.orderInfo.schedule.theater.name
+        this.seat = this.removeSymbols(this.orderInfo.seat);
+        this.user_name = this.orderInfo.user.name
+        console.log(this.user_name)
+
+        //해쉬코드를 위한 변경
+        this.customTime = this.mergeTime(this.convertToShortTime(this.choice_time))
+        console.log(this.customTime)
+        this.customDate = this.hashTodayFormat(this.choice_date)
+        console.log(this.customDate)
+        this.hashcode = this.generateHashCode(this.customDate,this.customTime)
+        console.log(this.hashcode)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+// ( " , [ , ] )기호를 정규식을 사용하여 제거
+ removeSymbols(value) {
+  const cleanedString = value.replace(/["\[\]]/g, '');
+  return cleanedString;
+},
+  // 유저 정보
+  async userData(){
+    await this.$store.dispatch('myData').then((res) =>{
+      console.log(res)
+    }).catch(() => {
+      // console.error("로그인 정보가 없습니다.")
+    })
+  },
+    //09:00:00.000 => 09:00로 변환
+    convertToShortTime(longTime) {
+    const [hours, minutes] = longTime.split(":");
+    const shortTime = `${hours}:${minutes}`;
+    return shortTime;
+  },
+  mergeTime(time) {
+    // :를 제거한 문자열 반환
+    return time.replace(":", "");
+  },
+    //날짜 폼
+    todayFormat(){
+    return this.today.format("YYYY-MM-DD");
+  },
+  //날짜 폼
+  hashTodayFormat(){
+  return this.today.format("MMDD");
+  },
+    //종료시간
+    endtimeMethod(){
+    this.starttimeMs = this.convertToTimeMilliseconds(this.choice_time)
+    this.showtimeMs = this.convertMinutesToMilliseconds(this.poster_showtime)
+    this.endtimeMs = this.starttimeMs+this.showtimeMs
+    this.endtime = this.convertMillisecondsToHHMM(this.endtimeMs)
+  },
     //시간(00:00) => millisecond 변환
     convertToTimeMilliseconds(time) {
     const [hours, minutes] = time.split(':');
@@ -365,8 +445,11 @@ export default {
     //숫자(1) => 분으로 millisecond 변환
     convertMinutesToMilliseconds(minutes) {
     return minutes * 60 * 1000;
-},
-// 밀리초(ms)를 HH:mm 형식으로 변환
+  },
+    dayFormat(date) {
+      return dayjs(date).locale('ko').format("ddd");
+    },
+  // 밀리초(ms)를 HH:mm 형식으로 변환
   convertMillisecondsToHHMM(milliseconds) {
   const totalMinutes = Math.floor(milliseconds / (60 * 1000));
   const hours = Math.floor(totalMinutes / 60);
@@ -377,322 +460,99 @@ export default {
   const formattedMinutes = String(minutes).padStart(2, '0');
 
   return `${formattedHours}:${formattedMinutes}`;
-},
-//좌석
-totalSeat(){
-  this.total_seat = Number(this.verticalSeat) * Number(this.horizontalSeat) - this.blankList.length
-  // console.log(this.total_seat)
-},
-//좌석 값()
-generatedSeatValue(vIndex, hIndex) {
-  return String.fromCharCode(65 + vIndex) + (hIndex + 1);
-},
-changeSeatFormat(){
-
-this.totalSeat();
-
-// 좌석 배치도 리스트
-let new_array =[]
-for(let yaxis = 0; yaxis < Number(this.verticalSeat) ; yaxis++){
-
-let vert = []
-for(let xaxis = 0; xaxis < Number(this.horizontalSeat); xaxis++ ){
-
-  if(this.bokdoList.includes(String(xaxis + 1))){
-    vert.push('corridor')
-    vert.push(this.generatedSeatValue(yaxis, xaxis))
-  }else{
-    vert.push(this.generatedSeatValue(yaxis, xaxis))
-  }
-}
-new_array.push(vert)
-}
-this.sample_array = new_array
-// console.log(this.sample_array)
-},
-    clickDialog(el){
-      this.dialogArr.dialog = true
-      this.dialogArr.contents = el
-      this.dialogArr.title = "테스트입니다."
-
-
-      this.pickTheater = this.dialogArr.contents
-      console.log(this.pickTheater)
-
-      //규모
-      this.ratios = this.pickTheater.theater.ratio.split('x')
-      this.horizontalSeat = Number(this.ratios[0])
-      this.verticalSeat = Number(this.ratios[1])
-
-      // 복도
-      this.bokdoList = this.pickTheater.theater.bokdo.split(',')
-      // console.log(this.bokdoList)
-      //빈공간
-      this.blankList = this.pickTheater.theater.blank.split(',')
-      // console.log(this.blankList)
-
-      this.changeSeatFormat();
-    },
-
-    calculateTheaterCounts() {
-      for (let i = 0; i < this.city_list.length; i++) {
-        const city = this.city_list[i];
-        const cityValue = city.value;
-        if (this.theater[cityValue]) {
-          this.theater_counts[cityValue] = this.theater[cityValue].length;
-        } else {
-          this.theater_counts[cityValue] = 0;
-        }
-      }
-    },
-    getTheaterCount(cityValue){
-      return this.theater_counts[cityValue] || 0;
-    },
-    citySelect(cityValue) {
-      this.selected_city = cityValue;
-      // console.log(this.selected_city)
-    },
-    titleSelect(titleValue) {
-      clearTimeout(this.lodingTimer);
-      this.lodingTimer = setTimeout(() => {
-        this.selected_title = titleValue;
-        //날짜 뿌리고 -> 해당 날짜 가져와서 영화 뿌리고,
-        this.viewDay();
-        this.pickDayMovie(this.todayFormat());
-        this.lodingTimer = null;
-      },this.lodingTime)
-    },
-    setupList(){
-      // console.log(this.city_list)
-      // console.log(this.theater)
-
-
-    },
-    //09:00:00.000 => 09:00로 변환
-    convertToShortTime(longTime) {
-      const [hours, minutes] = longTime.split(":");
-      const shortTime = `${hours}:${minutes}`;
-      return shortTime;
-    },
-    //스케이줄 가져오기
-    async getTicketingSchedules(){
-      let form = {
-        city:this.selected_city,
-        title:this.selected_title,
-        date:this.pickDay,
-        sortCondition:'time:asc'
-      }
-      // console.log(form)
-
-      await this.$store.dispatch('ticketingSchedules',form)
-      .then((res) => {
-        // console.log(res)
-        this.ticketSchedules = res.schedules
-        // console.log(this.ticketSchedules)
-
-        this.matchSchedules();
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    },
-    //더블체크를 위한 영화 정보 가져오기
-    async getposterNowShowtime(){
-      await this.$store.dispatch('posterNowShowtime')
-      .then((res) => {
-        // console.log(res)
-        this.posterList = res.posters
-
-        // pickDay가 starttime과 endtime 사이에 있는 포스터만 필터링
-        const filteredPosters = this.posterList.filter(
-          poster => {
-            const starttime = new Date(poster.starttime);
-            const endtime = new Date(poster.endtime);
-            const pickDay = new Date(this.pickDay);
-
-          return pickDay >= starttime && pickDay <= endtime;
-      });
-      // console.log(filteredPosters);
-
-      let new_array = [];
-      for(let i =0; i < filteredPosters.length; i++){
-        const filterList = {
-
-          name : filteredPosters[i].name,
-          viewage : filteredPosters[i].viewage,
-        }
-        new_array.push(filterList);
-      }
-
-      this.filteredPosterList = new_array;
-      // console.log(this.filteredPosterList)
-
-
-      this.matchSchedules();
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    },
-    matchSchedules() {
-      this.matchedSchedules = this.ticketSchedules.filter(schedule => {
-        return this.filteredPosterList.some(poster => poster.name === schedule.poster.name);
-      });
-    },
-    getSchedulesForPoster(posterName) {
-      return this.matchedSchedules.filter(schedule => schedule.poster.name === posterName);
-    },
-    //스크롤
-    onScroll () {
-        this.scrollInvoked++
-      },
-     // 클릭된 탭의 인덱스를 설정.
-    setActiveTab(index) {
-      this.activeIndex = index;
-      // console.log(this.tabs[index])
-      this.tabs_select = this.tabs[index]
-    },
-    //선택 날짜 받기 -> 날짜 클릭 -> 데이터 퐝
-    async pickDayMovie(date){
-      // console.log(date)
-      this.pickDay=date
-      // console.log(this.pickDay)
-
-      let form = {
-        theatercity:this.selected_city,
-        theatertitle:this.selected_title,
-        date:this.pickDay,
-        sortCondition:'time:asc'
-      }
-
-      // console.log(form)
-
-      await this.$store.dispatch('ticketingSchedules',form)
-      .then((res) => {
-        // console.log(res)
-        this.ticketSchedules = res.schedules
-        // console.log(this.ticketSchedules.length)
-        this.matchSchedules();
-
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-
-    },
-    //오늘 ~ 1달간 날짜
-    async viewDay(){
-      let monthsDay = 30;
-      const today = dayjs().format('YYYY-MM-DD');
-      this.convertDates = []; // convertDates 초기화
-      this.isDateBlank = []; // isDateBlank 초기화
-
-      for(let i=0;i<monthsDay;i++){
-        this.convertDate = dayjs(today).add(i,'day').format('YYYY-MM-DD')
-        this.convertDates.push(this.convertDate);
-
-        await this.$store.dispatch('scheduleCount',{tcity:this.selected_city, ttitle:this.selected_title, date:this.convertDate})
-        .then((res) => {
-        // console.log(res)
-        if(res.schedulesConnection.aggregate.count === 0){
-          this.isDateBlank.push(true);
-        }else{
-          this.isDateBlank.push(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-        this.isDateBlank.push(false);
-      })
-      }
-      // console.log(this.convertDates)
-
-    },
-    //날짜 폼
-    todayFormat(){
-      return this.today.format("YYYY-MM-DD");
-    },
-    dayFormat(date){
-      return dayjs(date).format("DD");
-    },
-    //요일 한글 폼(오늘 날짜 = 받아온 오늘 날짜 = 오늘)
-    dayOfWeekFormat(date) {
-      if(dayjs().format('YYYY-MM-DD') === date){
-        return '오늘'
-      }
-      return dayjs(date).locale('ko').format("ddd");
-    },
-    //주말 칼라
-    dayClass(date) {
-      const dayOfWeek = this.dayOfWeekFormat(date);
-      if (dayOfWeek === '토') {
-        return 'dayClass_saturday';
-      } else if (dayOfWeek === '일') {
-        return 'dayClass_sunday';
-      } else {
-        return '';
-      }
-    },
-    monthFormat(date){
-      //형식화된 월 문자열을 숫자로 변환.
-      //이 과정에서 앞의 0이 제거 (5, 6 등).
-      return String(Number(dayjs(date).format("MM")));
-    },
-    //오늘날짜, 매월 1일 체크
-    shouldDisplayMonth(date) {
-    const isFirstDayOfMonth = dayjs(date).date() === 1;
-    const isToday = dayjs(date).isSame(this.today, 'day');
-    return isFirstDayOfMonth || isToday;
   },
-  //좌우 이동
-    moveSlide(direction) {
-      const slideWidth = 855; //이동될 넓이 길이
-        if (direction === 'prev') {
-          this.translateValue += slideWidth;
-          if (this.translateValue > 0){
-            this.translateValue = 0;
-          }
-        } else {
-          this.translateValue -= slideWidth;
-          const minValue = -(slideWidth);
-          // 이전 또는 다음 클릭시, 슬라이드가 몇 개씩 이동하는지를 조정
-          if (this.translateValue < minValue){
-            this.translateValue = minValue;
-          }
+  //해쉬 코드 만들기
+  generateHashCode(date, time){
+    let numbers = [];
+      while (numbers.length < 4) {
+        let randomNum = Math.floor(Math.random() * 9) + 1; // 1부터 9까지의 랜덤 숫자
+        if (!numbers.includes(randomNum)) {
+          numbers.push(randomNum);
         }
-      },
-      deBounceSearch(){
-        clearTimeout(this.lodingTimer);
-        this.lodingTimer = setTimeout(() => {
-          //여기에 적용시키고 싶은 함수 넣으면 됨
-          this.lodingTimer = null;
-        },this.lodingTime)
-      },
-  },
-  computed: {
-      numSlides() {
-        return this.convertDates.length;
-        //클래스의 길이 만큼 이동
-      },
-      underlineStyle() {
-      // 활성화된 탭의 위치에 따라 underline의 left 값을 계산합니다.
-      return {
-        left: `${this.activeIndex * 325}px` // 각 탭의 너비가 100px일 경우
-      };
+      }
+       // 콤마 없이 문자열로 저장
+      return time + date + numbers.join('');
     },
-    filtered_title_list() {
-      return this.theater[this.selected_city] || [];
+    clickEvent(){
+
+    },
+  async createPay(){
+    this.hashcode = this.generateHashCode(this.customDate,this.customTime)
+    console.log(this.hashcode)
+
+    let form = {
+      hashcode:this.hashcode,
+      userId: this.user_id,
+      ticketId:this.ticketing_id,
+      amount: this.total_place,
+      buyer_poster_name: this.poster_name,
+      buyer_poster_viewage: this.poster_viewage,
+      buyer_poster_showtime: String(this.poster_showtime),
+      buyer_theater_city: this.theater_city,
+      buyer_theater_title: this.theater_title,
+      buyer_theater_name: this.theater_name,
+      buyer_choice_date: this.choice_date,
+      buyer_choice_time: this.choice_time,
+      buyer_seat: this.seat
     }
+    console.log(form)
+
+    await this.$store.dispatch('createPayment',form)
+    .then((res) => {
+      console.log(res)
+      if(res){
+        this.$router.push({name:'payment',params:{id:this.user_id}})
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  },
+  // 카카오 페이 API
+   kakaoPayment() {
+    // this를 self에 할당하여 컨텍스트를 유지
+    var self = this;
+    var IMP = window.IMP;
+    IMP.init('imp24106650');
+    IMP.request_pay(
+      {
+        pg: 'kakaopay.TC0ONETIME',
+        pay_method: 'card',
+        merchant_uid: 'merchant_' + new Date().getTime(),
+
+        name: this.poster_name,
+        amount: this.total_place,
+
+        buyer_id: this.user_id,
+        buyer_name: this.user_name,
+      },
+      async function (rsp) {
+        console.log(rsp);
+        var msg = '';
+        if (rsp.success) {
+          msg = '결제가 완료되었습니다.';
+          msg += ' 결제 금액 : ' + rsp.paid_amount;
+
+          await self.createPay()
+
+        } else {
+          msg = '결제에 실패하였습니다.';
+          msg += ' 에러 내용 : ' + rsp.error_msg;
+        }
+        alert(msg);
+      }
+
+      // this.createPay()
+    );
+  }
+},
+  computed: {
+
   },
   async mounted(){
-    await this.viewDay();
-    this.setupList();
-    await this.getTicketingSchedules();
-    await this.getposterNowShowtime();
-    await this.pickDayMovie(this.todayFormat());
-    this.calculateTheaterCounts();
-    // this.testmethod();
-  }
+    await this.getOrderInfo()
+    this.endtimeMethod()
+  },
 }
 </script>
 
@@ -961,7 +821,7 @@ this.sample_array = new_array
 .article_sum_infor .movie_infor {
     padding: 30px 30px 18px;
     border-bottom: 1px solid #DDD;
-    height: 370px;
+    height: 390px;
 }
 .article_sum_infor .movie_infor.new2020 .thm {
     margin-bottom: 20px;
@@ -1193,20 +1053,53 @@ this.sample_array = new_array
     overflow: visible;
     position: relative;
     height: 55px;
-    line-height: 55px;
+    // line-height: 55px;
     font-size: 11px;
 }
 .group_payment .bx_cate .list_pay_item li button {
     overflow: visible;
     position: relative;
     height: 68px;
-    line-height: 95px;
+    // line-height: 95px;
     background-repeat: no-repeat;
     width: 130px;
 }
 .group_payment .bx_cate .list_pay_item li button.cate1 {
-    background-image: url(https://www.lottecinema.co.kr/NLCHS/Content/images/payment/method_ic_card.png);
+    // background-image: url(https://www.lottecinema.co.kr/NLCHS/Content/images/payment/method_ic_card.png);
     background-position: center 17px;
+    display: grid;
+
+    text-align: center;
+    justify-content: center;
+    align-items: end;
+}
+.cate1 span{
+  align-self: center;
+}
+.group_payment .bx_cate .list_pay_item li button.cate2 {
+    background-image: url(@/assets/posters/etc/method_ic_card.png);
+    background-position: center 17px;
+    line-height: 9;
+}
+.group_payment .bx_cate .list_pay_item li button.cate3 {
+    background-image: url(@/assets/posters/etc/method_ic_lpay.png);
+    background-position: center 17px;
+    line-height: 9;
+}
+.group_payment .bx_cate .list_pay_item li button.cate4 {
+    background-image: url(@/assets/posters/etc/method_ic_simple.png);
+    background-position: center 17px;
+    line-height: 9;
+}
+.group_payment .bx_cate .list_pay_item li button.cate5 {
+    background-image: url(@/assets/posters/etc/method_ic_phone.png);
+    background-position: center 17px;
+    line-height: 9;
+}
+
+.cate1 img {
+  width: 55px;
+  height: 25px;
 }
 .list_pay_item li button {
     width: 100%;
@@ -1353,6 +1246,14 @@ this.sample_array = new_array
 .payment_sum_wrap dl {
     padding: 10px 30px;
     border-top: 1px solid rgba(255, 255, 255, .2);
+}
+.list_pay_item button {
+  border: 1px solid transparent;
+  transition: border 0.3s;
+}
+
+.list_pay_item button .active {
+  border: 1px solid blue !important;
 }
 </style>
 

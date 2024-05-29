@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "05/27/2024 3:39:40 PM"
+    "x-generation-date": "05/29/2024 8:08:34 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -554,6 +554,517 @@
         "summary": "",
         "tags": [
           "Free-board"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/payments": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Payment"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Payment"
+        ],
+        "parameters": [
+          {
+            "name": "_limit",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of results possible",
+            "schema": {
+              "type": "integer"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_sort",
+            "in": "query",
+            "required": false,
+            "description": "Sort according to a specific field.",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_start",
+            "in": "query",
+            "required": false,
+            "description": "Skip a specific number of entries (especially useful for pagination)",
+            "schema": {
+              "type": "integer"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "=",
+            "in": "query",
+            "required": false,
+            "description": "Get entries that matches exactly your input",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_ne",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are not equals to something",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_lt",
+            "in": "query",
+            "required": false,
+            "description": "Get record that are lower than a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_lte",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are lower than or equal to a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_gt",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are greater than a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_gte",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are greater than  or equal a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_contains",
+            "in": "query",
+            "required": false,
+            "description": "Get records that contains a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_containss",
+            "in": "query",
+            "required": false,
+            "description": "Get records that contains (case sensitive) a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_in",
+            "in": "query",
+            "required": false,
+            "description": "Get records that matches any value in the array of values",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_nin",
+            "in": "query",
+            "required": false,
+            "description": "Get records that doesn't match any value in the array of values",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "deprecated": false
+          }
+        ]
+      },
+      "post": {
+        "deprecated": false,
+        "description": "Create a new record",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Payment"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Payment"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewPayment"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payments/count": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Payment"
+        ],
+        "parameters": []
+      }
+    },
+    "/payments/{id}": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Payment"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Payment"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "put": {
+        "deprecated": false,
+        "description": "Update a record",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Payment"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Payment"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewPayment"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "delete": {
+        "deprecated": false,
+        "description": "Delete a record",
+        "responses": {
+          "200": {
+            "description": "deletes a single record based on the ID supplied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Payment"
         ],
         "parameters": [
           {
@@ -5817,6 +6328,12 @@
                   "type": "string"
                 }
               },
+              "payments": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "ticketing": {
                 "type": "string"
               },
@@ -5851,6 +6368,225 @@
           "viewcount": {
             "type": "integer",
             "default": 0
+          },
+          "published_at": {
+            "type": "datetime"
+          },
+          "created_by": {
+            "type": "string"
+          },
+          "updated_by": {
+            "type": "string"
+          }
+        }
+      },
+      "Payment": {
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "hashcode": {
+            "type": "string"
+          },
+          "user": {
+            "required": [
+              "id",
+              "username",
+              "email"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "resetPasswordToken": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "blocked": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "try": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "addressZipCode": {
+                "type": "string"
+              },
+              "address": {
+                "type": "string"
+              },
+              "phone": {
+                "type": "string"
+              },
+              "addressDetail": {
+                "type": "string"
+              },
+              "addressDong": {
+                "type": "string"
+              },
+              "free_boards": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "replies": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "payments": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "ticketing": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "ticketing": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "seat": {
+                "type": "string"
+              },
+              "personnel": {
+                "type": "integer"
+              },
+              "user": {
+                "type": "string"
+              },
+              "schedule": {
+                "type": "string"
+              },
+              "total": {
+                "type": "string"
+              },
+              "payment": {
+                "type": "string"
+              },
+              "published_at": {
+                "type": "datetime"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "amount": {
+            "type": "string"
+          },
+          "buyer_poster_name": {
+            "type": "string"
+          },
+          "buyer_theater_city": {
+            "type": "string"
+          },
+          "buyer_theater_title": {
+            "type": "string"
+          },
+          "buyer_theater_name": {
+            "type": "string"
+          },
+          "buyer_choice_date": {
+            "type": "string"
+          },
+          "buyer_choice_time": {
+            "type": "time"
+          },
+          "buyer_seat": {
+            "type": "string"
+          },
+          "buyer_poster_viewage": {
+            "type": "string"
+          },
+          "buyer_poster_showtime": {
+            "type": "string"
+          },
+          "published_at": {
+            "type": "datetime"
+          }
+        }
+      },
+      "NewPayment": {
+        "properties": {
+          "hashcode": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string"
+          },
+          "ticketing": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "string"
+          },
+          "buyer_poster_name": {
+            "type": "string"
+          },
+          "buyer_theater_city": {
+            "type": "string"
+          },
+          "buyer_theater_title": {
+            "type": "string"
+          },
+          "buyer_theater_name": {
+            "type": "string"
+          },
+          "buyer_choice_date": {
+            "type": "string"
+          },
+          "buyer_choice_time": {
+            "type": "time"
+          },
+          "buyer_seat": {
+            "type": "string"
+          },
+          "buyer_poster_viewage": {
+            "type": "string"
+          },
+          "buyer_poster_showtime": {
+            "type": "string"
           },
           "published_at": {
             "type": "datetime"
@@ -6127,8 +6863,11 @@
                 "poster": {
                   "type": "string"
                 },
-                "ticketing": {
-                  "type": "string"
+                "ticketings": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "published_at": {
                   "type": "datetime"
@@ -6275,6 +7014,12 @@
                 }
               },
               "replies": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "payments": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -6458,34 +7203,43 @@
               }
             }
           },
-          "ticketing": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "seat": {
-                "type": "string"
-              },
-              "personnel": {
-                "type": "integer"
-              },
-              "schedule": {
-                "type": "string"
-              },
-              "users_permissions_user": {
-                "type": "string"
-              },
-              "published_at": {
-                "type": "datetime"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
+          "ticketings": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "seat": {
+                  "type": "string"
+                },
+                "personnel": {
+                  "type": "integer"
+                },
+                "user": {
+                  "type": "string"
+                },
+                "schedule": {
+                  "type": "string"
+                },
+                "total": {
+                  "type": "string"
+                },
+                "payment": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "datetime"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -6515,8 +7269,11 @@
           "poster": {
             "type": "string"
           },
-          "ticketing": {
-            "type": "string"
+          "ticketings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "published_at": {
             "type": "datetime"
@@ -6686,8 +7443,11 @@
                 "poster": {
                   "type": "string"
                 },
-                "ticketing": {
-                  "type": "string"
+                "ticketings": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "published_at": {
                   "type": "datetime"
@@ -6779,47 +7539,7 @@
           "personnel": {
             "type": "integer"
           },
-          "schedule": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "booking": {
-                "type": "string"
-              },
-              "place": {
-                "type": "integer"
-              },
-              "date": {
-                "type": "string"
-              },
-              "theater": {
-                "type": "string"
-              },
-              "time": {
-                "type": "time"
-              },
-              "poster": {
-                "type": "string"
-              },
-              "ticketing": {
-                "type": "string"
-              },
-              "published_at": {
-                "type": "datetime"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
-          },
-          "users_permissions_user": {
+          "user": {
             "required": [
               "id",
               "username",
@@ -6886,8 +7606,118 @@
                   "type": "string"
                 }
               },
+              "payments": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "ticketing": {
                 "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "schedule": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "booking": {
+                "type": "string"
+              },
+              "place": {
+                "type": "integer"
+              },
+              "date": {
+                "type": "string"
+              },
+              "theater": {
+                "type": "string"
+              },
+              "time": {
+                "type": "time"
+              },
+              "poster": {
+                "type": "string"
+              },
+              "ticketings": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "published_at": {
+                "type": "datetime"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "total": {
+            "type": "string"
+          },
+          "payment": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "hashcode": {
+                "type": "string"
+              },
+              "user": {
+                "type": "string"
+              },
+              "ticketing": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "string"
+              },
+              "buyer_poster_name": {
+                "type": "string"
+              },
+              "buyer_theater_city": {
+                "type": "string"
+              },
+              "buyer_theater_title": {
+                "type": "string"
+              },
+              "buyer_theater_name": {
+                "type": "string"
+              },
+              "buyer_choice_date": {
+                "type": "string"
+              },
+              "buyer_choice_time": {
+                "type": "time"
+              },
+              "buyer_seat": {
+                "type": "string"
+              },
+              "buyer_poster_viewage": {
+                "type": "string"
+              },
+              "buyer_poster_showtime": {
+                "type": "string"
+              },
+              "published_at": {
+                "type": "datetime"
               },
               "created_by": {
                 "type": "string"
@@ -6910,10 +7740,16 @@
           "personnel": {
             "type": "integer"
           },
+          "user": {
+            "type": "string"
+          },
           "schedule": {
             "type": "string"
           },
-          "users_permissions_user": {
+          "total": {
+            "type": "string"
+          },
+          "payment": {
             "type": "string"
           },
           "published_at": {
@@ -7051,6 +7887,12 @@
                   }
                 },
                 "replies": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "payments": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -7255,6 +8097,67 @@
               }
             }
           },
+          "payments": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "hashcode": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "string"
+                },
+                "ticketing": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "string"
+                },
+                "buyer_poster_name": {
+                  "type": "string"
+                },
+                "buyer_theater_city": {
+                  "type": "string"
+                },
+                "buyer_theater_title": {
+                  "type": "string"
+                },
+                "buyer_theater_name": {
+                  "type": "string"
+                },
+                "buyer_choice_date": {
+                  "type": "string"
+                },
+                "buyer_choice_time": {
+                  "type": "time"
+                },
+                "buyer_seat": {
+                  "type": "string"
+                },
+                "buyer_poster_viewage": {
+                  "type": "string"
+                },
+                "buyer_poster_showtime": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "datetime"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "ticketing": {
             "required": [
               "id"
@@ -7269,10 +8172,16 @@
               "personnel": {
                 "type": "integer"
               },
+              "user": {
+                "type": "string"
+              },
               "schedule": {
                 "type": "string"
               },
-              "users_permissions_user": {
+              "total": {
+                "type": "string"
+              },
+              "payment": {
                 "type": "string"
               },
               "published_at": {
@@ -7356,6 +8265,12 @@
               "type": "string"
             }
           },
+          "payments": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
           "ticketing": {
             "type": "string"
           },
@@ -7392,6 +8307,9 @@
     }
   },
   "tags": [
+    {
+      "name": "Payment"
+    },
     {
       "name": "Poster"
     },

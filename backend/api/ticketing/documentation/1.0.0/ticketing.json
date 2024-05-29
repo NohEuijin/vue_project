@@ -528,47 +528,7 @@
           "personnel": {
             "type": "integer"
           },
-          "schedule": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "booking": {
-                "type": "string"
-              },
-              "place": {
-                "type": "integer"
-              },
-              "date": {
-                "type": "string"
-              },
-              "theater": {
-                "type": "string"
-              },
-              "time": {
-                "type": "time"
-              },
-              "poster": {
-                "type": "string"
-              },
-              "ticketing": {
-                "type": "string"
-              },
-              "published_at": {
-                "type": "datetime"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
-          },
-          "users_permissions_user": {
+          "user": {
             "required": [
               "id",
               "username",
@@ -635,8 +595,118 @@
                   "type": "string"
                 }
               },
+              "payments": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "ticketing": {
                 "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "schedule": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "booking": {
+                "type": "string"
+              },
+              "place": {
+                "type": "integer"
+              },
+              "date": {
+                "type": "string"
+              },
+              "theater": {
+                "type": "string"
+              },
+              "time": {
+                "type": "time"
+              },
+              "poster": {
+                "type": "string"
+              },
+              "ticketings": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "published_at": {
+                "type": "datetime"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "total": {
+            "type": "string"
+          },
+          "payment": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "hashcode": {
+                "type": "string"
+              },
+              "user": {
+                "type": "string"
+              },
+              "ticketing": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "string"
+              },
+              "buyer_poster_name": {
+                "type": "string"
+              },
+              "buyer_theater_city": {
+                "type": "string"
+              },
+              "buyer_theater_title": {
+                "type": "string"
+              },
+              "buyer_theater_name": {
+                "type": "string"
+              },
+              "buyer_choice_date": {
+                "type": "string"
+              },
+              "buyer_choice_time": {
+                "type": "time"
+              },
+              "buyer_seat": {
+                "type": "string"
+              },
+              "buyer_poster_viewage": {
+                "type": "string"
+              },
+              "buyer_poster_showtime": {
+                "type": "string"
+              },
+              "published_at": {
+                "type": "datetime"
               },
               "created_by": {
                 "type": "string"
@@ -659,10 +729,16 @@
           "personnel": {
             "type": "integer"
           },
+          "user": {
+            "type": "string"
+          },
           "schedule": {
             "type": "string"
           },
-          "users_permissions_user": {
+          "total": {
+            "type": "string"
+          },
+          "payment": {
             "type": "string"
           },
           "published_at": {

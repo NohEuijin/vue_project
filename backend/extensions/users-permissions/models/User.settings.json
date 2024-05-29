@@ -83,8 +83,12 @@
       "via": "user",
       "collection": "reply"
     },
+    "payments": {
+      "via": "user",
+      "collection": "payment"
+    },
     "ticketing": {
-      "via": "users_permissions_user",
+      "via": "user",
       "model": "ticketing"
     }
   }

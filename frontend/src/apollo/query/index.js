@@ -618,12 +618,12 @@ query getTicketing(
   $uid:ID,
 ){
   ticketings(where:{
-      users_permissions_user:$uid
+      user:$uid
   }){
     id
     seat
     personnel
-    users_permissions_user{
+    user{
       id
       name
     }
@@ -643,6 +643,44 @@ query getTicketing(
         bokdo
         blank
         total
+      }
+      poster{
+      id
+      name
+      viewage
+      showtime
+      }
+    }
+  }
+}
+`
+
+//결제 전
+export const getOrderInfo = gql`
+query getOrderInfo(
+  $id:ID,
+){
+  ticketings(where:{
+      id:$id
+  }){
+    id
+    seat
+    personnel
+    total
+    user{
+      id
+      name
+    }
+    schedule{
+      id
+      date
+      time
+      booking
+      	theater{
+        id
+        city
+        title
+        name
       }
       poster{
       id

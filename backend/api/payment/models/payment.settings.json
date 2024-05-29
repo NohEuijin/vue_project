@@ -1,0 +1,57 @@
+{
+  "kind": "collectionType",
+  "collectionName": "payments",
+  "info": {
+    "name": "payment",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "hashcode": {
+      "type": "string"
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "payments"
+    },
+    "ticketing": {
+      "model": "ticketing",
+      "via": "payment"
+    },
+    "amount": {
+      "type": "string"
+    },
+    "buyer_poster_name": {
+      "type": "string"
+    },
+    "buyer_theater_city": {
+      "type": "string"
+    },
+    "buyer_theater_title": {
+      "type": "string"
+    },
+    "buyer_theater_name": {
+      "type": "string"
+    },
+    "buyer_choice_date": {
+      "type": "date"
+    },
+    "buyer_choice_time": {
+      "type": "time"
+    },
+    "buyer_seat": {
+      "type": "string"
+    },
+    "buyer_poster_viewage": {
+      "type": "string"
+    },
+    "buyer_poster_showtime": {
+      "type": "string"
+    }
+  }
+}

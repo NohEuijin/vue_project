@@ -22,6 +22,8 @@ import {
   createSchedule,
   deleteScheduls,
   createTicketing,
+  updateTicketing,
+  createPayment,
 } from '@/apollo/mutation'
 import {
   myData,
@@ -43,7 +45,8 @@ import {
   mainPosterList,
   ticketingSchedules,
   posterNowShowtime,
-  getTicketing
+  getTicketing,
+  getOrderInfo
 } from '@/apollo/query'
 import { moduleA } from '@/store/moduleA'
 import { moduleB } from '@/store/moduleB'
@@ -750,6 +753,54 @@ Authorization: 'Bearer ' + localStorage.getItem(TOKENNAME),
         resolve(data)
       })
       .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
+
+  updateTicketing({}, input){
+    return new Promise((resolve,reject) => {
+      apollo.clients['defaultClient']
+      .mutate({
+        mutation:updateTicketing,
+        variables: input
+      })
+      .then(({data}) => {
+        resolve(data)
+      })
+      .catch((err) => {
+        reject(err)
+      })
+    })
+  },
+
+  getOrderInfo({} , input ){
+    return new Promise((resolve, reject) => {
+      apollo.clients['defaultClient']
+      .query({
+        query:getOrderInfo,
+        variables:input
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
+
+  createPayment({}, input){
+    return new Promise((resolve,reject) => {
+      apollo.clients['defaultClient']
+      .mutate({
+        mutation:createPayment,
+        variables: input
+      })
+      .then(({data}) => {
+        resolve(data)
+      })
+      .catch((err) => {
         reject(err)
       })
     })

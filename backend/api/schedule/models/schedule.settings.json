@@ -32,9 +32,9 @@
       "model": "poster",
       "via": "schedules"
     },
-    "ticketing": {
-      "model": "ticketing",
-      "via": "schedule"
+    "ticketings": {
+      "via": "schedule",
+      "collection": "ticketing"
     }
   }
 }

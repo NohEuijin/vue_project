@@ -17,14 +17,21 @@
     "personnel": {
       "type": "integer"
     },
-    "schedule": {
-      "via": "ticketing",
-      "model": "schedule"
-    },
-    "users_permissions_user": {
+    "user": {
       "plugin": "users-permissions",
       "model": "user",
       "via": "ticketing"
+    },
+    "schedule": {
+      "model": "schedule",
+      "via": "ticketings"
+    },
+    "total": {
+      "type": "string"
+    },
+    "payment": {
+      "via": "ticketing",
+      "model": "payment"
     }
   }
 }
