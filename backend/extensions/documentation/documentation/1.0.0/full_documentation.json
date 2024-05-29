@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "05/28/2024 3:49:05 PM"
+    "x-generation-date": "05/29/2024 8:08:34 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -6512,16 +6512,7 @@
               }
             }
           },
-          "name": {
-            "type": "string"
-          },
           "amount": {
-            "type": "string"
-          },
-          "buyer_id": {
-            "type": "string"
-          },
-          "buyer_name": {
             "type": "string"
           },
           "buyer_poster_name": {
@@ -6567,16 +6558,7 @@
           "ticketing": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
-          },
           "amount": {
-            "type": "string"
-          },
-          "buyer_id": {
-            "type": "string"
-          },
-          "buyer_name": {
             "type": "string"
           },
           "buyer_poster_name": {
@@ -7704,16 +7686,7 @@
               "ticketing": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
               "amount": {
-                "type": "string"
-              },
-              "buyer_id": {
-                "type": "string"
-              },
-              "buyer_name": {
                 "type": "string"
               },
               "buyer_poster_name": {
@@ -8143,16 +8116,7 @@
                 "ticketing": {
                   "type": "string"
                 },
-                "name": {
-                  "type": "string"
-                },
                 "amount": {
-                  "type": "string"
-                },
-                "buyer_id": {
-                  "type": "string"
-                },
-                "buyer_name": {
                   "type": "string"
                 },
                 "buyer_poster_name": {

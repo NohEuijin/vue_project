@@ -6,7 +6,7 @@
       <div class="section_step_tit">
     <ul>
       <li class="step01 prev">
-        <a href="">
+        <a href="#">
           <string class="tit">
             <span>
               01
@@ -29,7 +29,7 @@
         </a>
       </li>
       <li class="step02 prev">
-        <a href="">
+        <a href="#">
           <string class="tit">
             <span>
               02
@@ -48,7 +48,7 @@
         </a>
       </li>
       <li class="step03 active">
-        <a href="">
+        <a href="#">
           <string class="tit">
             <span>
               03
@@ -69,7 +69,7 @@
         </a>
       </li>
       <li class="step04">
-        <a href="">
+        <a href="#">
           <string class="tit">
             <span>
               04
@@ -235,23 +235,26 @@
                         <button type="button" class="cate1">
                           <img src="@/assets/posters/etc/kakao_pay.png" alt="">
                           <span>카카오페이</span>
-
                         </button>
                       </li>
                       <li>
-                        <button type="button" class="cate2">
+                        <button type="button" class="cate2"
+                        >
                           신용카드</button>
                       </li>
                       <li>
-                        <button type="button" class="cate3">
+                        <button type="button" class="cate3"
+                        >
                           엘페이</button>
                       </li>
                       <li>
-                        <button type="button" class="cate4">
+                        <button type="button" class="cate4"
+                        >
                           내통장결제</button>
                       </li>
                       <li>
-                        <button type="button" class="cate5">
+                        <button type="button" class="cate5"
+                        >
                           휴대폰</button>
                       </li>
                     </ul>
@@ -353,9 +356,15 @@ export default {
       customTime:'',
       customDate:'',
       hashcode:'',
+
+      activeButton:'',
+      ticketing_id:'',
     };
   },
   methods:{
+    clickEvent(){
+      console.log('hi')
+    },
     async getOrderInfo(){
       await this.$store.dispatch('getOrderInfo',{id:this.$route.params.id})
       .then((res) => {
@@ -363,6 +372,7 @@ export default {
         this.orderInfo = res.ticketings[0]
         console.log(this.orderInfo)
 
+        this.ticketing_id = this.orderInfo.id
         this.personnel = this.orderInfo.personnel
         this.total_place = this.orderInfo.total
         this.choice_date = this.orderInfo.schedule.date
@@ -463,100 +473,78 @@ export default {
        // 콤마 없이 문자열로 저장
       return time + date + numbers.join('');
     },
-  // 카카오 페이 API
-  kakaoPayment() {
-    console.log("주문 이름 : " + this.user_name + " 님");
-    console.log("주문 금액 : " + this.total_place + " 원");
-    console.log("영화 제목 : " + this.poster_name);
-    console.log("연령 : " + this.poster_viewage);
-    console.log("상영 시간 : " + this.poster_showtime);
-    console.log("지역 : " + this.theater_city);
-    console.log("지점 : " + this.theater_title);
-    console.log("상영관 : " + this.theater_name);
-    console.log("날짜 : " + this.choice_date);
-    console.log("시간 : " + this.choice_time);
-    console.log("예약석 : " + this.seat);
+    clickEvent(){
 
-    // for(let i = 0; i<this.seat.length;i++){
-    //   let hashcodeList = {
-    //     seat_number : this.seat[i],
-    //     seat_code : this.generateHashCode(this.customDate,this.customTime)[i]
-    //   }
-    // }
+    },
+  async createPay(){
+    this.hashcode = this.generateHashCode(this.customDate,this.customTime)
+    console.log(this.hashcode)
 
-
-      var IMP = window.IMP; // 생략가능
-      IMP.init('imp24106650');
-      // I'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
-      // ''안에 띄어쓰기 없이 가맹점 식별코드를 붙여넣어주세요. 안 그러면 결제창이 안 뜹니다.
-      IMP.request_pay(
-        {
-          pg: 'kakaopay.TC0ONETIME',
-          pay_method: 'card',
-          merchant_uid: 'merchant_' + new Date().getTime(),
-          /*
-           *  merchant_uid의 경우
-           *  https://docs.iamport.kr/implementation/payment
-           *  위의 URL에 따라가시면 넣을 수 있는 방법이 있습니다.
-           */
-          name: "LOTTE "+this.poster_name,
-          amount: this.total_place,
-          bank_name:"kakao pay",
-          card_name:"kakao pay",
-
-          buyer_id: this.user_id,
-          buyer_name: this.user_name,
-
-          buyer_poster_name: this.poster_name,
-          buyer_poster_viewage: this.poster_viewage,
-          buyer_poster_showtime: this.poster_showtime,
-          buyer_theater_city: this.theater_city,
-          buyer_theater_title: this.theater_title,
-          buyer_theater_name: this.theater_name,
-          buyer_choice_date: this.choice_date,
-          buyer_choice_time: this.choice_time,
-          buyer_seat: this.seat,
-        },
-        async function (rsp) {
-          console.log(rsp);
-          var msg = '';
-          if (rsp.success) {
-            msg = '결제가 완료되었습니다.';
-            msg += ' 결제 금액 : ' + rsp.paid_amount;
-
-            let form = {
-              name: this.poster_name,
-              amount: this.total_place,
-              buyer_id: this.user_id,
-              buyer_name: this.user_name,
-              buyer_poster_name: this.poster_name,
-              buyer_poster_viewage: this.poster_viewage,
-              buyer_poster_showtime: this.poster_showtime,
-              buyer_theater_city: this.theater_city,
-              buyer_theater_title: this.theater_title,
-              buyer_theater_name: this.theater_name,
-              buyer_choice_date: this.choice_date,
-              buyer_choice_time: this.choice_time,
-              buyer_seat: this.seat,
-            }
-            console.log(form)
-
-            // await this.$store.dispatch('',form)
-            // .then((res) => {
-            //   console.log(res)
-            // })
-            // .catch((err) => {
-            //   console.log(err)
-            // })
-
-          } else {
-            msg = '결제에 실패하였습니다.';
-            msg += ' 에러 내용 : ' + rsp.error_msg;
-          }
-          alert(msg);
-        }
-      );
+    let form = {
+      hashcode:this.hashcode,
+      userId: this.user_id,
+      ticketId:this.ticketing_id,
+      amount: this.total_place,
+      buyer_poster_name: this.poster_name,
+      buyer_poster_viewage: this.poster_viewage,
+      buyer_poster_showtime: String(this.poster_showtime),
+      buyer_theater_city: this.theater_city,
+      buyer_theater_title: this.theater_title,
+      buyer_theater_name: this.theater_name,
+      buyer_choice_date: this.choice_date,
+      buyer_choice_time: this.choice_time,
+      buyer_seat: this.seat
     }
+    console.log(form)
+
+    await this.$store.dispatch('createPayment',form)
+    .then((res) => {
+      console.log(res)
+      if(res){
+        this.$router.push({name:'payment',params:{id:this.user_id}})
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  },
+  // 카카오 페이 API
+   kakaoPayment() {
+    // this를 self에 할당하여 컨텍스트를 유지
+    var self = this;
+    var IMP = window.IMP;
+    IMP.init('imp24106650');
+    IMP.request_pay(
+      {
+        pg: 'kakaopay.TC0ONETIME',
+        pay_method: 'card',
+        merchant_uid: 'merchant_' + new Date().getTime(),
+
+        name: this.poster_name,
+        amount: this.total_place,
+
+        buyer_id: this.user_id,
+        buyer_name: this.user_name,
+      },
+      async function (rsp) {
+        console.log(rsp);
+        var msg = '';
+        if (rsp.success) {
+          msg = '결제가 완료되었습니다.';
+          msg += ' 결제 금액 : ' + rsp.paid_amount;
+
+          await self.createPay()
+
+        } else {
+          msg = '결제에 실패하였습니다.';
+          msg += ' 에러 내용 : ' + rsp.error_msg;
+        }
+        alert(msg);
+      }
+
+      // this.createPay()
+    );
+  }
 },
   computed: {
 
@@ -1258,6 +1246,14 @@ export default {
 .payment_sum_wrap dl {
     padding: 10px 30px;
     border-top: 1px solid rgba(255, 255, 255, .2);
+}
+.list_pay_item button {
+  border: 1px solid transparent;
+  transition: border 0.3s;
+}
+
+.list_pay_item button .active {
+  border: 1px solid blue !important;
 }
 </style>
 

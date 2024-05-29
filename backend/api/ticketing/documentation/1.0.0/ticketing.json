@@ -675,16 +675,7 @@
               "ticketing": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
               "amount": {
-                "type": "string"
-              },
-              "buyer_id": {
-                "type": "string"
-              },
-              "buyer_name": {
                 "type": "string"
               },
               "buyer_poster_name": {

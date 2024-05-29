@@ -638,3 +638,72 @@ mutation updateTicketing(
   }
 }
 `
+
+//결제 내역 저장
+export const createPayment = gql`
+mutation createPayment(
+  $hashcode:String,
+	$userId : ID,
+  $ticketId : ID,
+  $amount:String,
+  $buyer_poster_name: String,
+  $buyer_poster_viewage: String,
+  $buyer_poster_showtime: String,
+  $buyer_theater_city: String,
+  $buyer_theater_title: String,
+  $buyer_theater_name: String,
+  $buyer_choice_date: Date,
+  $buyer_choice_time: Time,
+  $buyer_seat: String,
+){
+  createPayment(
+    input:{
+      data:{
+      hashcode:$hashcode,
+      amount:$amount,
+      user : $userId,
+      ticketing : $ticketId,
+      buyer_poster_name:$buyer_poster_name,
+      buyer_poster_viewage:$buyer_poster_viewage,
+      buyer_poster_showtime:$buyer_poster_showtime,
+      buyer_theater_city:$buyer_theater_city,
+      buyer_theater_title:$buyer_theater_title,
+      buyer_theater_name:$buyer_theater_name,
+      buyer_choice_date:$buyer_choice_date,
+      buyer_choice_time:$buyer_choice_time,
+      buyer_seat:$buyer_seat,
+      }}){
+    payment{
+      id,
+      amount,
+      hashcode,
+      buyer_poster_name,
+      buyer_poster_viewage,
+      buyer_poster_showtime,
+      buyer_theater_city,
+      buyer_theater_title,
+      buyer_theater_name,
+      buyer_choice_date,
+      buyer_choice_time,
+      buyer_seat,
+      user{
+        id
+        name
+      }
+      ticketing{
+        id
+        schedule{
+          id
+          poster{
+            id
+            mainposter{
+              id
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+}
+`

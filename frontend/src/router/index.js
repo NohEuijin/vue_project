@@ -162,6 +162,11 @@ const routes = [
         name: 'order',
         component: () => import('@/views/ticketing/order.vue'),
       },
+      {
+        path: '/payment/:id',
+        name: 'payment',
+        component: () => import('@/views/ticketing/payment.vue'),
+      },
     ]
   },
 

@@ -23,6 +23,7 @@ import {
   deleteScheduls,
   createTicketing,
   updateTicketing,
+  createPayment,
 } from '@/apollo/mutation'
 import {
   myData,
@@ -784,6 +785,22 @@ Authorization: 'Bearer ' + localStorage.getItem(TOKENNAME),
         resolve(data)
       })
       .catch((err)=>{
+        reject(err)
+      })
+    })
+  },
+
+  createPayment({}, input){
+    return new Promise((resolve,reject) => {
+      apollo.clients['defaultClient']
+      .mutate({
+        mutation:createPayment,
+        variables: input
+      })
+      .then(({data}) => {
+        resolve(data)
+      })
+      .catch((err) => {
         reject(err)
       })
     })

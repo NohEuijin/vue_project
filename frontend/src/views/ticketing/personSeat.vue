@@ -6,7 +6,7 @@
       <div class="section_step_tit">
     <ul>
       <li class="step01 prev">
-        <a href="">
+        <a href="#">
           <string class="tit">
             <span>
               01
@@ -29,7 +29,7 @@
         </a>
       </li>
       <li class="step02 active">
-        <a href="">
+        <a href="#">
           <string class="tit">
             <span>
               02
@@ -48,7 +48,7 @@
         </a>
       </li>
       <li class="step03">
-        <a href="">
+        <a href="#">
           <string class="tit">
             <span>
               03
@@ -69,7 +69,7 @@
         </a>
       </li>
       <li class="step04">
-        <a href="">
+        <a href="#">
           <string class="tit">
             <span>
               04
