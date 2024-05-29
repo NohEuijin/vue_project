@@ -59,6 +59,7 @@ export const login = gql`
       jwt
         user{
         id,
+        name,
         username,
         role{
           id
@@ -647,6 +648,7 @@ mutation createPayment(
   $ticketId : ID,
   $amount:String,
   $buyer_poster_name: String,
+  $buyer_poster_url: String,
   $buyer_poster_viewage: String,
   $buyer_poster_showtime: String,
   $buyer_theater_city: String,
@@ -664,6 +666,7 @@ mutation createPayment(
       user : $userId,
       ticketing : $ticketId,
       buyer_poster_name:$buyer_poster_name,
+      buyer_poster_url:$buyer_poster_url
       buyer_poster_viewage:$buyer_poster_viewage,
       buyer_poster_showtime:$buyer_poster_showtime,
       buyer_theater_city:$buyer_theater_city,
@@ -678,6 +681,7 @@ mutation createPayment(
       amount,
       hashcode,
       buyer_poster_name,
+      buyer_poster_url,
       buyer_poster_viewage,
       buyer_poster_showtime,
       buyer_theater_city,
@@ -689,19 +693,6 @@ mutation createPayment(
       user{
         id
         name
-      }
-      ticketing{
-        id
-        schedule{
-          id
-          poster{
-            id
-            mainposter{
-              id
-              url
-            }
-          }
-        }
       }
     }
   }

@@ -1,120 +1,22 @@
 <template>
   <div class=" mt_contents_full">
     <div class="wrap_reserve ty2">
-      <h2 class="d-none">인원/좌석</h2>
 
-      <div class="section_step_tit">
-    <ul>
-      <li class="step01 prev">
-        <a href="#">
-          <string class="tit">
-            <span>
-              01
-              <br>
-              상영시간
-            </span>
-          </string>
-          <div class="bx_con">
-            <dl>
-              <dt>선택한 영화 제목 </dt>
-              <dd>영화 제목</dd>
-              <dt>상영관</dt>
-              <dd>00지점</dd>
-              <dt>선택한 상영 날짜</dt>
-              <dd>2024-05-24(금)</dd>
-              <dt>선택한 시간</dt>
-              <dt>13:30~16:18</dt>
-            </dl>
-          </div>
-        </a>
-      </li>
-      <li class="step02 prev">
-        <a href="#">
-          <string class="tit">
-            <span>
-              02
-              <br>
-              인원/좌석
-            </span>
-          </string>
-          <div class="bx_con">
-            <dl>
-              <dt>선택한 인원</dt>
-              <dd>뿅</dd>
-              <dt>선택한 좌석</dt>
-              <dt>뿅</dt>
-            </dl>
-          </div>
-        </a>
-      </li>
-      <li class="step03 prev">
-        <a href="#">
-          <string class="tit">
-            <span>
-              03
-              <br>
-              결제
-            </span>
-          </string>
-          <div class="bx_con">
-            <dl>
-              <dt>티켓금액</dt>
-              <dd>뿅</dd>
-              <dt>할인금액</dt>
-              <dt>뿅</dt>
-              <dt>총합계</dt>
-              <dt>뿅</dt>
-            </dl>
-          </div>
-        </a>
-      </li>
-      <li class="step04 active">
-        <a href="#">
-          <string class="tit">
-            <span>
-              04
-              <br>
-              결제완료
-            </span>
-          </string>
-          <div class="bx_con">
-            <dl>
-              <dt>선택한 영화 제목 </dt>
-              <dd>영화 제목</dd>
-              <dt>상영관</dt>
-              <dd>00지점</dd>
-              <dt>선택한 상영 날짜</dt>
-              <dd>2024-05-24(금)</dd>
-              <dt>선택한 시간</dt>
-              <dt>13:30~16:18</dt>
-            </dl>
-          </div>
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <div class="pm_section_step_con step04 active">
-    <h3 class="hidden">결제완료</h3>
-    <div class="article article_payment_fin ">
+  <div class="mt_section_step_con step04 active">
+    <h3 class="hidden">결제내역</h3>
+    <div class="article mt_article_payment_fin ">
       <div class="group_top">
-        <h4 class="tit">결제완료</h4>
+        <h4 class="tit">결제내역</h4>
       </div>
       <div class="pm_inner">
-      <div class="payment_fin_wrap">
-        <div class="top_notice_ic ty1">
-          <strong>
-             {{user_name}}
-            회원님, 결제가 성공적으로 완료되었습니다.
-          </strong>
-        </div>
+
+    <div class="payment_fin_wrap">
+<!-- 티켓 리스트 시작 -->
         <div class="reserve_result_wrap">
           <div class="infor_wrap">
             <div class="bx_thm">
               <img :src="paymentInfo?.buyer_poster_url ? backUrl + paymentInfo.buyer_poster_url : ''" alt="">
             </div>
-
-
           <div class="group_infor">
             <dl>
               <dt>예매번호</dt>
@@ -149,7 +51,7 @@
               </dd>
               <span class="after"></span>
             </dl>
-            <!-- <button class="btn_col1 ty5">휴대폰으로 바로티켓 받기</button> -->
+            <button class="mt-4 btn_col3 ty5">결제취소</button>
           </div>
           <span class="after"></span>
         </div>
@@ -202,52 +104,12 @@
               </dl>
             </div>
           </div>
-
         </div>
-        <span class="after"></span>
-
-        </div>
-        <ul class="list_txt sml">
-          <li>
-            <span class="before"></span>
-            <strong>온라인 예매 내역 취소는 상영 시작 20분 전까지 온라인에서 가능합니다.</strong>
-          </li>
-          <li>
-            <span class="before"></span>
-            <strong>상영시작 20분전 이후 부터는 영화관 현장에서만 취소 가능합니다.</strong>
-          </li>
-          <li>
-            <span class="before"></span>
-            <strong>무대인사, 스페셜상영회, GV, 라이브뷰잉 등 특별 상영 회차의 예매 취소는 상영전일 23시 59분 59초까지만 취소 가능합니다.</strong>
-          </li>
-          <li>
-            <span class="before"></span>
-            <strong>포토카드는 구매일로부터 30일까지 출력할 수 있습니다.(단, 출력기간 내 미출력시 구매 취소 및 환불됩니다.)</strong>
-          </li>
-          <li>
-            <span class="before"></span>
-            적립 예정 L.POINT는 영화 관람 다음 날 적립 됩니다.
-          </li>
-          <li>
-            <span class="before"></span>
-            예고편 상영 등 사정에 의해 본 영화 시작이 10여분 정도 차이 날 수 있습니다.
-          </li>
-          <li>
-            <span class="before"></span>
-            개인정보 보호 정책에 따라 주민번호로 예매 티켓을 찾을 수 없습니다. 꼭 예매번호를 확인해 주세요.
-          </li>
-          <li>
-            <span class="before"></span>
-            스토어에서 구매한 상품은 마이페이지 > 예매/구매 내역에서 확인 및 사용할 수 있습니다.
-          </li>
-        </ul>
-        <div class="btn_btm_wrap mb50 pb50">
-          <!-- <a href="" class="btn_col3 ty5">결제내역</a> -->
-          <!-- <a href="" class="btn_col2 ty5">스토어 바로가기</a> -->
-          <a @click="$router.push({name : 'index'})" class="btn_col1 ty5">홈으로 바로가기</a>
-        </div>
-        <span class="after"></span>
       </div>
+<!-- 티켓 리스트 끝 -->
+</div>
+
+
     </div>
     </div>
   </div>
@@ -472,34 +334,34 @@ export default {
     display: block;
     overflow: inherit;
     position: relative;
-    width: 1202px;
+    width: 1280px;
     height: 100%;
-    margin-left: 78px;
+    // margin-left: 78px;
 }
-.wrap_reserve .pm_section_step_con .article.article_seat {
+.wrap_reserve .mt_section_step_con .article.article_seat {
     width: 1202px;
 }
-.wrap_reserve .pm_section_step_con .article {
+.wrap_reserve .mt_section_step_con .article {
     position: relative;
     float: left;
     height: 100%;
     box-sizing: border-box;
     background-color: #FFF;
 }
-.wrap_reserve .pm_section_step_con .article .group_top {
+.wrap_reserve .mt_section_step_con .article .group_top {
     overflow: hidden;
     position: relative;
     height: 55px;
     line-height: 55px;
     border-right: 1px solid #222;
     text-align: center;
-    background-color: #000;
+    background-color: #2f2f2f;
 }
-.wrap_reserve .pm_section_step_con .article .group_top .tit {
+.wrap_reserve .mt_section_step_con .article .group_top .tit {
     font-size: 18px;
     color: #FFF;
 }
-.wrap_reserve .pm_section_step_con .article .group_top .txt {
+.wrap_reserve .mt_section_step_con .article .group_top .txt {
     position: absolute;
     top: 5px;
     right: 30px;
@@ -507,8 +369,8 @@ export default {
     color: #fff;
 }
 //결제완료
-.wrap_reserve .pm_section_step_con .article.article_payment_fin{
-  width: 1202px;
+.wrap_reserve .mt_section_step_con .article.mt_article_payment_fin{
+  width: 1280px;
     background-color: #F8F8F8;
 }
 .pm_inner{
@@ -602,7 +464,7 @@ export default {
 }
 .reserve_result_wrap .infor_wrap .group_infor .btn_col1 {
     margin-top: 10px;
-    margin-left: 86px;
+    // margin-left: 86px;
 }
 .btn_col1 {
     display: inline-block;

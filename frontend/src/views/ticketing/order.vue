@@ -104,7 +104,7 @@
         <v-col class="pa-0 od_od_inner">
           <v-col class="movie_infor new2020">
             <span class="thm">
-              <img src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202405/21106_101_1.jpg" alt="">
+              <img :src="main_img_url ? backUrl + main_img_url : ''" alt="">
             </span>
             <strong class="tit">
     <span
@@ -237,7 +237,7 @@
                           <span>카카오페이</span>
                         </button>
                       </li>
-                      <li>
+                      <!-- <li>
                         <button type="button" class="cate2"
                         >
                           신용카드</button>
@@ -256,7 +256,7 @@
                         <button type="button" class="cate5"
                         >
                           휴대폰</button>
-                      </li>
+                      </li> -->
                     </ul>
                   </div>
                 </div>
@@ -359,6 +359,9 @@ export default {
 
       activeButton:'',
       ticketing_id:'',
+
+      backUrl:import.meta.env.VUE_APP_BACKEND_URL,
+      main_img_url:'',
     };
   },
   methods:{
@@ -370,7 +373,7 @@ export default {
       .then((res) => {
         // console.log(res)
         this.orderInfo = res.ticketings[0]
-        console.log(this.orderInfo)
+        // console.log(this.orderInfo)
 
         this.ticketing_id = this.orderInfo.id
         this.personnel = this.orderInfo.personnel
@@ -380,20 +383,21 @@ export default {
         this.poster_name = this.orderInfo.schedule.poster.name
         this.poster_viewage = this.orderInfo.schedule.poster.viewage
         this.poster_showtime = this.orderInfo.schedule.poster.showtime
+        this.main_img_url = this.orderInfo.schedule.poster.mainposter.url
         this.theater_city = this.orderInfo.schedule.theater.city
         this.theater_title = this.orderInfo.schedule.theater.title
         this.theater_name = this.orderInfo.schedule.theater.name
         this.seat = this.removeSymbols(this.orderInfo.seat);
         this.user_name = this.orderInfo.user.name
-        console.log(this.user_name)
+        // console.log(this.user_name)
 
         //해쉬코드를 위한 변경
         this.customTime = this.mergeTime(this.convertToShortTime(this.choice_time))
-        console.log(this.customTime)
+        // console.log(this.customTime)
         this.customDate = this.hashTodayFormat(this.choice_date)
-        console.log(this.customDate)
+        // console.log(this.customDate)
         this.hashcode = this.generateHashCode(this.customDate,this.customTime)
-        console.log(this.hashcode)
+        // console.log(this.hashcode)
       })
       .catch((err) => {
         console.log(err)
@@ -486,6 +490,7 @@ export default {
       ticketId:this.ticketing_id,
       amount: this.total_place,
       buyer_poster_name: this.poster_name,
+      buyer_poster_url:this.main_img_url,
       buyer_poster_viewage: this.poster_viewage,
       buyer_poster_showtime: String(this.poster_showtime),
       buyer_theater_city: this.theater_city,
@@ -501,7 +506,7 @@ export default {
     .then((res) => {
       console.log(res)
       if(res){
-        this.$router.push({name:'payment',params:{id:this.user_id}})
+        this.$router.push({name:'payment',params:{id:this.ticketing_id}})
       }
     })
     .catch((err) => {
@@ -1252,8 +1257,7 @@ export default {
   transition: border 0.3s;
 }
 
-.list_pay_item button .active {
-  border: 1px solid blue !important;
-}
+// .list_pay_item button .active {
+//   border: 1px solid blue !important;
+// }
 </style>
-

@@ -1383,6 +1383,9 @@
                 "buyer_poster_showtime": {
                   "type": "string"
                 },
+                "buyer_poster_url": {
+                  "type": "string"
+                },
                 "published_at": {
                   "type": "datetime"
                 },

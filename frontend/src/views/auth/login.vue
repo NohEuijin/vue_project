@@ -134,11 +134,12 @@ export default {
           password: password.value
         })
         .then((res) => {
+          console.log(res)
           if(res.role.id === "1"){
             saveIdinCookie();
           router.push({ name : 'index'});
-          alert(res.name + "님 환영 합니다!")
-          console.log( identifier.value )
+          alert( res.name + " 님 환영 합니다!")
+          // console.log( identifier.value )
           }else{
             alert("잘못된 접근 입니다!")
           }

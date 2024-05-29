@@ -110,7 +110,7 @@
             <div class="movie_infor">
               <h5 class="hidden">예매정보</h5>
               <span class="thm">
-                <img src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202405/21106_101_1.jpg" alt="">
+                <img :src="main_img_url ? backUrl + main_img_url : ''" alt="">
               </span>
               <div class="group_infor">
                 <div class="bx_tit">
@@ -312,6 +312,8 @@ export default {
       place:'',
       ticket_id:'',
       total_place:'',
+      backUrl:import.meta.env.VUE_APP_BACKEND_URL,
+      main_img_url:'',
     };
   },
   methods:{
@@ -383,6 +385,7 @@ export default {
         this.poster_name = this.ticketData.schedule.poster.name,
         this.poster_viewage = this.ticketData.schedule.poster.viewage,
         this.poster_showtime = this.ticketData.schedule.poster.showtime,
+        this.main_img_url = this.ticketData.schedule.poster.mainposter.url
         this.theater_city = this.ticketData.schedule.theater.city,
         this.theater_title = this.ticketData.schedule.theater.title,
         this.theater_name = this.ticketData.schedule.theater.name
@@ -391,6 +394,7 @@ export default {
         this.place = this.ticketData.schedule.place,
         this.ticket_id = this.ticketData.id,
 
+        console.log(this.main_img_url)
         //규모
         this.ratios = this.ticketData.schedule.theater.ratio.split('x')
         // console.log(this.ratios)
