@@ -615,9 +615,11 @@ query posterNowShowtime(
 //회원 영화 예매 진행 보기
 export const getTicketing = gql`
 query getTicketing(
+  $id:ID,
   $uid:ID,
 ){
   ticketings(where:{
+      id:$id
       user:$uid
   }){
     id
@@ -649,7 +651,16 @@ query getTicketing(
       name
       viewage
       showtime
+      mainposter{
+        id
+        url
       }
+      }
+    }
+    payment{
+      id
+      hashcode
+      buyer_poster_name
     }
   }
 }
@@ -687,7 +698,72 @@ query getOrderInfo(
       name
       viewage
       showtime
+      mainposter{
+        id
+        url
       }
+      }
+    }
+  }
+}
+`
+
+//결제 후 정보
+export const getPayment = gql`
+query getPayment(
+  $id:ID,
+  $userId:ID
+){
+  payments(where:{
+    id:$id,
+    user:$userId
+  }sort:"id:desc"){
+      id,
+      amount,
+      hashcode,
+      buyer_poster_name,
+    	buyer_poster_url,
+      buyer_poster_viewage,
+      buyer_poster_showtime,
+      buyer_theater_city,
+      buyer_theater_title,
+      buyer_theater_name,
+      buyer_choice_date,
+      buyer_choice_time,
+      buyer_seat,
+          user{
+        id
+        name
+    }
+  }
+}
+`
+
+export const getPaymentList = gql`
+query getPaymentList(
+  $id:ID,
+  $userId:ID
+){
+  payments(where:{
+    id:$id,
+    user:$userId
+  }sort:"buyer_choice_date:desc,buyer_choice_time:desc"){
+      id,
+      amount,
+      hashcode,
+      buyer_poster_name,
+    	buyer_poster_url,
+      buyer_poster_viewage,
+      buyer_poster_showtime,
+      buyer_theater_city,
+      buyer_theater_title,
+      buyer_theater_name,
+      buyer_choice_date,
+      buyer_choice_time,
+      buyer_seat,
+          user{
+        id
+        name
     }
   }
 }

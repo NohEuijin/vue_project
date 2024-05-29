@@ -9,14 +9,14 @@
       <div class="gnb">
         <ul class="g_menu1all">
           <li>
-            <a href="#" class="afb1">페이스북</a>
-          </li>
-          <li>
-            <a href="#" class="ayt1">유튜브</a>
-          </li>
-          <li>
-            <a href="#" class="ain1">인스타그램</a>
-          </li>
+        <a href="https://www.facebook.com/LotteCinema.kr" class="afb1">페이스북</a>
+      </li>
+      <li>
+        <a href="https://www.youtube.com/channel/UCi4KivcV3a3yhkycFsjpalQ" class="ayt1">유튜브</a>
+      </li>
+      <li>
+        <a href="https://www.instagram.com/lottecinema_official/" class="ain1">인스타그램</a>
+      </li>
         </ul>
         <ul class="g_menu2all">
           <li>
@@ -31,7 +31,9 @@
 
       <li
       v-for="(auth, authIdx) of header_auth" :key="authIdx">
-        <a @click="clickHeaderAuth(auth.router)">
+        <a
+        @click="clickHeaderAuth(auth.router)"
+        >
           {{ auth.title }}
         </a>
       </li>
@@ -46,7 +48,7 @@
           </a>
           </li>
           <li>
-            <a href="#" class="btn_reserve2">바로예매</a>
+            <a @click="$router.push({ name: 'myticketList', params: { id: $store.state.meData.id } })" class="btn_reserve2">바로티켓</a>
           </li>
           <li>
             <button class="btn_menu2">버튼</button>
@@ -76,21 +78,21 @@
             </div>
           </li>
           <li>
-            <span class="before2"></span>
-            <a href="#">영화</a>
-          </li>
-          <li>
-            <span class="before2"></span>
-            <a href="#">영화관</a>
-          </li>
-          <li>
-            <span class="before2"></span>
-            <a href="#">이벤트</a>
-          </li>
-          <li>
-            <span class="before2"></span>
-            <a href="#">스토어</a>
-          </li>
+        <span class="before2"></span>
+        <a href="https://www.lottecinema.co.kr/NLCHS/Movie">영화</a>
+      </li>
+      <li>
+        <span class="before2"></span>
+        <a href="#">영화관</a>
+      </li>
+      <li>
+        <span class="before2"></span>
+        <a href="https://event.lottecinema.co.kr/NLCHS/Event">이벤트</a>
+      </li>
+      <li>
+        <span class="before2"></span>
+        <a href="https://www.lottecinema.co.kr/NLCHS/CinemaMall">스토어</a>
+      </li>
         </ul>
       </div>
     </v-col>
@@ -104,13 +106,13 @@
   <div class="gnb1">
     <ul class="g_menu1">
       <li>
-        <a href="#" class="afb">페이스북</a>
+        <a href="https://www.facebook.com/LotteCinema.kr" class="afb">페이스북</a>
       </li>
       <li>
-        <a href="#" class="ayt">유튜브</a>
+        <a href="https://www.youtube.com/channel/UCi4KivcV3a3yhkycFsjpalQ" class="ayt">유튜브</a>
       </li>
       <li>
-        <a href="#" class="ain">인스타그램</a>
+        <a href="https://www.instagram.com/lottecinema_official/" class="ain">인스타그램</a>
       </li>
     </ul>
     <ul class="g_menu2">
@@ -140,9 +142,10 @@
           >회원가입
         </a>
       </li>
-      <li>
-        <a href="#" class="btn_reserve">바로예매</a>
-      </li>
+        <li>
+          <a @click="$router.push({name:'myTicketList',param:{id:user_id}})" class="btn_reserve">바로티켓
+          </a>
+        </li>
       <li>
         <button class="btn_menu">버튼</button>
       </li>
@@ -171,7 +174,7 @@
       </li>
       <li>
         <span class="before"></span>
-        <a href="#">영화</a>
+        <a href="https://www.lottecinema.co.kr/NLCHS/Movie">영화</a>
       </li>
       <li>
         <span class="before"></span>
@@ -179,11 +182,11 @@
       </li>
       <li>
         <span class="before"></span>
-        <a href="#">이벤트</a>
+        <a href="https://event.lottecinema.co.kr/NLCHS/Event">이벤트</a>
       </li>
       <li>
         <span class="before"></span>
-        <a href="#">스토어</a>
+        <a href="https://www.lottecinema.co.kr/NLCHS/CinemaMall">스토어</a>
       </li>
     </ul>
   </div>
@@ -201,16 +204,25 @@ export default {
   const store = useStore();
   const router = useRouter();
 
+  const user_id = ref('');
 
   // 로그인 정보 불러오기
   const userData = async () => {
     await store.dispatch('myData').then((res) =>{
       // console.log(res)
+      user_id.value = res.me.id
+      console.log(user_id.value)
+      console.log(store.state.meData.id)
+
     }).catch(() => {
       // console.error("로그인 정보가 없습니다.")
     })
   }
   userData();
+
+   const mounted = async () => {
+    await this.userData();
+  }
 
   let joinState = ref("회원가입");
   function joinStateCheck(){
@@ -230,7 +242,7 @@ export default {
     if(store.state.meData && store.state.meData.id){
       header_auth.value = [
         {title:`${store.state.meData.name +" 님 "}`
-        ,router:"index"},
+        ,router:({name:'index'})},
         {title:"로그아웃",router:"login"}
       ]
     }else{
@@ -272,6 +284,7 @@ export default {
       logout,
       clickHeaderAuth,
       routerName,
+      mounted,
     }
   }
 }

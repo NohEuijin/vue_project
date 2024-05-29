@@ -24,6 +24,7 @@ import {
   createTicketing,
   updateTicketing,
   createPayment,
+  getPaymentList,
 } from '@/apollo/mutation'
 import {
   myData,
@@ -46,7 +47,8 @@ import {
   ticketingSchedules,
   posterNowShowtime,
   getTicketing,
-  getOrderInfo
+  getOrderInfo,
+  getPayment
 } from '@/apollo/query'
 import { moduleA } from '@/store/moduleA'
 import { moduleB } from '@/store/moduleB'
@@ -801,6 +803,22 @@ Authorization: 'Bearer ' + localStorage.getItem(TOKENNAME),
         resolve(data)
       })
       .catch((err) => {
+        reject(err)
+      })
+    })
+  },
+
+  getPayment({} , input ){
+    return new Promise((resolve, reject) => {
+      apollo.clients['defaultClient']
+      .query({
+        query:getPayment,
+        variables:input
+      })
+      .then(({data})=>{
+        resolve(data)
+      })
+      .catch((err)=>{
         reject(err)
       })
     })

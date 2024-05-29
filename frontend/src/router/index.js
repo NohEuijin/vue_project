@@ -167,6 +167,11 @@ const routes = [
         name: 'payment',
         component: () => import('@/views/ticketing/payment.vue'),
       },
+      {
+        path: '/myticketList/:id',
+        name: 'myticketList',
+        component: () => import('@/views/ticketing/myTicketList.vue'),
+      },
     ]
   },
 
